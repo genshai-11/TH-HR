@@ -1,0 +1,20 @@
+{
+  "name": "th-hr-attendance",
+  "version": "1.0.0",
+  "description": "Hệ thống trích xuất & quản lý chấm công tự động bằng AI (OCR bảng chấm công viết tay)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "xlsx": "^0.18.5"
+  },
+  "keywords": [
+    "attendance",
+    "ocr",
+    "gemini",
+    "timesheet"
+  ],
+  "author": "genshai-11",
+  "license": "ISC"
+}

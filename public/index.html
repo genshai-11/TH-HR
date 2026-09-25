@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hệ Thống Trích Xuất & Quản Lý Chấm Công Tự Động</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="main-header">
+      <div class="header-left">
+        <div class="logo-badge">⏰ HRM</div>
+        <div>
+          <div class="title-row">
+            <h1>HỆ THỐNG TRÍCH XUẤT & QUẢN LÝ CHẤM CÔNG</h1>
+            <!-- Month Selector Dropdown -->
+            <div class="month-selector-box">
+              <label for="selectActiveMonth">Kỳ chấm công:</label>
+              <select id="selectActiveMonth" class="form-select month-select"></select>
+              <button id="btnCreateMonth" class="btn btn-outline btn-sm" title="Tạo kỳ chấm công tháng mới (VD: tháng 10)">➕ Thêm tháng</button>
+            </div>
+          </div>
+          <p class="subtitle" id="headerSubtitle">Văn phòng Sài Gòn • Đang tự động theo dõi folder: <span id="lblActiveFolder" class="folder-tag">tháng 09</span></p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button id="btnScanNewImages" class="btn btn-warning" title="Quét các ảnh mới trong folder để trích xuất">
+          <span class="btn-icon">🤖</span> Quét ảnh mới
+        </button>
+        <button id="btnExportAll" class="btn btn-primary" title="Xuất toàn bộ ảnh báo cáo và file Excel">
+          <span class="btn-icon">⚡</span> Xuất tất cả vào folder
+        </button>
+        <button id="btnOpenFolder" class="btn btn-secondary" title="Mở folder trích xuất trong máy">
+          <span class="btn-icon">📁</span> Mở folder kết quả
+        </button>
+        <button id="btnOpenSettings" class="btn btn-secondary" title="Cấu hình AI & Tự động">
+          ⚙️ Cài đặt
+        </button>
+      </div>
+    </header>
+
+    <!-- Top KPI Cards -->
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">TỔNG SỐ GIỜ TOÀN BỘ</div>
+        <div class="kpi-value highlight-blue" id="kpiGrandTotal">0 <span class="unit">giờ</span></div>
+        <div class="kpi-sub">14 Nhân viên (Khối Vé & Hàng)</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">KHỐI NHÂN VIÊN VÉ</div>
+        <div class="kpi-value highlight-orange" id="kpiVeTotal">0 <span class="unit">giờ</span></div>
+        <div class="kpi-sub">6 Nhân viên: Chi, Phấn, Sung, Trân, Lệ, Phước</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">KHỐI NHÂN VIÊN HÀNG</div>
+        <div class="kpi-value highlight-green" id="kpiHangTotal">0 <span class="unit">giờ</span></div>
+        <div class="kpi-sub">8 Nhân viên: Tiến, Chẩn, Tý, Quý, Hoàng, Gia, Phúc, Vũ</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">TIẾN ĐỘ CHẤM CÔNG</div>
+        <div class="kpi-value highlight-purple" id="kpiDaysProgress">0 <span class="unit">ngày</span></div>
+        <div class="kpi-sub" id="kpiImagesCount">0 Ngày có ảnh đối soát</div>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <nav class="nav-tabs">
+      <button class="tab-btn active" data-tab="tab-overview">
+        📊 Báo cáo Tổng quan & Khối Vé / Hàng (3 Ảnh Mẫu)
+      </button>
+      <button class="tab-btn" data-tab="tab-employee">
+        👤 Chi tiết từng Nhân viên (Theo ngày)
+      </button>
+      <button class="tab-btn" data-tab="tab-audit">
+        📸 Đối soát & Sửa dữ liệu theo Ngày (Xem ảnh gốc)
+      </button>
+    </nav>
+
+    <!-- TAB 1: OVERVIEW & EXPORT TABLES -->
+    <section id="tab-overview" class="tab-content active">
+      <div class="section-notice">
+        <strong>📌 Hướng dẫn xuất dữ liệu:</strong> Dưới đây là 3 bảng thống kê chuẩn hóa theo đúng mẫu các file ảnh tháng 8 của công ty. Bạn có thể bấm nút <b>"Xuất ảnh JPG"</b> ở từng bảng hoặc bấm <b>"Xuất tất cả vào folder"</b> ở góc trên để tự động lưu vào thư mục <code>[Tháng]\trích xuất</code>.
+      </div>
+
+      <div class="export-tables-grid">
+        <!-- Table 1: Grand Total All Employees -->
+        <div class="table-card">
+          <div class="table-card-header">
+            <h3>1. TỔNG SỐ GIỜ THEO NHÂN VIÊN</h3>
+            <button class="btn btn-sm btn-outline" onclick="exportTableToImage('canvas-all', 'TONG_SO_GIO_THEO_NHAN_VIEN.jpg')">
+              📷 Xuất ảnh JPG
+            </button>
+          </div>
+          <div class="table-render-box" id="render-box-all">
+            <div class="mock-table mock-table-all" id="mock-table-all">
+              <div class="mock-title" id="mockTitleAll">TỔNG SỐ GIỜ THEO NHÂN VIÊN</div>
+              <table class="grid-table">
+                <thead>
+                  <tr>
+                    <th style="width: 50px;">STT</th>
+                    <th>Tên NV</th>
+                    <th style="width: 130px; text-align: right;">Tổng Số Giờ/Tháng</th>
+                  </tr>
+                </thead>
+                <tbody id="tbody-overview-all"></tbody>
+                <tfoot>
+                  <tr class="tfoot-blue">
+                    <td colspan="2" style="font-weight: bold;">Tổng giờ</td>
+                    <td style="text-align: right; font-weight: bold;" id="tfoot-all-total">0.0</td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Table 2: Nhân viên Vé -->
+        <div class="table-card">
+          <div class="table-card-header">
+            <h3>2. TỔNG SỐ GIỜ NHÂN VIÊN VÉ</h3>
+            <button class="btn btn-sm btn-outline" onclick="exportTableToImage('canvas-ve', 'TONG_SO_GIO_NHAN_VIEN_VE.jpg')">
+              📷 Xuất ảnh JPG
+            </button>
+          </div>
+          <div class="table-render-box" id="render-box-ve">
+            <div class="mock-table mock-table-ve" id="mock-table-ve">
+              <div class="mock-title" id="mockTitleVe">TỔNG SỐ GIỜ NHÂN VIÊN VÉ</div>
+              <table class="grid-table">
+                <thead>
+                  <tr>
+                    <th style="width: 50px;">STT</th>
+                    <th>TÊN NHÂN VIÊN</th>
+                    <th style="width: 140px; text-align: right;">TỔNG SỐ GIỜ/THÁNG</th>
+                  </tr>
+                </thead>
+                <tbody id="tbody-overview-ve"></tbody>
+                <tfoot>
+                  <tr class="tfoot-orange">
+                    <td colspan="2" style="font-weight: bold; text-align: center;">TỔNG</td>
+                    <td style="text-align: right; font-weight: bold;" id="tfoot-ve-total">0.0</td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Table 3: Nhân viên Hàng -->
+        <div class="table-card">
+          <div class="table-card-header">
+            <h3>3. TỔNG SỐ GIỜ NHÂN VIÊN HÀNG</h3>
+            <button class="btn btn-sm btn-outline" onclick="exportTableToImage('canvas-hang', 'TONG_SO_GIO_NHAN_VIEN_HANG.jpg')">
+              📷 Xuất ảnh JPG
+            </button>
+          </div>
+          <div class="table-render-box" id="render-box-hang">
+            <div class="mock-table mock-table-hang" id="mock-table-hang">
+              <div class="mock-title" id="mockTitleHang">TỔNG SỐ GIỜ NHÂN VIÊN HÀNG</div>
+              <table class="grid-table">
+                <thead>
+                  <tr>
+                    <th style="width: 50px;">STT</th>
+                    <th>TÊN NHÂN VIÊN</th>
+                    <th style="width: 140px; text-align: right;">TỔNG SỐ GIỜ/THÁNG</th>
+                  </tr>
+                </thead>
+                <tbody id="tbody-overview-hang"></tbody>
+                <tfoot>
+                  <tr class="tfoot-blue">
+                    <td colspan="2" style="font-weight: bold; text-align: center;">TỔNG</td>
+                    <td style="text-align: right; font-weight: bold;" id="tfoot-hang-total">0.0</td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: EMPLOYEE DETAILS -->
+    <section id="tab-employee" class="tab-content">
+      <div class="emp-layout">
+        <!-- Sidebar employee selection -->
+        <div class="emp-sidebar">
+          <h4>CHỌN NHÂN VIÊN</h4>
+          <div class="emp-filter-group">
+            <span class="group-title">KHỐI VÉ</span>
+            <div id="emp-list-ve" class="emp-list"></div>
+          </div>
+          <div class="emp-filter-group">
+            <span class="group-title">KHỐI HÀNG</span>
+            <div id="emp-list-hang" class="emp-list"></div>
+          </div>
+        </div>
+
+        <!-- Main detail display -->
+        <div class="emp-main">
+          <div class="emp-header-card">
+            <div class="emp-info">
+              <h2 id="curEmpName">SUNG</h2>
+              <span class="badge" id="curEmpDept">Khối VÉ</span>
+            </div>
+            <div class="emp-stats">
+              <div class="stat-item">
+                <span class="stat-label">Tổng giờ làm</span>
+                <span class="stat-value" id="curEmpHours">0.0h</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">Số ngày làm</span>
+                <span class="stat-value" id="curEmpWorkDays">0</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">Số ngày nghỉ</span>
+                <span class="stat-value" id="curEmpOffDays">0</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">TB / Ngày làm</span>
+                <span class="stat-value" id="curEmpAvgHours">0.0h</span>
+              </div>
+            </div>
+            <div class="emp-actions">
+              <button class="btn btn-primary btn-sm" id="btnExportCurrentEmp">
+                📷 Xuất ảnh phiếu cá nhân
+              </button>
+              <button class="btn btn-outline btn-sm" id="btnExportAllEmps">
+                📦 Xuất ảnh toàn bộ 14 nhân viên
+              </button>
+            </div>
+          </div>
+
+          <!-- Employee attendance table -->
+          <div class="table-container" id="emp-detail-table-box">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th style="width: 50px;">Ngày</th>
+                  <th style="width: 80px;">Thứ</th>
+                  <th>Vào Sáng</th>
+                  <th>Ra Sáng</th>
+                  <th>Vào Chiều</th>
+                  <th>Ra Chiều</th>
+                  <th style="text-align: right;">Số Giờ</th>
+                  <th style="width: 100px; text-align: center;">Trạng Thái</th>
+                </tr>
+              </thead>
+              <tbody id="tbody-emp-details"></tbody>
+              <tfoot>
+                <tr class="table-total-row">
+                  <td colspan="6" style="text-align: right; font-weight: bold;">TỔNG CỘNG:</td>
+                  <td style="text-align: right; font-weight: bold;" id="tfoot-emp-total">0.0</td>
+                  <td></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: AUDIT & EDIT DAILY LOGS -->
+    <section id="tab-audit" class="tab-content">
+      <div class="audit-toolbar">
+        <div class="day-picker-box">
+          <label for="selectDay">Chọn ngày kiểm tra:</label>
+          <select id="selectDay" class="form-select"></select>
+        </div>
+        <div class="audit-info" id="auditDayInfo">
+          Đang tải dữ liệu...
+        </div>
+        <div>
+          <button id="btnSaveDayEdits" class="btn btn-success">
+            💾 Lưu cập nhật ngày này
+          </button>
+        </div>
+      </div>
+
+      <div class="audit-split-view">
+        <!-- Original image panel -->
+        <div class="audit-image-panel">
+          <div class="panel-header">
+            <div>
+              <h4>ẢNH CHỤP BẢNG CHẤM CÔNG GỐC</h4>
+              <div id="auditImgName" style="font-size: 11px; color: #64748b; font-family: monospace; margin-top: 2px;"></div>
+            </div>
+            <div class="image-controls">
+              <button class="btn-icon-sm" onclick="zoomImage(0.1)" title="Phóng to">➕</button>
+              <button class="btn-icon-sm" onclick="zoomImage(-0.1)" title="Thu nhỏ">➖</button>
+              <button class="btn-icon-sm" onclick="resetZoom()" title="Về mặc định">🔄</button>
+              <a id="btnOpenOriginalImage" href="#" target="_blank" class="btn btn-sm btn-outline">Mở ảnh lớn ↗</a>
+            </div>
+          </div>
+          <div class="image-viewer-container" id="imageViewer">
+            <img id="auditImg" src="" alt="Ảnh chấm công gốc">
+            <div id="auditImgError" style="display:none; color: #ef4444; padding: 40px 20px; text-align: center;">
+              <p style="font-size: 28px; margin-bottom: 8px;">📷❌</p>
+              <p style="font-weight: 600; color: #fff;">Chưa tải được file ảnh gốc</p>
+              <p id="auditImgErrorText" style="font-size: 12px; color: #cbd5e1; margin-top: 6px; font-family: monospace;"></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Editable data panel -->
+        <div class="audit-data-panel">
+          <div class="panel-header">
+            <h4>BẢNG DỮ LIỆU ĐÃ TRÍCH XUẤT (Có thể sửa trực tiếp vào ô)</h4>
+            <span class="badge badge-hint">Bấm vào ô để sửa</span>
+          </div>
+          <div class="table-container">
+            <table class="data-table edit-table">
+              <thead>
+                <tr>
+                  <th style="width: 40px;">STT</th>
+                  <th>Nhân viên</th>
+                  <th style="width: 75px;">Vào sáng</th>
+                  <th style="width: 75px;">Ra sáng</th>
+                  <th style="width: 75px;">Vào chiều</th>
+                  <th style="width: 75px;">Ra chiều</th>
+                  <th style="width: 70px; text-align: right;">Số giờ</th>
+                  <th style="width: 85px;">Trạng thái</th>
+                </tr>
+              </thead>
+              <tbody id="tbody-audit-records"></tbody>
+              <tfoot>
+                <tr class="table-total-row">
+                  <td colspan="6" style="text-align: right; font-weight: bold;">TỔNG GIỜ TRONG NGÀY:</td>
+                  <td style="text-align: right; font-weight: bold;" id="audit-day-total">0.0</td>
+                  <td></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="modal-backdrop">
+      <div class="modal-box">
+        <div class="modal-header">
+          <h3>⚙️ CÀI ĐẶT HỆ THỐNG & AI TRÍCH XUẤT</h3>
+          <button class="btn-close" onclick="closeSettings()">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="txtApiKey">Google Gemini API Key (Miễn phí):</label>
+            <input type="password" id="txtApiKey" class="form-input" placeholder="AIzaSy...">
+            <small class="form-hint">Nhận API Key miễn phí tại <a href="https://aistudio.google.com" target="_blank">Google AI Studio ↗</a> để kích hoạt AI nhận diện chữ viết tay tự động.</small>
+          </div>
+          <div class="form-group checkbox-group">
+            <label>
+              <input type="checkbox" id="chkAutoExtract" checked>
+              Tự động nhận diện khi dán ảnh mới vào folder
+            </label>
+            <small class="form-hint">Khi bạn copy ảnh bảng chấm công mới vào folder tháng, hệ thống sẽ tự động quét, đọc chữ viết tay và cộng giờ vào bảng tính.</small>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" onclick="closeSettings()">Đóng</button>
+          <button class="btn btn-primary" onclick="saveSettings()">Lưu cài đặt</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hidden Canvases for High-Resolution Export -->
+    <div style="position: absolute; left: -9999px; top: -9999px;">
+      <canvas id="canvas-all"></canvas>
+      <canvas id="canvas-ve"></canvas>
+      <canvas id="canvas-hang"></canvas>
+      <canvas id="canvas-emp"></canvas>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

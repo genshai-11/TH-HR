@@ -1,0 +1,12 @@
+# Dependencies
+node_modules/
+
+# Local sensitive configuration
+config.json
+
+# OS and temporary files
+.DS_Store
+Thumbs.db
+*.log
+temp_*.png
+test_*.png

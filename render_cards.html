@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #fff; font-family: Arial, sans-serif; display: flex; flex-direction: column; gap: 40px; padding: 20px; width: fit-content; }
+    
+    .table-container {
+      border: 1px solid #000;
+      padding: 10px;
+      width: 350px;
+      background: #fff;
+    }
+    .title {
+      text-align: center;
+      font-weight: bold;
+      font-size: 14.5px;
+      line-height: 1.35;
+      margin-bottom: 8px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    th {
+      border: 1px solid #000;
+      padding: 5px 6px;
+      font-weight: bold;
+      background: #fafafa;
+    }
+    td {
+      border-left: 1px solid #000;
+      border-right: 1px solid #000;
+      border-top: 1px dotted #777;
+      border-bottom: 1px dotted #777;
+      padding: 4px 6px;
+    }
+    tr:first-child td { border-top: 1px solid #000; }
+    tfoot td {
+      border: 1px solid #000;
+      padding: 5px 6px;
+      font-weight: bold;
+    }
+    .bg-blue { background-color: #d9e1f2 !important; }
+    .bg-orange { background-color: #fce4d6 !important; }
+  </style>
+</head>
+<body>
+  <div id="table-all" class="table-container">
+    <div class="title">TỔNG SỐ GIỜ THEO NHÂN VIÊN<br>THÁNG 9.2026</div>
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 45px; text-align: center;">STT</th>
+          <th>Tên NV</th>
+          <th style="width: 130px; text-align: right;">Tổng Số Giờ/Tháng</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td style="text-align: center;">1</td><td>Phấn</td><td style="text-align: right;">155.0</td></tr>
+        <tr><td style="text-align: center;">2</td><td>Phước</td><td style="text-align: right;">160.2</td></tr>
+        <tr><td style="text-align: center;">3</td><td>Sung</td><td style="text-align: right;">236.0</td></tr>
+        <tr><td style="text-align: center;">4</td><td>Tiến</td><td style="text-align: right;">248.5</td></tr>
+        <tr><td style="text-align: center;">5</td><td>Trân</td><td style="text-align: right;">44.4</td></tr>
+        <tr><td style="text-align: center;">6</td><td>Chẩn</td><td style="text-align: right;">211.3</td></tr>
+        <tr><td style="text-align: center;">7</td><td>Tý</td><td style="text-align: right;">236.8</td></tr>
+        <tr><td style="text-align: center;">8</td><td>Lệ</td><td style="text-align: right;">77.0</td></tr>
+        <tr><td style="text-align: center;">9</td><td>Gia</td><td style="text-align: right;">216.7</td></tr>
+        <tr><td style="text-align: center;">10</td><td>Hoàng</td><td style="text-align: right;">236.3</td></tr>
+        <tr><td style="text-align: center;">11</td><td>Phúc</td><td style="text-align: right;">201.1</td></tr>
+        <tr><td style="text-align: center;">12</td><td>Chi</td><td style="text-align: right;">149.1</td></tr>
+        <tr><td style="text-align: center;">13</td><td>Quý</td><td style="text-align: right;">193.8</td></tr>
+        <tr><td style="text-align: center;">14</td><td>Vũ</td><td style="text-align: right;">0.0</td></tr>
+      </tbody>
+      <tfoot>
+        <tr class="bg-blue">
+          <td colspan="2">Tổng giờ</td>
+          <td style="text-align: right;">2366.2</td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</body>
+</html>
