@@ -190,7 +190,7 @@ function renderTabEmployee() {
   listHang.innerHTML = '';
 
   const veNames = ['Chi', 'Phấn', 'Sung', 'Trân', 'Lệ', 'Phước'];
-  const hangNames = ['Tiến', 'Chẩn', 'Tý', 'Quý', 'Hoàng', 'Gia', 'Phúc', 'Vũ'];
+  const hangNames = ['Tiến', 'Chẩn', 'Tý', 'Quý', 'Hoàng', 'Gia', 'Phúc'];
 
   veNames.forEach(name => {
     const emp = appData.employeeSummary[name] || { name, totalHours: 0 };

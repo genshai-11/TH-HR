@@ -1,87 +1,82 @@
 {
   "month": "09/2026",
-  "totalDays": 21,
-  "grandTotalHours": 2366.5,
+  "totalDays": 30,
+  "grandTotalHours": 3302,
   "departments": {
     "VÉ": {
-      "title": "TỔNG SỐ GIỜ NHÂN VIÊN VÉ THÁNG 09.2026",
-      "totalHours": 813.5,
+      "title": "TỔNG SỐ GIỜ NHÂN VIÊN VÉ THÁNG 9.2026",
+      "totalHours": 1093,
       "employees": [
         {
           "stt": 1,
           "name": "CHI",
-          "totalHours": 158.3
+          "totalHours": 229
         },
         {
           "stt": 2,
           "name": "PHẤN",
-          "totalHours": 149.3
+          "totalHours": 149.5
         },
         {
           "stt": 3,
           "name": "SUNG",
-          "totalHours": 237
+          "totalHours": 343
         },
         {
           "stt": 4,
           "name": "TRÂN",
-          "totalHours": 51.9
+          "totalHours": 50.5
         },
         {
           "stt": 5,
           "name": "LỆ",
-          "totalHours": 63
+          "totalHours": 91.5
         },
         {
           "stt": 6,
           "name": "PHƯỚC",
-          "totalHours": 154
+          "totalHours": 229.5
         }
       ]
     },
     "HÀNG": {
-      "title": "TỔNG SỐ GIỜ NHÂN VIÊN HÀNG THÁNG 09.2026",
-      "totalHours": 1553,
+      "title": "TỔNG SỐ GIỜ NHÂN VIÊN HÀNG THÁNG 9.2026",
+      "totalHours": 2209,
       "employees": [
         {
           "stt": 1,
           "name": "TIẾN",
-          "totalHours": 235.5
+          "totalHours": 342
         },
         {
           "stt": 2,
           "name": "CHẨN",
-          "totalHours": 209.2
+          "totalHours": 294
         },
         {
           "stt": 3,
           "name": "TÝ",
-          "totalHours": 236
+          "totalHours": 332
         },
         {
           "stt": 4,
           "name": "QUÝ",
-          "totalHours": 217.7
+          "totalHours": 320
         },
         {
           "stt": 5,
           "name": "HOÀNG",
-          "totalHours": 232.1
+          "totalHours": 336
         },
         {
           "stt": 6,
           "name": "GIA",
-          "totalHours": 221.8
+          "totalHours": 312
         },
         {
           "stt": 7,
           "name": "PHÚC",
-          "totalHours": 192.7
-        },
-        {
-          "stt": 8,
-          "name": "VŨ",
-          "totalHours": 8
+          "totalHours": 273
         }
       ]
     }
@@ -91,121 +86,113 @@
       "stt": 1,
       "name": "Chi",
       "dept": "VÉ",
-      "totalHours": 158.3,
-      "workingDays": 20,
+      "totalHours": 229,
+      "workingDays": 29,
       "offDays": 1
     },
     {
       "stt": 2,
       "name": "Phấn",
       "dept": "VÉ",
-      "totalHours": 149.3,
+      "totalHours": 149.5,
       "workingDays": 20,
-      "offDays": 1
+      "offDays": 10
     },
     {
       "stt": 3,
       "name": "Sung",
       "dept": "VÉ",
-      "totalHours": 237,
-      "workingDays": 21,
+      "totalHours": 343,
+      "workingDays": 30,
       "offDays": 0
     },
     {
       "stt": 4,
       "name": "Trân",
       "dept": "VÉ",
-      "totalHours": 51.9,
+      "totalHours": 50.5,
       "workingDays": 7,
-      "offDays": 14
+      "offDays": 23
     },
     {
       "stt": 5,
       "name": "Lệ",
       "dept": "VÉ",
-      "totalHours": 63,
-      "workingDays": 9,
-      "offDays": 12
+      "totalHours": 91.5,
+      "workingDays": 13,
+      "offDays": 17
     },
     {
       "stt": 6,
       "name": "Phước",
       "dept": "VÉ",
-      "totalHours": 154,
-      "workingDays": 20,
-      "offDays": 1
+      "totalHours": 229.5,
+      "workingDays": 30,
+      "offDays": 0
     },
     {
       "stt": 7,
       "name": "Tiến",
       "dept": "HÀNG",
-      "totalHours": 235.5,
-      "workingDays": 20,
+      "totalHours": 342,
+      "workingDays": 29,
       "offDays": 1
     },
     {
       "stt": 8,
       "name": "Chẩn",
       "dept": "HÀNG",
-      "totalHours": 209.2,
-      "workingDays": 17,
-      "offDays": 4
+      "totalHours": 294,
+      "workingDays": 24,
+      "offDays": 6
     },
     {
       "stt": 9,
       "name": "Tý",
       "dept": "HÀNG",
-      "totalHours": 236,
-      "workingDays": 21,
+      "totalHours": 332,
+      "workingDays": 30,
       "offDays": 0
     },
     {
       "stt": 10,
       "name": "Quý",
       "dept": "HÀNG",
-      "totalHours": 217.7,
-      "workingDays": 19,
+      "totalHours": 320,
+      "workingDays": 28,
       "offDays": 2
     },
     {
       "stt": 11,
       "name": "Hoàng",
       "dept": "HÀNG",
-      "totalHours": 232.1,
-      "workingDays": 21,
+      "totalHours": 336,
+      "workingDays": 30,
       "offDays": 0
     },
     {
       "stt": 12,
       "name": "Gia",
       "dept": "HÀNG",
-      "totalHours": 221.8,
-      "workingDays": 21,
+      "totalHours": 312,
+      "workingDays": 30,
       "offDays": 0
     },
     {
       "stt": 13,
       "name": "Phúc",
       "dept": "HÀNG",
-      "totalHours": 192.7,
-      "workingDays": 18,
-      "offDays": 3
-    },
-    {
-      "stt": 14,
-      "name": "Vũ",
-      "dept": "HÀNG",
-      "totalHours": 8,
-      "workingDays": 1,
-      "offDays": 20
+      "totalHours": 273,
+      "workingDays": 26,
+      "offDays": 4
     }
   ],
   "employeeSummary": {
     "Chi": {
       "name": "Chi",
       "dept": "VÉ",
-      "totalHours": 158.3,
-      "workingDays": 20,
+      "totalHours": 229,
+      "workingDays": 29,
       "offDays": 1,
       "details": [
         {
@@ -315,7 +302,7 @@
           "out1": "15:20",
           "in2": "",
           "out2": "",
-          "hours": 8.33,
+          "hours": 8,
           "status": "Làm việc"
         },
         {
@@ -370,7 +357,7 @@
           "out1": "15:20",
           "in2": "",
           "out2": "",
-          "hours": 8.25,
+          "hours": 8,
           "status": "Làm việc"
         },
         {
@@ -392,7 +379,7 @@
           "out1": "15:15",
           "in2": "",
           "out2": "",
-          "hours": 8.25,
+          "hours": 8,
           "status": "Làm việc"
         },
         {
@@ -438,15 +425,114 @@
           "out2": "",
           "hours": 8,
           "status": "Làm việc"
+        },
+        {
+          "day": 22,
+          "date": "22/09/2026",
+          "dayOfWeek": "Thứ 3",
+          "in1": "07:08",
+          "out1": "15:23",
+          "in2": "",
+          "out2": "",
+          "hours": 8,
+          "status": "Làm việc"
+        },
+        {
+          "day": 23,
+          "date": "23/09/2026",
+          "dayOfWeek": "Thứ 4",
+          "in1": "07:30",
+          "out1": "15:30",
+          "in2": "",
+          "out2": "",
+          "hours": 8,
+          "status": "Làm việc"
+        },
+        {
+          "day": 24,
+          "date": "24/09/2026",
+          "dayOfWeek": "Thứ 5",
+          "in1": "07:00",
+          "out1": "15:15",
+          "in2": "",
+          "out2": "",
+          "hours": 8,
+          "status": "Làm việc"
+        },
+        {
+          "day": 25,
+          "date": "25/09/2026",
+          "dayOfWeek": "Thứ 6",
+          "in1": "07:30",
+          "out1": "15:15",
+          "in2": "",
+          "out2": "",
+          "hours": 7.5,
+          "status": "Làm việc"
+        },
+        {
+          "day": 26,
+          "date": "26/09/2026",
+          "dayOfWeek": "Thứ 7",
+          "in1": "07:02",
+          "out1": "15:02",
+          "in2": "",
+          "out2": "",
+          "hours": 8,
+          "status": "Làm việc"
+        },
+        {
+          "day": 27,
+          "date": "27/09/2026",
+          "dayOfWeek": "Chủ Nhật",
+          "in1": "07:00",
+          "out1": "15:15",
+          "in2": "",
+          "out2": "",
+          "hours": 8,
+          "status": "Làm việc"
+        },
+        {
+          "day": 28,
+          "date": "28/09/2026",
+          "dayOfWeek": "Thứ 2",
+          "in1": "07:20",
+          "out1": "15:30",
+          "in2": "",
+          "out2": "",
+          "hours": 8,
+          "status": "Làm việc"
+        },
+        {
+          "day": 29,
+          "date": "29/09/2026",
+          "dayOfWeek": "Thứ 3",
+          "in1": "07:00",
+          "out1": "15:15",
+          "in2": "",
+          "out2": "",
+          "hours": 8,
+          "status": "Làm việc"
+        },
+        {
+          "day": 30,
+          "date": "30/09/2026",
+          "dayOfWeek": "Thứ 4",
+          "in1": "07:30",
+          "out1": "15:30",
+          "in2": "",
+          "out2": "",
+          "hours": 8,
+          "status": "Làm việc"
         }
       ]
     },
     "Phấn": {
       "name": "Phấn",
       "dept": "VÉ",
-      "totalHours": 149.3,
+      "totalHours": 149.5,
       "workingDays": 20,
-      "offDays": 1,
+      "offDays": 10,
       "details": [
         {
           "day": 1,
@@ -643,14 +729,14 @@
           "out1": "19:30",
           "in2": "",
           "out2": "",
-          "hours": 8.25,
+          "hours": 8.5,
           "status": "Làm việc"
         },
         {
           "day": 19,
           "date": "19/09/2026",
           "dayOfWeek": "Thứ 7",
-          "in1": "07:00",
+          "in1": "10:00",
           "out1": "15:00",
           "in2": "",
           "out2": "",
@@ -678,14 +764,113 @@
           "out2": "",
           "hours": 8,
           "status": "Làm việc"
+        },
+        {
+          "day": 22,
+          "date": "22/09/2026",
+          "dayOfWeek": "Thứ 3",
+          "in1": "OFF",
+          "out1": "",
+          "in2": "",
+          "out2": "",
+          "hours": 0,
+          "status": "OFF"
+        },
+        {
+          "day": 23,
+          "date": "23/09/2026",
+          "dayOfWeek": "Thứ 4",
+          "in1": "OFF",
+          "out1": "",
+          "in2": "",
+          "out2": "",
+          "hours": 0,
+          "status": "OFF"
+        },
+        {
+          "day": 24,
+          "date": "24/09/2026",
+          "dayOfWeek": "Thứ 5",
+          "in1": "OFF",
+          "out1": "",
+          "in2": "",
+          "out2": "",
+          "hours": 0,
+          "status": "OFF"
+        },
+        {
+          "day": 25,
+          "date": "25/09/2026",
+          "dayOfWeek": "Thứ 6",
+          "in1": "OFF",
+          "out1": "",
+          "in2": "",
+          "out2": "",
+          "hours": 0,
+          "status": "OFF"
+        },
+        {
+          "day": 26,
+          "date": "26/09/2026",
+          "dayOfWeek": "Thứ 7",
+          "in1": "OFF",
+          "out1": "",
+          "in2": "",
+          "out2": "",
+          "hours": 0,
+          "status": "OFF"
+        },
+        {
+          "day": 27,
+          "date": "27/09/2026",
+          "dayOfWeek": "Chủ Nhật",
+          "in1": "OFF",
+          "out1": "",
+          "in2": "",
+          "out2": "",
+          "hours": 0,
+          "status": "OFF"
+        },
+        {
+          "day": 28,
+          "date": "28/09/2026",
+          "dayOfWeek": "Thứ 2",
+          "in1": "OFF",
+          "out1": "",
+          "in2": "",
+          "out2": "",
+          "hours": 0,
+          "status": "OFF"
+        },
+        {
+          "day": 29,
+          "date": "29/09/2026",
+          "dayOfWeek": "Thứ 3",
+          "in1": "OFF",
+          "out1": "",
+          "in2": "",
+          "out2": "",
+          "hours": 0,
+          "status": "OFF"
+        },
+        {
+          "day": 30,
+          "date": "30/09/2026",
+          "dayOfWeek": "Thứ 4",
+          "in1": "OFF",
+          "out1": "",
+          "in2": "",
+          "out2": "",
+          "hours": 0,
+          "status": "OFF"
         }
       ]
     },
     "Sung": {
       "name": "Sung",
       "dept": "VÉ",
-      "totalHours": 237,
-      "workingDays": 21,
+      "totalHours": 343,
+      "workingDays": 30,
       "offDays": 0,
       "details": [
         {
@@ -918,15 +1103,114 @@
           "out2": "",
           "hours": 12.5,
           "status": "Làm việc"
+        },
+        {
+          "day": 22,
+          "date": "22/09/2026",
+          "dayOfWeek": "Thứ 3",
+          "in1": "06:00",
+          "out1": "18:30",
+          "in2": "",
+          "out2": "",
+          "hours": 12.5,
+          "status": "Làm việc"
+        },
+        {
+          "day": 23,
+          "date": "23/09/2026",
+          "dayOfWeek": "Thứ 4",
+          "in1": "06:00",
+          "out1": "18:00",
+          "in2": "",
+          "out2": "",
+          "hours": 12,
+          "status": "Làm việc"
+        },
+        {
+          "day": 24,
+          "date": "24/09/2026",
+          "dayOfWeek": "Thứ 5",
+          "in1": "06:00",
+          "out1": "18:00",
+          "in2": "",
+          "out2": "",
+          "hours": 12,
+          "status": "Làm việc"
+        },
+        {
+          "day": 25,
+          "date": "25/09/2026",
+          "dayOfWeek": "Thứ 6",
+          "in1": "06:00",
+          "out1": "18:00",
+          "in2": "",
+          "out2": "",
+          "hours": 12,
+          "status": "Làm việc"
+        },
+        {
+          "day": 26,
+          "date": "26/09/2026",
+          "dayOfWeek": "Thứ 7",
+          "in1": "06:00",
+          "out1": "17:00",
+          "in2": "",
+          "out2": "",
+          "hours": 11,
+          "status": "Làm việc"
+        },
+        {
+          "day": 27,
+          "date": "27/09/2026",
+          "dayOfWeek": "Chủ Nhật",
+          "in1": "06:00",
+          "out1": "16:30",
+          "in2": "",
+          "out2": "",
+          "hours": 10.5,
+          "status": "Làm việc"
+        },
+        {
+          "day": 28,
+          "date": "28/09/2026",
+          "dayOfWeek": "Thứ 2",
+          "in1": "06:00",
+          "out1": "18:30",
+          "in2": "",
+          "out2": "",
+          "hours": 12.5,
+          "status": "Làm việc"
+        },
+        {
+          "day": 29,
+          "date": "29/09/2026",
+          "dayOfWeek": "Thứ 3",
+          "in1": "06:00",
+          "out1": "18:00",
+          "in2": "",
+          "out2": "",
+          "hours": 12,
+          "status": "Làm việc"
+        },
+        {
+          "day": 30,
+          "date": "30/09/2026",
+          "dayOfWeek": "Thứ 4",
+          "in1": "06:00",
+          "out1": "17:30",
+          "in2": "",
+          "out2": "",
+          "hours": 11.5,
+          "status": "Làm việc"
         }
       ]
     },
     "Trân": {
       "name": "Trân",
       "dept": "VÉ",
-      "totalHours": 51.9,
+      "totalHours": 50.5,
       "workingDays": 7,
-      "offDays": 14,
+      "offDays": 23,
       "details": [
         {
           "day": 1,
@@ -936,7 +1220,7 @@
           "out1": "21:45",
           "in2": "",
           "out2": "",
-          "hours": 7.75,
+          "hours": 7.5,
           "status": "Làm việc"
         },
         {
@@ -947,7 +1231,7 @@
           "out1": "21:45",
           "in2": "",
           "out2": "",
-          "hours": 7.75,
+          "hours": 7.5,
           "status": "Làm việc"
         },
         {
@@ -958,7 +1242,7 @@
           "out1": "21:15",
           "in2": "",
           "out2": "",
-          "hours": 7.25,
+          "hours": 7,
           "status": "Làm việc"
         },
         {
@@ -969,7 +1253,7 @@
           "out1": "21:20",
           "in2": "",
           "out2": "",
-          "hours": 7.33,
+          "hours": 7,
           "status": "Làm việc"
         },
         {
@@ -991,7 +1275,7 @@
           "out1": "21:20",
           "in2": "",
           "out2": "",
-          "hours": 7.33,
+          "hours": 7,
           "status": "Làm việc"
         },
         {
@@ -1119,7 +1403,7 @@
           "day": 18,
           "date": "18/09/2026",
           "dayOfWeek": "Thứ 6",
-          "in1": "",
+          "in1": "OFF",
           "out1": "",
           "in2": "",
           "out2": "",
@@ -1130,7 +1414,7 @@
           "day": 19,
           "date": "19/09/2026",
           "dayOfWeek": "Thứ 7",
-          "in1": "",
+          "in1": "OFF",
           "out1": "",
           "in2": "",
           "out2": "",
@@ -1152,7 +1436,106 @@
           "day": 21,
           "date": "21/09/2026",
           "dayOfWeek": "Thứ 2",
-          "in1": "",
+          "in1": "OFF",
+          "out1": "",
+          "in2": "",
+          "out2": "",
+          "hours": 0,
+          "status": "OFF"
+        },
+        {
+          "day": 22,
+          "date": "22/09/2026",
+          "dayOfWeek": "Thứ 3",
+          "in1": "OFF",
+          "out1": "",
+          "in2": "",
+          "out2": "",
+          "hours": 0,
+          "status": "OFF"
+        },
+        {
+          "day": 23,
+          "date": "23/09/2026",
+          "dayOfWeek": "Thứ 4",
+          "in1": "OFF",
+          "out1": "",
+          "in2": "",
+          "out2": "",
+          "hours": 0,
+          "status": "OFF"
+        },
+        {
+          "day": 24,
+          "date": "24/09/2026",
+          "dayOfWeek": "Thứ 5",
+          "in1": "OFF",
+          "out1": "",
+          "in2": "",
+          "out2": "",
+          "hours": 0,
+          "status": "OFF"
+        },
+        {
+          "day": 25,
+          "date": "25/09/2026",
+          "dayOfWeek": "Thứ 6",
+          "in1": "OFF",
+          "out1": "",
+          "in2": "",
+          "out2": "",
+          "hours": 0,
+          "status": "OFF"
+        },
+        {
+          "day": 26,
+          "date": "26/09/2026",
+          "dayOfWeek": "Thứ 7",
+          "in1": "OFF",
+          "out1": "",
+          "in2": "",
+          "out2": "",
+          "hours": 0,
+          "status": "OFF"
+        },
+        {
+          "day": 27,
+          "date": "27/09/2026",
+          "dayOfWeek": "Chủ Nhật",
+          "in1": "OFF",
+          "out1": "",
+          "in2": "",
+          "out2": "",
+          "hours": 0,
+          "status": "OFF"
+        },
+        {
+          "day": 28,
+          "date": "28/09/2026",
+          "dayOfWeek": "Thứ 2",
+          "in1": "OFF",
+          "out1": "",
+          "in2": "",
+          "out2": "",
+          "hours": 0,
+          "status": "OFF"
+        },
+        {
+          "day": 29,
+          "date": "29/09/2026",
+          "dayOfWeek": "Thứ 3",
+          "in1": "OFF",
+          "out1": "",
+          "in2": "",
+          "out2": "",
+          "hours": 0,
+          "status": "OFF"
+        },
+        {
+          "day": 30,
+          "date": "30/09/2026",
+          "dayOfWeek": "Thứ 4",
+          "in1": "OFF",
           "out1": "",
           "in2": "",
           "out2": "",
@@ -1164,9 +1547,9 @@
     "Lệ": {
       "name": "Lệ",
       "dept": "VÉ",
-      "totalHours": 63,
-      "workingDays": 9,
-      "offDays": 12,
+      "totalHours": 91.5,
+      "workingDays": 13,
+      "offDays": 17,
       "details": [
         {
           "day": 1,
@@ -1370,7 +1753,7 @@
           "day": 19,
           "date": "19/09/2026",
           "dayOfWeek": "Thứ 7",
-          "in1": "",
+          "in1": "OFF",
           "out1": "",
           "in2": "",
           "out2": "",
@@ -1398,15 +1781,114 @@
           "out2": "",
           "hours": 7,
           "status": "Làm việc"
+        },
+        {
+          "day": 22,
+          "date": "22/09/2026",
+          "dayOfWeek": "Thứ 3",
+          "in1": "OFF",
+          "out1": "",
+          "in2": "",
+          "out2": "",
+          "hours": 0,
+          "status": "OFF"
+        },
+        {
+          "day": 23,
+          "date": "23/09/2026",
+          "dayOfWeek": "Thứ 4",
+          "in1": "06:30",
+          "out1": "14:00",
+          "in2": "",
+          "out2": "",
+          "hours": 7.5,
+          "status": "Làm việc"
+        },
+        {
+          "day": 24,
+          "date": "24/09/2026",
+          "dayOfWeek": "Thứ 5",
+          "in1": "OFF",
+          "out1": "",
+          "in2": "",
+          "out2": "",
+          "hours": 0,
+          "status": "OFF"
+        },
+        {
+          "day": 25,
+          "date": "25/09/2026",
+          "dayOfWeek": "Thứ 6",
+          "in1": "06:30",
+          "out1": "13:30",
+          "in2": "",
+          "out2": "",
+          "hours": 7,
+          "status": "Làm việc"
+        },
+        {
+          "day": 26,
+          "date": "26/09/2026",
+          "dayOfWeek": "Thứ 7",
+          "in1": "OFF",
+          "out1": "",
+          "in2": "",
+          "out2": "",
+          "hours": 0,
+          "status": "OFF"
+        },
+        {
+          "day": 27,
+          "date": "27/09/2026",
+          "dayOfWeek": "Chủ Nhật",
+          "in1": "OFF",
+          "out1": "",
+          "in2": "",
+          "out2": "",
+          "hours": 0,
+          "status": "OFF"
+        },
+        {
+          "day": 28,
+          "date": "28/09/2026",
+          "dayOfWeek": "Thứ 2",
+          "in1": "06:30",
+          "out1": "13:30",
+          "in2": "",
+          "out2": "",
+          "hours": 7,
+          "status": "Làm việc"
+        },
+        {
+          "day": 29,
+          "date": "29/09/2026",
+          "dayOfWeek": "Thứ 3",
+          "in1": "OFF",
+          "out1": "",
+          "in2": "",
+          "out2": "",
+          "hours": 0,
+          "status": "OFF"
+        },
+        {
+          "day": 30,
+          "date": "30/09/2026",
+          "dayOfWeek": "Thứ 4",
+          "in1": "06:30",
+          "out1": "13:30",
+          "in2": "",
+          "out2": "",
+          "hours": 7,
+          "status": "Làm việc"
         }
       ]
     },
     "Phước": {
       "name": "Phước",
       "dept": "VÉ",
-      "totalHours": 154,
-      "workingDays": 20,
-      "offDays": 1,
+      "totalHours": 229.5,
+      "workingDays": 30,
+      "offDays": 0,
       "details": [
         {
           "day": 1,
@@ -1537,7 +2019,7 @@
           "out1": "21:45",
           "in2": "",
           "out2": "",
-          "hours": 7.75,
+          "hours": 7.5,
           "status": "Làm việc"
         },
         {
@@ -1559,7 +2041,7 @@
           "out1": "21:45",
           "in2": "",
           "out2": "",
-          "hours": 7.75,
+          "hours": 7.5,
           "status": "Làm việc"
         },
         {
@@ -1581,7 +2063,7 @@
           "out1": "21:45",
           "in2": "",
           "out2": "",
-          "hours": 7.75,
+          "hours": 7.5,
           "status": "Làm việc"
         },
         {
@@ -1592,7 +2074,7 @@
           "out1": "21:45",
           "in2": "",
           "out2": "",
-          "hours": 9.75,
+          "hours": 9.5,
           "status": "Làm việc"
         },
         {
@@ -1632,20 +2114,119 @@
           "day": 21,
           "date": "21/09/2026",
           "dayOfWeek": "Thứ 2",
-          "in1": "",
-          "out1": "",
+          "in1": "14:00",
+          "out1": "22:00",
           "in2": "",
           "out2": "",
-          "hours": 0,
-          "status": "OFF"
+          "hours": 8,
+          "status": "Làm việc"
+        },
+        {
+          "day": 22,
+          "date": "22/09/2026",
+          "dayOfWeek": "Thứ 3",
+          "in1": "14:00",
+          "out1": "21:30",
+          "in2": "",
+          "out2": "",
+          "hours": 7.5,
+          "status": "Làm việc"
+        },
+        {
+          "day": 23,
+          "date": "23/09/2026",
+          "dayOfWeek": "Thứ 4",
+          "in1": "14:00",
+          "out1": "22:00",
+          "in2": "",
+          "out2": "",
+          "hours": 8,
+          "status": "Làm việc"
+        },
+        {
+          "day": 24,
+          "date": "24/09/2026",
+          "dayOfWeek": "Thứ 5",
+          "in1": "14:00",
+          "out1": "22:00",
+          "in2": "",
+          "out2": "",
+          "hours": 8,
+          "status": "Làm việc"
+        },
+        {
+          "day": 25,
+          "date": "25/09/2026",
+          "dayOfWeek": "Thứ 6",
+          "in1": "14:00",
+          "out1": "22:30",
+          "in2": "",
+          "out2": "",
+          "hours": 8.5,
+          "status": "Làm việc"
+        },
+        {
+          "day": 26,
+          "date": "26/09/2026",
+          "dayOfWeek": "Thứ 7",
+          "in1": "14:00",
+          "out1": "21:30",
+          "in2": "",
+          "out2": "",
+          "hours": 7.5,
+          "status": "Làm việc"
+        },
+        {
+          "day": 27,
+          "date": "27/09/2026",
+          "dayOfWeek": "Chủ Nhật",
+          "in1": "14:00",
+          "out1": "21:30",
+          "in2": "",
+          "out2": "",
+          "hours": 7.5,
+          "status": "Làm việc"
+        },
+        {
+          "day": 28,
+          "date": "28/09/2026",
+          "dayOfWeek": "Thứ 2",
+          "in1": "14:00",
+          "out1": "21:30",
+          "in2": "",
+          "out2": "",
+          "hours": 7.5,
+          "status": "Làm việc"
+        },
+        {
+          "day": 29,
+          "date": "29/09/2026",
+          "dayOfWeek": "Thứ 3",
+          "in1": "14:00",
+          "out1": "21:00",
+          "in2": "",
+          "out2": "",
+          "hours": 7,
+          "status": "Làm việc"
+        },
+        {
+          "day": 30,
+          "date": "30/09/2026",
+          "dayOfWeek": "Thứ 4",
+          "in1": "14:00",
+          "out1": "21:15",
+          "in2": "",
+          "out2": "",
+          "hours": 7,
+          "status": "Làm việc"
         }
       ]
     },
     "Tiến": {
       "name": "Tiến",
       "dept": "HÀNG",
-      "totalHours": 235.5,
-      "workingDays": 20,
+      "totalHours": 342,
+      "workingDays": 29,
       "offDays": 1,
       "details": [
         {
@@ -1841,7 +2422,7 @@
           "dayOfWeek": "Thứ 6",
           "in1": "04:00",
           "out1": "11:00",
-          "in2": "14:00",
+          "in2": "14:30",
           "out2": "20:30",
           "hours": 13,
           "status": "Làm việc"
@@ -1878,15 +2459,114 @@
           "out2": "20:30",
           "hours": 12.5,
           "status": "Làm việc"
+        },
+        {
+          "day": 22,
+          "date": "22/09/2026",
+          "dayOfWeek": "Thứ 3",
+          "in1": "04:00",
+          "out1": "10:30",
+          "in2": "14:00",
+          "out2": "20:00",
+          "hours": 12.5,
+          "status": "Làm việc"
+        },
+        {
+          "day": 23,
+          "date": "23/09/2026",
+          "dayOfWeek": "Thứ 4",
+          "in1": "04:00",
+          "out1": "10:30",
+          "in2": "14:30",
+          "out2": "20:30",
+          "hours": 12.5,
+          "status": "Làm việc"
+        },
+        {
+          "day": 24,
+          "date": "24/09/2026",
+          "dayOfWeek": "Thứ 5",
+          "in1": "04:00",
+          "out1": "10:30",
+          "in2": "14:00",
+          "out2": "20:30",
+          "hours": 13,
+          "status": "Làm việc"
+        },
+        {
+          "day": 25,
+          "date": "25/09/2026",
+          "dayOfWeek": "Thứ 6",
+          "in1": "04:00",
+          "out1": "10:30",
+          "in2": "14:00",
+          "out2": "20:30",
+          "hours": 13,
+          "status": "Làm việc"
+        },
+        {
+          "day": 26,
+          "date": "26/09/2026",
+          "dayOfWeek": "Thứ 7",
+          "in1": "04:00",
+          "out1": "10:30",
+          "in2": "14:00",
+          "out2": "20:30",
+          "hours": 13,
+          "status": "Làm việc"
+        },
+        {
+          "day": 27,
+          "date": "27/09/2026",
+          "dayOfWeek": "Chủ Nhật",
+          "in1": "04:00",
+          "out1": "10:00",
+          "in2": "",
+          "out2": "",
+          "hours": 6,
+          "status": "Làm việc"
+        },
+        {
+          "day": 28,
+          "date": "28/09/2026",
+          "dayOfWeek": "Thứ 2",
+          "in1": "04:00",
+          "out1": "10:30",
+          "in2": "15:00",
+          "out2": "19:30",
+          "hours": 11,
+          "status": "Làm việc"
+        },
+        {
+          "day": 29,
+          "date": "29/09/2026",
+          "dayOfWeek": "Thứ 3",
+          "in1": "04:00",
+          "out1": "11:30",
+          "in2": "14:00",
+          "out2": "19:30",
+          "hours": 13,
+          "status": "Làm việc"
+        },
+        {
+          "day": 30,
+          "date": "30/09/2026",
+          "dayOfWeek": "Thứ 4",
+          "in1": "04:00",
+          "out1": "10:30",
+          "in2": "14:00",
+          "out2": "20:00",
+          "hours": 12.5,
+          "status": "Làm việc"
         }
       ]
     },
     "Chẩn": {
       "name": "Chẩn",
       "dept": "HÀNG",
-      "totalHours": 209.2,
-      "workingDays": 17,
-      "offDays": 4,
+      "totalHours": 294,
+      "workingDays": 24,
+      "offDays": 6,
       "details": [
         {
           "day": 1,
@@ -1907,7 +2587,7 @@
           "out1": "23:40",
           "in2": "",
           "out2": "",
-          "hours": 13.67,
+          "hours": 13.5,
           "status": "Làm việc"
         },
         {
@@ -1929,7 +2609,7 @@
           "out1": "22:40",
           "in2": "",
           "out2": "",
-          "hours": 12.58,
+          "hours": 12.5,
           "status": "Làm việc"
         },
         {
@@ -1940,7 +2620,7 @@
           "out1": "22:40",
           "in2": "",
           "out2": "",
-          "hours": 12.67,
+          "hours": 12.5,
           "status": "Làm việc"
         },
         {
@@ -1962,7 +2642,7 @@
           "out1": "22:30",
           "in2": "",
           "out2": "",
-          "hours": 12.25,
+          "hours": 12,
           "status": "Làm việc"
         },
         {
@@ -2028,7 +2708,7 @@
           "out1": "20:10",
           "in2": "",
           "out2": "",
-          "hours": 11.17,
+          "hours": 11,
           "status": "Làm việc"
         },
         {
@@ -2050,7 +2730,7 @@
           "out1": "22:30",
           "in2": "",
           "out2": "",
-          "hours": 12.42,
+          "hours": 12,
           "status": "Làm việc"
         },
         {
@@ -2061,7 +2741,7 @@
           "out1": "22:40",
           "in2": "",
           "out2": "",
-          "hours": 12.67,
+          "hours": 12.5,
           "status": "Làm việc"
         },
         {
@@ -2072,15 +2752,15 @@
           "out1": "22:45",
           "in2": "",
           "out2": "",
-          "hours": 12.75,
+          "hours": 12.5,
           "status": "Làm việc"
         },
         {
           "day": 18,
           "date": "18/09/2026",
           "dayOfWeek": "Thứ 6",
-          "in1": "07:00",
-          "out1": "19:00",
+          "in1": "10:00",
+          "out1": "23:00",
           "in2": "",
           "out2": "",
           "hours": 13,
@@ -2090,7 +2770,7 @@
           "day": 19,
           "date": "19/09/2026",
           "dayOfWeek": "Thứ 7",
-          "in1": "07:00",
+          "in1": "10:00",
           "out1": "22:30",
           "in2": "",
           "out2": "",
@@ -2112,20 +2792,119 @@
           "day": 21,
           "date": "21/09/2026",
           "dayOfWeek": "Thứ 2",
-          "in1": "",
+          "in1": "OFF",
           "out1": "",
           "in2": "",
           "out2": "",
           "hours": 0,
           "status": "OFF"
+        },
+        {
+          "day": 22,
+          "date": "22/09/2026",
+          "dayOfWeek": "Thứ 3",
+          "in1": "OFF",
+          "out1": "",
+          "in2": "",
+          "out2": "",
+          "hours": 0,
+          "status": "OFF"
+        },
+        {
+          "day": 23,
+          "date": "23/09/2026",
+          "dayOfWeek": "Thứ 4",
+          "in1": "10:10",
+          "out1": "22:30",
+          "in2": "",
+          "out2": "",
+          "hours": 12,
+          "status": "Làm việc"
+        },
+        {
+          "day": 24,
+          "date": "24/09/2026",
+          "dayOfWeek": "Thứ 5",
+          "in1": "10:00",
+          "out1": "22:40",
+          "in2": "",
+          "out2": "",
+          "hours": 12.5,
+          "status": "Làm việc"
+        },
+        {
+          "day": 25,
+          "date": "25/09/2026",
+          "dayOfWeek": "Thứ 6",
+          "in1": "10:00",
+          "out1": "22:30",
+          "in2": "",
+          "out2": "",
+          "hours": 12.5,
+          "status": "Làm việc"
+        },
+        {
+          "day": 26,
+          "date": "26/09/2026",
+          "dayOfWeek": "Thứ 7",
+          "in1": "OFF",
+          "out1": "",
+          "in2": "",
+          "out2": "",
+          "hours": 0,
+          "status": "OFF"
+        },
+        {
+          "day": 27,
+          "date": "27/09/2026",
+          "dayOfWeek": "Chủ Nhật",
+          "in1": "10:00",
+          "out1": "22:40",
+          "in2": "",
+          "out2": "",
+          "hours": 12.5,
+          "status": "Làm việc"
+        },
+        {
+          "day": 28,
+          "date": "28/09/2026",
+          "dayOfWeek": "Thứ 2",
+          "in1": "10:00",
+          "out1": "22:30",
+          "in2": "",
+          "out2": "",
+          "hours": 12.5,
+          "status": "Làm việc"
+        },
+        {
+          "day": 29,
+          "date": "29/09/2026",
+          "dayOfWeek": "Thứ 3",
+          "in1": "10:00",
+          "out1": "22:40",
+          "in2": "",
+          "out2": "",
+          "hours": 12.5,
+          "status": "Làm việc"
+        },
+        {
+          "day": 30,
+          "date": "30/09/2026",
+          "dayOfWeek": "Thứ 4",
+          "in1": "10:05",
+          "out1": "22:30",
+          "in2": "",
+          "out2": "",
+          "hours": 12,
+          "status": "Làm việc"
         }
       ]
     },
     "Tý": {
       "name": "Tý",
       "dept": "HÀNG",
-      "totalHours": 236,
-      "workingDays": 21,
+      "totalHours": 332,
+      "workingDays": 30,
       "offDays": 0,
       "details": [
         {
@@ -2136,7 +2915,7 @@
           "out1": "21:15",
           "in2": "",
           "out2": "",
-          "hours": 11.25,
+          "hours": 11,
           "status": "Làm việc"
         },
         {
@@ -2147,7 +2926,7 @@
           "out1": "21:20",
           "in2": "",
           "out2": "",
-          "hours": 11.33,
+          "hours": 11,
           "status": "Làm việc"
         },
         {
@@ -2180,7 +2959,7 @@
           "out1": "22:45",
           "in2": "",
           "out2": "",
-          "hours": 12.75,
+          "hours": 12.5,
           "status": "Làm việc"
         },
         {
@@ -2191,7 +2970,7 @@
           "out1": "22:30",
           "in2": "",
           "out2": "",
-          "hours": 12.25,
+          "hours": 12,
           "status": "Làm việc"
         },
         {
@@ -2213,7 +2992,7 @@
           "out1": "21:00",
           "in2": "",
           "out2": "",
-          "hours": 10.83,
+          "hours": 10.5,
           "status": "Làm việc"
         },
         {
@@ -2246,7 +3025,7 @@
           "out1": "21:10",
           "in2": "",
           "out2": "",
-          "hours": 11.17,
+          "hours": 11,
           "status": "Làm việc"
         },
         {
@@ -2257,7 +3036,7 @@
           "out1": "21:25",
           "in2": "",
           "out2": "",
-          "hours": 11.25,
+          "hours": 11,
           "status": "Làm việc"
         },
         {
@@ -2279,7 +3058,7 @@
           "out1": "21:20",
           "in2": "",
           "out2": "",
-          "hours": 11.33,
+          "hours": 11,
           "status": "Làm việc"
         },
         {
@@ -2323,7 +3102,7 @@
           "out1": "21:15",
           "in2": "",
           "out2": "",
-          "hours": 11.25,
+          "hours": 11,
           "status": "Làm việc"
         },
         {
@@ -2334,7 +3113,7 @@
           "out1": "21:25",
           "in2": "",
           "out2": "",
-          "hours": 11.42,
+          "hours": 11,
           "status": "Làm việc"
         },
         {
@@ -2345,7 +3124,7 @@
           "out1": "21:10",
           "in2": "",
           "out2": "",
-          "hours": 11.17,
+          "hours": 11,
           "status": "Làm việc"
         },
         {
@@ -2358,14 +3137,113 @@
           "out2": "",
           "hours": 11.5,
           "status": "Làm việc"
+        },
+        {
+          "day": 22,
+          "date": "22/09/2026",
+          "dayOfWeek": "Thứ 3",
+          "in1": "10:05",
+          "out1": "21:15",
+          "in2": "",
+          "out2": "",
+          "hours": 11,
+          "status": "Làm việc"
+        },
+        {
+          "day": 23,
+          "date": "23/09/2026",
+          "dayOfWeek": "Thứ 4",
+          "in1": "10:00",
+          "out1": "21:00",
+          "in2": "",
+          "out2": "",
+          "hours": 11,
+          "status": "Làm việc"
+        },
+        {
+          "day": 24,
+          "date": "24/09/2026",
+          "dayOfWeek": "Thứ 5",
+          "in1": "10:00",
+          "out1": "21:15",
+          "in2": "",
+          "out2": "",
+          "hours": 11,
+          "status": "Làm việc"
+        },
+        {
+          "day": 25,
+          "date": "25/09/2026",
+          "dayOfWeek": "Thứ 6",
+          "in1": "10:10",
+          "out1": "21:10",
+          "in2": "",
+          "out2": "",
+          "hours": 11,
+          "status": "Làm việc"
+        },
+        {
+          "day": 26,
+          "date": "26/09/2026",
+          "dayOfWeek": "Thứ 7",
+          "in1": "10:00",
+          "out1": "21:20",
+          "in2": "",
+          "out2": "",
+          "hours": 11,
+          "status": "Làm việc"
+        },
+        {
+          "day": 27,
+          "date": "27/09/2026",
+          "dayOfWeek": "Chủ Nhật",
+          "in1": "10:00",
+          "out1": "21:00",
+          "in2": "",
+          "out2": "",
+          "hours": 11,
+          "status": "Làm việc"
+        },
+        {
+          "day": 28,
+          "date": "28/09/2026",
+          "dayOfWeek": "Thứ 2",
+          "in1": "10:05",
+          "out1": "21:05",
+          "in2": "",
+          "out2": "",
+          "hours": 11,
+          "status": "Làm việc"
+        },
+        {
+          "day": 29,
+          "date": "29/09/2026",
+          "dayOfWeek": "Thứ 3",
+          "in1": "10:15",
+          "out1": "21:15",
+          "in2": "",
+          "out2": "",
+          "hours": 11,
+          "status": "Làm việc"
+        },
+        {
+          "day": 30,
+          "date": "30/09/2026",
+          "dayOfWeek": "Thứ 4",
+          "in1": "10:00",
+          "out1": "21:00",
+          "in2": "",
+          "out2": "",
+          "hours": 11,
+          "status": "Làm việc"
         }
       ]
     },
     "Quý": {
       "name": "Quý",
       "dept": "HÀNG",
-      "totalHours": 217.7,
-      "workingDays": 19,
+      "totalHours": 320,
+      "workingDays": 28,
       "offDays": 2,
       "details": [
         {
@@ -2387,7 +3265,7 @@
           "out1": "23:20",
           "in2": "",
           "out2": "",
-          "hours": 12.33,
+          "hours": 12,
           "status": "Làm việc"
         },
         {
@@ -2409,7 +3287,7 @@
           "out1": "22:40",
           "in2": "",
           "out2": "",
-          "hours": 11.67,
+          "hours": 11.5,
           "status": "Làm việc"
         },
         {
@@ -2508,7 +3386,7 @@
           "out1": "22:45",
           "in2": "",
           "out2": "",
-          "hours": 9.75,
+          "hours": 9.5,
           "status": "Làm việc"
         },
         {
@@ -2541,7 +3419,7 @@
           "out1": "22:40",
           "in2": "",
           "out2": "",
-          "hours": 11.67,
+          "hours": 11.5,
           "status": "Làm việc"
         },
         {
@@ -2552,7 +3430,7 @@
           "out1": "22:45",
           "in2": "",
           "out2": "",
-          "hours": 11.75,
+          "hours": 11.5,
           "status": "Làm việc"
         },
         {
@@ -2598,14 +3476,113 @@
           "out2": "",
           "hours": 13,
           "status": "Làm việc"
+        },
+        {
+          "day": 22,
+          "date": "22/09/2026",
+          "dayOfWeek": "Thứ 3",
+          "in1": "10:00",
+          "out1": "22:45",
+          "in2": "",
+          "out2": "",
+          "hours": 12.5,
+          "status": "Làm việc"
+        },
+        {
+          "day": 23,
+          "date": "23/09/2026",
+          "dayOfWeek": "Thứ 4",
+          "in1": "11:00",
+          "out1": "22:30",
+          "in2": "",
+          "out2": "",
+          "hours": 11.5,
+          "status": "Làm việc"
+        },
+        {
+          "day": 24,
+          "date": "24/09/2026",
+          "dayOfWeek": "Thứ 5",
+          "in1": "11:00",
+          "out1": "22:40",
+          "in2": "",
+          "out2": "",
+          "hours": 11.5,
+          "status": "Làm việc"
+        },
+        {
+          "day": 25,
+          "date": "25/09/2026",
+          "dayOfWeek": "Thứ 6",
+          "in1": "11:00",
+          "out1": "22:30",
+          "in2": "",
+          "out2": "",
+          "hours": 11.5,
+          "status": "Làm việc"
+        },
+        {
+          "day": 26,
+          "date": "26/09/2026",
+          "dayOfWeek": "Thứ 7",
+          "in1": "10:00",
+          "out1": "22:45",
+          "in2": "",
+          "out2": "",
+          "hours": 12.5,
+          "status": "Làm việc"
+        },
+        {
+          "day": 27,
+          "date": "27/09/2026",
+          "dayOfWeek": "Chủ Nhật",
+          "in1": "13:00",
+          "out1": "22:40",
+          "in2": "",
+          "out2": "",
+          "hours": 9.5,
+          "status": "Làm việc"
+        },
+        {
+          "day": 28,
+          "date": "28/09/2026",
+          "dayOfWeek": "Thứ 2",
+          "in1": "11:00",
+          "out1": "22:30",
+          "in2": "",
+          "out2": "",
+          "hours": 11.5,
+          "status": "Làm việc"
+        },
+        {
+          "day": 29,
+          "date": "29/09/2026",
+          "dayOfWeek": "Thứ 3",
+          "in1": "11:00",
+          "out1": "22:40",
+          "in2": "",
+          "out2": "",
+          "hours": 11.5,
+          "status": "Làm việc"
+        },
+        {
+          "day": 30,
+          "date": "30/09/2026",
+          "dayOfWeek": "Thứ 4",
+          "in1": "11:00",
+          "out1": "22:30",
+          "in2": "",
+          "out2": "",
+          "hours": 11.5,
+          "status": "Làm việc"
         }
       ]
     },
     "Hoàng": {
       "name": "Hoàng",
       "dept": "HÀNG",
-      "totalHours": 232.1,
-      "workingDays": 21,
+      "totalHours": 336,
+      "workingDays": 30,
       "offDays": 0,
       "details": [
         {
@@ -2693,7 +3670,7 @@
           "out1": "18:50",
           "in2": "",
           "out2": "",
-          "hours": 9.83,
+          "hours": 9.5,
           "status": "Làm việc"
         },
         {
@@ -2748,7 +3725,7 @@
           "out1": "22:45",
           "in2": "",
           "out2": "",
-          "hours": 10.75,
+          "hours": 10.5,
           "status": "Làm việc"
         },
         {
@@ -2838,14 +3815,113 @@
           "out2": "",
           "hours": 14,
           "status": "Làm việc"
+        },
+        {
+          "day": 22,
+          "date": "22/09/2026",
+          "dayOfWeek": "Thứ 3",
+          "in1": "09:00",
+          "out1": "22:45",
+          "in2": "",
+          "out2": "",
+          "hours": 13.5,
+          "status": "Làm việc"
+        },
+        {
+          "day": 23,
+          "date": "23/09/2026",
+          "dayOfWeek": "Thứ 4",
+          "in1": "09:00",
+          "out1": "20:30",
+          "in2": "",
+          "out2": "",
+          "hours": 11.5,
+          "status": "Làm việc"
+        },
+        {
+          "day": 24,
+          "date": "24/09/2026",
+          "dayOfWeek": "Thứ 5",
+          "in1": "09:00",
+          "out1": "20:30",
+          "in2": "",
+          "out2": "",
+          "hours": 11.5,
+          "status": "Làm việc"
+        },
+        {
+          "day": 25,
+          "date": "25/09/2026",
+          "dayOfWeek": "Thứ 6",
+          "in1": "09:00",
+          "out1": "20:45",
+          "in2": "",
+          "out2": "",
+          "hours": 11.5,
+          "status": "Làm việc"
+        },
+        {
+          "day": 26,
+          "date": "26/09/2026",
+          "dayOfWeek": "Thứ 7",
+          "in1": "09:00",
+          "out1": "22:45",
+          "in2": "",
+          "out2": "",
+          "hours": 13.5,
+          "status": "Làm việc"
+        },
+        {
+          "day": 27,
+          "date": "27/09/2026",
+          "dayOfWeek": "Chủ Nhật",
+          "in1": "12:00",
+          "out1": "20:30",
+          "in2": "",
+          "out2": "",
+          "hours": 8.5,
+          "status": "Làm việc"
+        },
+        {
+          "day": 28,
+          "date": "28/09/2026",
+          "dayOfWeek": "Thứ 2",
+          "in1": "09:00",
+          "out1": "20:30",
+          "in2": "",
+          "out2": "",
+          "hours": 11.5,
+          "status": "Làm việc"
+        },
+        {
+          "day": 29,
+          "date": "29/09/2026",
+          "dayOfWeek": "Thứ 3",
+          "in1": "09:00",
+          "out1": "20:30",
+          "in2": "",
+          "out2": "",
+          "hours": 11.5,
+          "status": "Làm việc"
+        },
+        {
+          "day": 30,
+          "date": "30/09/2026",
+          "dayOfWeek": "Thứ 4",
+          "in1": "09:00",
+          "out1": "20:30",
+          "in2": "",
+          "out2": "",
+          "hours": 11.5,
+          "status": "Làm việc"
         }
       ]
     },
     "Gia": {
       "name": "Gia",
       "dept": "HÀNG",
-      "totalHours": 221.8,
-      "workingDays": 21,
+      "totalHours": 312,
+      "workingDays": 30,
       "offDays": 0,
       "details": [
         {
@@ -2856,7 +3932,7 @@
           "out1": "18:10",
           "in2": "",
           "out2": "",
-          "hours": 10.67,
+          "hours": 10.5,
           "status": "Làm việc"
         },
         {
@@ -2867,7 +3943,7 @@
           "out1": "17:50",
           "in2": "",
           "out2": "",
-          "hours": 10.33,
+          "hours": 10,
           "status": "Làm việc"
         },
         {
@@ -2911,7 +3987,7 @@
           "out1": "17:20",
           "in2": "",
           "out2": "",
-          "hours": 9.83,
+          "hours": 9.5,
           "status": "Làm việc"
         },
         {
@@ -2933,7 +4009,7 @@
           "out1": "17:30",
           "in2": "",
           "out2": "",
-          "hours": 9.75,
+          "hours": 9.5,
           "status": "Làm việc"
         },
         {
@@ -2955,7 +4031,7 @@
           "out1": "21:10",
           "in2": "",
           "out2": "",
-          "hours": 13.17,
+          "hours": 13,
           "status": "Làm việc"
         },
         {
@@ -2977,7 +4053,7 @@
           "out1": "18:50",
           "in2": "",
           "out2": "",
-          "hours": 10.83,
+          "hours": 10.5,
           "status": "Làm việc"
         },
         {
@@ -3021,7 +4097,7 @@
           "out1": "17:30",
           "in2": "",
           "out2": "",
-          "hours": 9.33,
+          "hours": 9,
           "status": "Làm việc"
         },
         {
@@ -3054,7 +4130,7 @@
           "out1": "18:50",
           "in2": "",
           "out2": "",
-          "hours": 11.17,
+          "hours": 11,
           "status": "Làm việc"
         },
         {
@@ -3076,7 +4152,106 @@
           "out1": "17:45",
           "in2": "",
           "out2": "",
-          "hours": 10.75,
+          "hours": 10,
+          "status": "Làm việc"
+        },
+        {
+          "day": 22,
+          "date": "22/09/2026",
+          "dayOfWeek": "Thứ 3",
+          "in1": "08:00",
+          "out1": "17:30",
+          "in2": "",
+          "out2": "",
+          "hours": 9.5,
+          "status": "Làm việc"
+        },
+        {
+          "day": 23,
+          "date": "23/09/2026",
+          "dayOfWeek": "Thứ 4",
+          "in1": "08:00",
+          "out1": "18:00",
+          "in2": "",
+          "out2": "",
+          "hours": 10,
+          "status": "Làm việc"
+        },
+        {
+          "day": 24,
+          "date": "24/09/2026",
+          "dayOfWeek": "Thứ 5",
+          "in1": "07:30",
+          "out1": "17:45",
+          "in2": "",
+          "out2": "",
+          "hours": 10,
+          "status": "Làm việc"
+        },
+        {
+          "day": 25,
+          "date": "25/09/2026",
+          "dayOfWeek": "Thứ 6",
+          "in1": "08:00",
+          "out1": "17:30",
+          "in2": "",
+          "out2": "",
+          "hours": 9.5,
+          "status": "Làm việc"
+        },
+        {
+          "day": 26,
+          "date": "26/09/2026",
+          "dayOfWeek": "Thứ 7",
+          "in1": "07:45",
+          "out1": "17:45",
+          "in2": "",
+          "out2": "",
+          "hours": 10,
+          "status": "Làm việc"
+        },
+        {
+          "day": 27,
+          "date": "27/09/2026",
+          "dayOfWeek": "Chủ Nhật",
+          "in1": "08:00",
+          "out1": "18:00",
+          "in2": "",
+          "out2": "",
+          "hours": 10,
+          "status": "Làm việc"
+        },
+        {
+          "day": 28,
+          "date": "28/09/2026",
+          "dayOfWeek": "Thứ 2",
+          "in1": "08:00",
+          "out1": "17:40",
+          "in2": "",
+          "out2": "",
+          "hours": 9.5,
+          "status": "Làm việc"
+        },
+        {
+          "day": 29,
+          "date": "29/09/2026",
+          "dayOfWeek": "Thứ 3",
+          "in1": "07:00",
+          "out1": "21:15",
+          "in2": "",
+          "out2": "",
+          "hours": 14,
+          "status": "Làm việc"
+        },
+        {
+          "day": 30,
+          "date": "30/09/2026",
+          "dayOfWeek": "Thứ 4",
+          "in1": "08:30",
+          "out1": "19:00",
+          "in2": "",
+          "out2": "",
+          "hours": 10.5,
           "status": "Làm việc"
         }
       ]
@@ -3084,9 +4259,9 @@
     "Phúc": {
       "name": "Phúc",
       "dept": "HÀNG",
-      "totalHours": 192.7,
-      "workingDays": 18,
-      "offDays": 3,
+      "totalHours": 273,
+      "workingDays": 26,
+      "offDays": 4,
       "details": [
         {
           "day": 1,
@@ -3096,7 +4271,7 @@
           "out1": "15:45",
           "in2": "",
           "out2": "",
-          "hours": 7.75,
+          "hours": 7.5,
           "status": "Làm việc"
         },
         {
@@ -3107,7 +4282,7 @@
           "out1": "15:20",
           "in2": "",
           "out2": "",
-          "hours": 7.33,
+          "hours": 7,
           "status": "Làm việc"
         },
         {
@@ -3173,7 +4348,7 @@
           "out1": "18:45",
           "in2": "",
           "out2": "",
-          "hours": 10.67,
+          "hours": 10.5,
           "status": "Làm việc"
         },
         {
@@ -3184,7 +4359,7 @@
           "out1": "20:10",
           "in2": "",
           "out2": "",
-          "hours": 12.12,
+          "hours": 12,
           "status": "Làm việc"
         },
         {
@@ -3217,7 +4392,7 @@
           "out1": "20:40",
           "in2": "",
           "out2": "",
-          "hours": 10.67,
+          "hours": 10.5,
           "status": "Làm việc"
         },
         {
@@ -3239,7 +4414,7 @@
           "out1": "21:40",
           "in2": "",
           "out2": "",
-          "hours": 11.67,
+          "hours": 11.5,
           "status": "Làm việc"
         },
         {
@@ -3279,7 +4454,7 @@
           "day": 18,
           "date": "18/09/2026",
           "dayOfWeek": "Thứ 6",
-          "in1": "",
+          "in1": "OFF",
           "out1": "",
           "in2": "",
           "out2": "",
@@ -3294,7 +4469,7 @@
           "out1": "21:20",
           "in2": "",
           "out2": "",
-          "hours": 11.28,
+          "hours": 11,
           "status": "Làm việc"
         },
         {
@@ -3305,7 +4480,7 @@
           "out1": "20:45",
           "in2": "",
           "out2": "",
-          "hours": 11.75,
+          "hours": 11.5,
           "status": "Làm việc"
         },
         {
@@ -3318,245 +4493,104 @@
           "out2": "",
           "hours": 12,
           "status": "Làm việc"
-        }
-      ]
-    },
-    "Vũ": {
-      "name": "Vũ",
-      "dept": "HÀNG",
-      "totalHours": 8,
-      "workingDays": 1,
-      "offDays": 20,
-      "details": [
+        },
         {
-          "day": 1,
-          "date": "01/09/2026",
+          "day": 22,
+          "date": "22/09/2026",
           "dayOfWeek": "Thứ 3",
-          "in1": "",
-          "out1": "",
+          "in1": "09:00",
+          "out1": "21:00",
           "in2": "",
           "out2": "",
-          "hours": 0,
-          "status": "OFF"
+          "hours": 12,
+          "status": "Làm việc"
         },
         {
-          "day": 2,
-          "date": "02/09/2026",
+          "day": 23,
+          "date": "23/09/2026",
           "dayOfWeek": "Thứ 4",
-          "in1": "",
-          "out1": "",
+          "in1": "10:00",
+          "out1": "21:30",
           "in2": "",
           "out2": "",
-          "hours": 0,
-          "status": "OFF"
+          "hours": 11.5,
+          "status": "Làm việc"
         },
         {
-          "day": 3,
-          "date": "03/09/2026",
+          "day": 24,
+          "date": "24/09/2026",
           "dayOfWeek": "Thứ 5",
-          "in1": "",
-          "out1": "",
+          "in1": "10:00",
+          "out1": "21:00",
           "in2": "",
           "out2": "",
-          "hours": 0,
-          "status": "OFF"
+          "hours": 11,
+          "status": "Làm việc"
         },
         {
-          "day": 4,
-          "date": "04/09/2026",
+          "day": 25,
+          "date": "25/09/2026",
           "dayOfWeek": "Thứ 6",
-          "in1": "",
-          "out1": "",
+          "in1": "10:00",
+          "out1": "21:45",
           "in2": "",
           "out2": "",
-          "hours": 0,
-          "status": "OFF"
+          "hours": 11.5,
+          "status": "Làm việc"
         },
         {
-          "day": 5,
-          "date": "05/09/2026",
+          "day": 26,
+          "date": "26/09/2026",
           "dayOfWeek": "Thứ 7",
-          "in1": "",
-          "out1": "",
-          "in2": "",
-          "out2": "",
-          "hours": 0,
-          "status": "OFF"
-        },
-        {
-          "day": 6,
-          "date": "06/09/2026",
-          "dayOfWeek": "Chủ Nhật",
-          "in1": "",
-          "out1": "",
-          "in2": "",
-          "out2": "",
-          "hours": 0,
-          "status": "OFF"
-        },
-        {
-          "day": 7,
-          "date": "07/09/2026",
-          "dayOfWeek": "Thứ 2",
-          "in1": "",
-          "out1": "",
-          "in2": "",
-          "out2": "",
-          "hours": 0,
-          "status": "OFF"
-        },
-        {
-          "day": 8,
-          "date": "08/09/2026",
-          "dayOfWeek": "Thứ 3",
-          "in1": "",
-          "out1": "",
-          "in2": "",
-          "out2": "",
-          "hours": 0,
-          "status": "OFF"
-        },
-        {
-          "day": 9,
-          "date": "09/09/2026",
-          "dayOfWeek": "Thứ 4",
-          "in1": "",
-          "out1": "",
-          "in2": "",
-          "out2": "",
-          "hours": 0,
-          "status": "OFF"
-        },
-        {
-          "day": 10,
-          "date": "10/09/2026",
-          "dayOfWeek": "Thứ 5",
-          "in1": "",
-          "out1": "",
-          "in2": "",
-          "out2": "",
-          "hours": 0,
-          "status": "OFF"
-        },
-        {
-          "day": 11,
-          "date": "11/09/2026",
-          "dayOfWeek": "Thứ 6",
-          "in1": "",
-          "out1": "",
-          "in2": "",
-          "out2": "",
-          "hours": 0,
-          "status": "OFF"
-        },
-        {
-          "day": 12,
-          "date": "12/09/2026",
-          "dayOfWeek": "Thứ 7",
-          "in1": "",
-          "out1": "",
-          "in2": "",
-          "out2": "",
-          "hours": 0,
-          "status": "OFF"
-        },
-        {
-          "day": 13,
-          "date": "13/09/2026",
-          "dayOfWeek": "Chủ Nhật",
-          "in1": "",
-          "out1": "",
-          "in2": "",
-          "out2": "",
-          "hours": 0,
-          "status": "OFF"
-        },
-        {
-          "day": 14,
-          "date": "14/09/2026",
-          "dayOfWeek": "Thứ 2",
-          "in1": "",
-          "out1": "",
-          "in2": "",
-          "out2": "",
-          "hours": 0,
-          "status": "OFF"
-        },
-        {
-          "day": 15,
-          "date": "15/09/2026",
-          "dayOfWeek": "Thứ 3",
-          "in1": "",
-          "out1": "",
-          "in2": "",
-          "out2": "",
-          "hours": 0,
-          "status": "OFF"
-        },
-        {
-          "day": 16,
-          "date": "16/09/2026",
-          "dayOfWeek": "Thứ 4",
-          "in1": "",
-          "out1": "",
-          "in2": "",
-          "out2": "",
-          "hours": 0,
-          "status": "OFF"
-        },
-        {
-          "day": 17,
-          "date": "17/09/2026",
-          "dayOfWeek": "Thứ 5",
-          "in1": "",
-          "out1": "",
-          "in2": "",
-          "out2": "",
-          "hours": 0,
-          "status": "OFF"
-        },
-        {
-          "day": 18,
-          "date": "18/09/2026",
-          "dayOfWeek": "Thứ 6",
-          "in1": "",
-          "out1": "",
-          "in2": "",
-          "out2": "",
-          "hours": 0,
-          "status": "OFF"
-        },
-        {
-          "day": 19,
-          "date": "19/09/2026",
-          "dayOfWeek": "Thứ 7",
-          "in1": "",
-          "out1": "",
-          "in2": "",
-          "out2": "",
-          "hours": 0,
-          "status": "OFF"
-        },
-        {
-          "day": 20,
-          "date": "20/09/2026",
-          "dayOfWeek": "Chủ Nhật",
-          "in1": "",
-          "out1": "",
-          "in2": "",
-          "out2": "",
-          "hours": 0,
-          "status": "OFF"
-        },
-        {
-          "day": 21,
-          "date": "21/09/2026",
-          "dayOfWeek": "Thứ 2",
-          "in1": "17:00",
+          "in1": "09:00",
           "out1": "22:00",
           "in2": "",
           "out2": "",
+          "hours": 13,
+          "status": "Làm việc"
+        },
+        {
+          "day": 27,
+          "date": "27/09/2026",
+          "dayOfWeek": "Chủ Nhật",
+          "in1": "09:00",
+          "out1": "17:00",
+          "in2": "",
+          "out2": "",
           "hours": 8,
+          "status": "Làm việc"
+        },
+        {
+          "day": 28,
+          "date": "28/09/2026",
+          "dayOfWeek": "Thứ 2",
+          "in1": "10:00",
+          "out1": "13:30",
+          "in2": "18:15",
+          "out2": "20:30",
+          "hours": 5.5,
+          "status": "Làm việc"
+        },
+        {
+          "day": 29,
+          "date": "29/09/2026",
+          "dayOfWeek": "Thứ 3",
+          "in1": "OFF",
+          "out1": "",
+          "in2": "",
+          "out2": "",
+          "hours": 0,
+          "status": "OFF"
+        },
+        {
+          "day": 30,
+          "date": "30/09/2026",
+          "dayOfWeek": "Thứ 4",
+          "in1": "11:02",
+          "out1": "20:45",
+          "in2": "",
+          "out2": "",
+          "hours": 9.5,
           "status": "Làm việc"
         }
       ]
@@ -3611,7 +4645,7 @@
           "out1": "21:45",
           "in2": "",
           "out2": "",
-          "hours": 7.75,
+          "hours": 7.5,
           "status": "Làm việc"
         },
         {
@@ -3644,7 +4678,7 @@
           "out1": "18:10",
           "in2": "",
           "out2": "",
-          "hours": 10.67,
+          "hours": 10.5,
           "status": "Làm việc"
         },
         {
@@ -3655,7 +4689,7 @@
           "out1": "15:45",
           "in2": "",
           "out2": "",
-          "hours": 7.75,
+          "hours": 7.5,
           "status": "Làm việc"
         },
         {
@@ -3688,7 +4722,7 @@
           "out1": "21:15",
           "in2": "",
           "out2": "",
-          "hours": 11.25,
+          "hours": 11,
           "status": "Làm việc"
         },
         {
@@ -3763,7 +4797,7 @@
           "out1": "21:45",
           "in2": "",
           "out2": "",
-          "hours": 7.75,
+          "hours": 7.5,
           "status": "Làm việc"
         },
         {
@@ -3785,7 +4819,7 @@
           "out1": "23:40",
           "in2": "",
           "out2": "",
-          "hours": 13.67,
+          "hours": 13.5,
           "status": "Làm việc"
         },
         {
@@ -3796,7 +4830,7 @@
           "out1": "17:50",
           "in2": "",
           "out2": "",
-          "hours": 10.33,
+          "hours": 10,
           "status": "Làm việc"
         },
         {
@@ -3807,7 +4841,7 @@
           "out1": "15:20",
           "in2": "",
           "out2": "",
-          "hours": 7.33,
+          "hours": 7,
           "status": "Làm việc"
         },
         {
@@ -3818,7 +4852,7 @@
           "out1": "23:20",
           "in2": "",
           "out2": "",
-          "hours": 12.33,
+          "hours": 12,
           "status": "Làm việc"
         },
         {
@@ -3840,7 +4874,7 @@
           "out1": "21:20",
           "in2": "",
           "out2": "",
-          "hours": 11.33,
+          "hours": 11,
           "status": "Làm việc"
         },
         {
@@ -3915,7 +4949,7 @@
           "out1": "21:15",
           "in2": "",
           "out2": "",
-          "hours": 7.25,
+          "hours": 7,
           "status": "Làm việc"
         },
         {
@@ -4067,7 +5101,7 @@
           "out1": "21:20",
           "in2": "",
           "out2": "",
-          "hours": 7.33,
+          "hours": 7,
           "status": "Làm việc"
         },
         {
@@ -4089,7 +5123,7 @@
           "out1": "22:40",
           "in2": "",
           "out2": "",
-          "hours": 12.58,
+          "hours": 12.5,
           "status": "Làm việc"
         },
         {
@@ -4122,7 +5156,7 @@
           "out1": "22:40",
           "in2": "",
           "out2": "",
-          "hours": 11.67,
+          "hours": 11.5,
           "status": "Làm việc"
         },
         {
@@ -4241,7 +5275,7 @@
           "out1": "22:40",
           "in2": "",
           "out2": "",
-          "hours": 12.67,
+          "hours": 12.5,
           "status": "Làm việc"
         },
         {
@@ -4296,7 +5330,7 @@
           "out1": "22:45",
           "in2": "",
           "out2": "",
-          "hours": 12.75,
+          "hours": 12.5,
           "status": "Làm việc"
         },
         {
@@ -4371,7 +5405,7 @@
           "out1": "21:20",
           "in2": "",
           "out2": "",
-          "hours": 7.33,
+          "hours": 7,
           "status": "Làm việc"
         },
         {
@@ -4404,7 +5438,7 @@
           "out1": "17:20",
           "in2": "",
           "out2": "",
-          "hours": 9.83,
+          "hours": 9.5,
           "status": "Làm việc"
         },
         {
@@ -4448,7 +5482,7 @@
           "out1": "22:30",
           "in2": "",
           "out2": "",
-          "hours": 12.25,
+          "hours": 12,
           "status": "Làm việc"
         },
         {
@@ -4545,7 +5579,7 @@
           "out1": "22:30",
           "in2": "",
           "out2": "",
-          "hours": 12.25,
+          "hours": 12,
           "status": "Làm việc"
         },
         {
@@ -4708,7 +5742,7 @@
           "out1": "17:30",
           "in2": "",
           "out2": "",
-          "hours": 9.75,
+          "hours": 9.5,
           "status": "Làm việc"
         },
         {
@@ -4719,7 +5753,7 @@
           "out1": "18:45",
           "in2": "",
           "out2": "",
-          "hours": 10.67,
+          "hours": 10.5,
           "status": "Làm việc"
         },
         {
@@ -4741,7 +5775,7 @@
           "out1": "18:50",
           "in2": "",
           "out2": "",
-          "hours": 9.83,
+          "hours": 9.5,
           "status": "Làm việc"
         },
         {
@@ -4752,7 +5786,7 @@
           "out1": "21:00",
           "in2": "",
           "out2": "",
-          "hours": 10.83,
+          "hours": 10.5,
           "status": "Làm việc"
         },
         {
@@ -4871,7 +5905,7 @@
           "out1": "20:10",
           "in2": "",
           "out2": "",
-          "hours": 12.12,
+          "hours": 12,
           "status": "Làm việc"
         },
         {
@@ -4968,7 +6002,7 @@
           "out1": "15:20",
           "in2": "",
           "out2": "",
-          "hours": 8.33,
+          "hours": 8,
           "status": "Làm việc"
         },
         {
@@ -5012,7 +6046,7 @@
           "out1": "21:10",
           "in2": "",
           "out2": "",
-          "hours": 13.17,
+          "hours": 13,
           "status": "Làm việc"
         },
         {
@@ -5208,7 +6242,7 @@
           "out1": "21:10",
           "in2": "",
           "out2": "",
-          "hours": 11.17,
+          "hours": 11,
           "status": "Làm việc"
         },
         {
@@ -5316,7 +6350,7 @@
           "out1": "18:50",
           "in2": "",
           "out2": "",
-          "hours": 10.83,
+          "hours": 10.5,
           "status": "Làm việc"
         },
         {
@@ -5327,7 +6361,7 @@
           "out1": "20:40",
           "in2": "",
           "out2": "",
-          "hours": 10.67,
+          "hours": 10.5,
           "status": "Làm việc"
         },
         {
@@ -5360,7 +6394,7 @@
           "out1": "21:25",
           "in2": "",
           "out2": "",
-          "hours": 11.25,
+          "hours": 11,
           "status": "Làm việc"
         },
         {
@@ -5382,7 +6416,7 @@
           "out1": "21:45",
           "in2": "",
           "out2": "",
-          "hours": 7.75,
+          "hours": 7.5,
           "status": "Làm việc"
         }
       ]
@@ -5457,7 +6491,7 @@
           "out1": "20:10",
           "in2": "",
           "out2": "",
-          "hours": 11.17,
+          "hours": 11,
           "status": "Làm việc"
         },
         {
@@ -5490,7 +6524,7 @@
           "out1": "22:45",
           "in2": "",
           "out2": "",
-          "hours": 9.75,
+          "hours": 9.5,
           "status": "Làm việc"
         },
         {
@@ -5501,7 +6535,7 @@
           "out1": "22:45",
           "in2": "",
           "out2": "",
-          "hours": 10.75,
+          "hours": 10.5,
           "status": "Làm việc"
         },
         {
@@ -5631,7 +6665,7 @@
           "out1": "21:40",
           "in2": "",
           "out2": "",
-          "hours": 11.67,
+          "hours": 11.5,
           "status": "Làm việc"
         },
         {
@@ -5664,7 +6698,7 @@
           "out1": "21:20",
           "in2": "",
           "out2": "",
-          "hours": 11.33,
+          "hours": 11,
           "status": "Làm việc"
         },
         {
@@ -5686,7 +6720,7 @@
           "out1": "21:45",
           "in2": "",
           "out2": "",
-          "hours": 7.75,
+          "hours": 7.5,
           "status": "Làm việc"
         }
       ]
@@ -5728,7 +6762,7 @@
           "out1": "15:20",
           "in2": "",
           "out2": "",
-          "hours": 8.25,
+          "hours": 8,
           "status": "Làm việc"
         },
         {
@@ -5761,7 +6795,7 @@
           "out1": "22:30",
           "in2": "",
           "out2": "",
-          "hours": 12.42,
+          "hours": 12,
           "status": "Làm việc"
         },
         {
@@ -5913,7 +6947,7 @@
           "out1": "22:40",
           "in2": "",
           "out2": "",
-          "hours": 12.67,
+          "hours": 12.5,
           "status": "Làm việc"
         },
         {
@@ -5924,7 +6958,7 @@
           "out1": "17:30",
           "in2": "",
           "out2": "",
-          "hours": 9.33,
+          "hours": 9,
           "status": "Làm việc"
         },
         {
@@ -5946,7 +6980,7 @@
           "out1": "22:40",
           "in2": "",
           "out2": "",
-          "hours": 11.67,
+          "hours": 11.5,
           "status": "Làm việc"
         },
         {
@@ -5990,7 +7024,7 @@
           "out1": "21:45",
           "in2": "",
           "out2": "",
-          "hours": 7.75,
+          "hours": 7.5,
           "status": "Làm việc"
         }
       ]
@@ -6032,7 +7066,7 @@
           "out1": "15:15",
           "in2": "",
           "out2": "",
-          "hours": 8.25,
+          "hours": 8,
           "status": "Làm việc"
         },
         {
@@ -6065,7 +7099,7 @@
           "out1": "22:45",
           "in2": "",
           "out2": "",
-          "hours": 12.75,
+          "hours": 12.5,
           "status": "Làm việc"
         },
         {
@@ -6098,7 +7132,7 @@
           "out1": "22:45",
           "in2": "",
           "out2": "",
-          "hours": 11.75,
+          "hours": 11.5,
           "status": "Làm việc"
         },
         {
@@ -6142,15 +7176,17 @@
           "out1": "21:45",
           "in2": "",
           "out2": "",
-          "hours": 9.75,
+          "hours": 9.5,
           "status": "Làm việc"
         }
       ]
     },
     {
+      "dateSerial": 46283,
       "day": 18,
       "date": "18/09/2026",
       "dayOfWeek": "Thứ 6",
+      "image": "1789890696294_192523427731101477_g650336099157832072_h.jpg",
       "records": [
         {
           "stt": 1,
@@ -6171,7 +7207,7 @@
           "out1": "19:30",
           "in2": "",
           "out2": "",
-          "hours": 8.25,
+          "hours": 8.5,
           "status": "Làm việc"
         },
         {
@@ -6189,12 +7225,12 @@
           "stt": 4,
           "name": "Trân",
           "dept": "VÉ",
-          "in1": "",
+          "in1": "OFF",
           "out1": "",
           "in2": "",
           "out2": "",
           "hours": 0,
-          "status": "Nghỉ phép"
+          "status": "OFF"
         },
         {
           "stt": 5,
@@ -6202,7 +7238,7 @@
           "dept": "HÀNG",
           "in1": "04:00",
           "out1": "11:00",
-          "in2": "14:00",
+          "in2": "14:30",
           "out2": "20:30",
           "hours": 13,
           "status": "Làm việc"
@@ -6211,8 +7247,8 @@
           "stt": 6,
           "name": "Chẩn",
           "dept": "HÀNG",
-          "in1": "07:00",
-          "out1": "19:00",
+          "in1": "10:00",
+          "out1": "23:00",
           "in2": "",
           "out2": "",
           "hours": 13,
@@ -6233,12 +7269,12 @@
           "stt": 8,
           "name": "Phúc",
           "dept": "HÀNG",
-          "in1": "",
+          "in1": "OFF",
           "out1": "",
           "in2": "",
           "out2": "",
           "hours": 0,
-          "status": "Nghỉ phép"
+          "status": "OFF"
         },
         {
           "stt": 9,
@@ -6270,7 +7306,7 @@
           "out1": "21:15",
           "in2": "",
           "out2": "",
-          "hours": 11.25,
+          "hours": 11,
           "status": "Làm việc"
         },
         {
@@ -6295,13 +7331,14 @@
           "hours": 8,
           "status": "Làm việc"
         }
-      ],
-      "image": "1789890696294_192523427731101477_g650336099157832072_h.jpg"
+      ]
     },
     {
+      "dateSerial": 46284,
       "day": 19,
       "date": "19/09/2026",
       "dayOfWeek": "Thứ 7",
+      "image": "1789890696294_192523427731101477_g650336099157832072_h.jpg",
       "records": [
         {
           "stt": 1,
@@ -6318,7 +7355,7 @@
           "stt": 2,
           "name": "Phấn",
           "dept": "VÉ",
-          "in1": "07:00",
+          "in1": "10:00",
           "out1": "15:00",
           "in2": "",
           "out2": "",
@@ -6340,12 +7377,12 @@
           "stt": 4,
           "name": "Trân",
           "dept": "VÉ",
-          "in1": "",
+          "in1": "OFF",
           "out1": "",
           "in2": "",
           "out2": "",
           "hours": 0,
-          "status": "Nghỉ phép"
+          "status": "OFF"
         },
         {
           "stt": 5,
@@ -6362,7 +7399,7 @@
           "stt": 6,
           "name": "Chẩn",
           "dept": "HÀNG",
-          "in1": "07:00",
+          "in1": "10:00",
           "out1": "22:30",
           "in2": "",
           "out2": "",
@@ -6377,7 +7414,7 @@
           "out1": "18:50",
           "in2": "",
           "out2": "",
-          "hours": 11.17,
+          "hours": 11,
           "status": "Làm việc"
         },
         {
@@ -6388,7 +7425,7 @@
           "out1": "21:20",
           "in2": "",
           "out2": "",
-          "hours": 11.28,
+          "hours": 11,
           "status": "Làm việc"
         },
         {
@@ -6421,19 +7458,19 @@
           "out1": "21:25",
           "in2": "",
           "out2": "",
-          "hours": 11.42,
+          "hours": 11,
           "status": "Làm việc"
         },
         {
           "stt": 12,
           "name": "Lệ",
           "dept": "VÉ",
-          "in1": "",
+          "in1": "OFF",
           "out1": "",
           "in2": "",
           "out2": "",
           "hours": 0,
-          "status": "Nghỉ phép"
+          "status": "OFF"
         },
         {
           "stt": 13,
@@ -6446,8 +7483,7 @@
           "hours": 8,
           "status": "Làm việc"
         }
-      ],
-      "image": "1789890696294_192523427731101477_g650336099157832072_h.jpg"
+      ]
     },
     {
       "dateSerial": 46285,
@@ -6541,7 +7577,7 @@
           "out1": "20:45",
           "in2": "",
           "out2": "",
-          "hours": 11.75,
+          "hours": 11.5,
           "status": "Làm việc"
         },
         {
@@ -6574,7 +7610,7 @@
           "out1": "21:10",
           "in2": "",
           "out2": "",
-          "hours": 11.17,
+          "hours": 11,
           "status": "Làm việc"
         },
         {
@@ -6602,9 +7638,11 @@
       ]
     },
     {
+      "dateSerial": 46286,
       "day": 21,
       "date": "21/09/2026",
       "dayOfWeek": "Thứ 2",
+      "image": "1790129177458_4038253213440625796_g650336099157832072_h.jpg",
       "records": [
         {
           "stt": 1,
@@ -6643,7 +7681,7 @@
           "stt": 4,
           "name": "Trân",
           "dept": "VÉ",
-          "in1": "",
+          "in1": "OFF",
           "out1": "",
           "in2": "",
           "out2": "",
@@ -6665,7 +7703,7 @@
           "stt": 6,
           "name": "Chẩn",
           "dept": "HÀNG",
-          "in1": "",
+          "in1": "OFF",
           "out1": "",
           "in2": "",
           "out2": "",
@@ -6680,7 +7718,7 @@
           "out1": "17:45",
           "in2": "",
           "out2": "",
-          "hours": 10.75,
+          "hours": 10,
           "status": "Làm việc"
         },
         {
@@ -6740,17 +7778,1384 @@
         },
         {
           "stt": 13,
-          "name": "Vũ",
-          "dept": "HÀNG",
-          "in1": "17:00",
+          "name": "Phước",
+          "dept": "VÉ",
+          "in1": "14:00",
           "out1": "22:00",
           "in2": "",
           "out2": "",
           "hours": 8,
           "status": "Làm việc"
         }
-      ],
-      "image": "1790129177458_4038253213440625796_g650336099157832072_h.jpg"
+      ]
+    },
+    {
+      "dateSerial": 46287,
+      "day": 22,
+      "date": "22/09/2026",
+      "dayOfWeek": "Thứ 3",
+      "image": "2209.jpg",
+      "records": [
+        {
+          "stt": 1,
+          "name": "Sung",
+          "dept": "VÉ",
+          "in1": "06:00",
+          "out1": "18:30",
+          "in2": "",
+          "out2": "",
+          "hours": 12.5,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 2,
+          "name": "Phấn",
+          "dept": "VÉ",
+          "in1": "OFF",
+          "out1": "",
+          "in2": "",
+          "out2": "",
+          "hours": 0,
+          "status": "OFF"
+        },
+        {
+          "stt": 3,
+          "name": "Chi",
+          "dept": "VÉ",
+          "in1": "07:08",
+          "out1": "15:23",
+          "in2": "",
+          "out2": "",
+          "hours": 8,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 4,
+          "name": "Trân",
+          "dept": "VÉ",
+          "in1": "OFF",
+          "out1": "",
+          "in2": "",
+          "out2": "",
+          "hours": 0,
+          "status": "OFF"
+        },
+        {
+          "stt": 5,
+          "name": "Tiến",
+          "dept": "HÀNG",
+          "in1": "04:00",
+          "out1": "10:30",
+          "in2": "14:00",
+          "out2": "20:00",
+          "hours": 12.5,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 6,
+          "name": "Chẩn",
+          "dept": "HÀNG",
+          "in1": "OFF",
+          "out1": "",
+          "in2": "",
+          "out2": "",
+          "hours": 0,
+          "status": "OFF"
+        },
+        {
+          "stt": 7,
+          "name": "Gia",
+          "dept": "HÀNG",
+          "in1": "08:00",
+          "out1": "17:30",
+          "in2": "",
+          "out2": "",
+          "hours": 9.5,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 8,
+          "name": "Phúc",
+          "dept": "HÀNG",
+          "in1": "09:00",
+          "out1": "21:00",
+          "in2": "",
+          "out2": "",
+          "hours": 12,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 9,
+          "name": "Quý",
+          "dept": "HÀNG",
+          "in1": "10:00",
+          "out1": "22:45",
+          "in2": "",
+          "out2": "",
+          "hours": 12.5,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 10,
+          "name": "Hoàng",
+          "dept": "HÀNG",
+          "in1": "09:00",
+          "out1": "22:45",
+          "in2": "",
+          "out2": "",
+          "hours": 13.5,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 11,
+          "name": "Tý",
+          "dept": "HÀNG",
+          "in1": "10:05",
+          "out1": "21:15",
+          "in2": "",
+          "out2": "",
+          "hours": 11,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 12,
+          "name": "Lệ",
+          "dept": "VÉ",
+          "in1": "OFF",
+          "out1": "",
+          "in2": "",
+          "out2": "",
+          "hours": 0,
+          "status": "OFF"
+        },
+        {
+          "stt": 13,
+          "name": "Phước",
+          "dept": "VÉ",
+          "in1": "14:00",
+          "out1": "21:30",
+          "in2": "",
+          "out2": "",
+          "hours": 7.5,
+          "status": "Làm việc"
+        }
+      ]
+    },
+    {
+      "dateSerial": 46288,
+      "day": 23,
+      "date": "23/09/2026",
+      "dayOfWeek": "Thứ 4",
+      "image": "2309.jpg",
+      "records": [
+        {
+          "stt": 1,
+          "name": "Sung",
+          "dept": "VÉ",
+          "in1": "06:00",
+          "out1": "18:00",
+          "in2": "",
+          "out2": "",
+          "hours": 12,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 2,
+          "name": "Phấn",
+          "dept": "VÉ",
+          "in1": "OFF",
+          "out1": "",
+          "in2": "",
+          "out2": "",
+          "hours": 0,
+          "status": "OFF"
+        },
+        {
+          "stt": 3,
+          "name": "Chi",
+          "dept": "VÉ",
+          "in1": "07:30",
+          "out1": "15:30",
+          "in2": "",
+          "out2": "",
+          "hours": 8,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 4,
+          "name": "Trân",
+          "dept": "VÉ",
+          "in1": "OFF",
+          "out1": "",
+          "in2": "",
+          "out2": "",
+          "hours": 0,
+          "status": "OFF"
+        },
+        {
+          "stt": 5,
+          "name": "Tiến",
+          "dept": "HÀNG",
+          "in1": "04:00",
+          "out1": "10:30",
+          "in2": "14:30",
+          "out2": "20:30",
+          "hours": 12.5,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 6,
+          "name": "Chẩn",
+          "dept": "HÀNG",
+          "in1": "10:10",
+          "out1": "22:30",
+          "in2": "",
+          "out2": "",
+          "hours": 12,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 7,
+          "name": "Gia",
+          "dept": "HÀNG",
+          "in1": "08:00",
+          "out1": "18:00",
+          "in2": "",
+          "out2": "",
+          "hours": 10,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 8,
+          "name": "Phúc",
+          "dept": "HÀNG",
+          "in1": "10:00",
+          "out1": "21:30",
+          "in2": "",
+          "out2": "",
+          "hours": 11.5,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 9,
+          "name": "Quý",
+          "dept": "HÀNG",
+          "in1": "11:00",
+          "out1": "22:30",
+          "in2": "",
+          "out2": "",
+          "hours": 11.5,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 10,
+          "name": "Hoàng",
+          "dept": "HÀNG",
+          "in1": "09:00",
+          "out1": "20:30",
+          "in2": "",
+          "out2": "",
+          "hours": 11.5,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 11,
+          "name": "Tý",
+          "dept": "HÀNG",
+          "in1": "10:00",
+          "out1": "21:00",
+          "in2": "",
+          "out2": "",
+          "hours": 11,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 12,
+          "name": "Lệ",
+          "dept": "VÉ",
+          "in1": "06:30",
+          "out1": "14:00",
+          "in2": "",
+          "out2": "",
+          "hours": 7.5,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 13,
+          "name": "Phước",
+          "dept": "VÉ",
+          "in1": "14:00",
+          "out1": "22:00",
+          "in2": "",
+          "out2": "",
+          "hours": 8,
+          "status": "Làm việc"
+        }
+      ]
+    },
+    {
+      "dateSerial": 46289,
+      "day": 24,
+      "date": "24/09/2026",
+      "dayOfWeek": "Thứ 5",
+      "image": "2409.jpg",
+      "records": [
+        {
+          "stt": 1,
+          "name": "Sung",
+          "dept": "VÉ",
+          "in1": "06:00",
+          "out1": "18:00",
+          "in2": "",
+          "out2": "",
+          "hours": 12,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 2,
+          "name": "Phấn",
+          "dept": "VÉ",
+          "in1": "OFF",
+          "out1": "",
+          "in2": "",
+          "out2": "",
+          "hours": 0,
+          "status": "OFF"
+        },
+        {
+          "stt": 3,
+          "name": "Chi",
+          "dept": "VÉ",
+          "in1": "07:00",
+          "out1": "15:15",
+          "in2": "",
+          "out2": "",
+          "hours": 8,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 4,
+          "name": "Trân",
+          "dept": "VÉ",
+          "in1": "OFF",
+          "out1": "",
+          "in2": "",
+          "out2": "",
+          "hours": 0,
+          "status": "OFF"
+        },
+        {
+          "stt": 5,
+          "name": "Tiến",
+          "dept": "HÀNG",
+          "in1": "04:00",
+          "out1": "10:30",
+          "in2": "14:00",
+          "out2": "20:30",
+          "hours": 13,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 6,
+          "name": "Chẩn",
+          "dept": "HÀNG",
+          "in1": "10:00",
+          "out1": "22:40",
+          "in2": "",
+          "out2": "",
+          "hours": 12.5,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 7,
+          "name": "Gia",
+          "dept": "HÀNG",
+          "in1": "07:30",
+          "out1": "17:45",
+          "in2": "",
+          "out2": "",
+          "hours": 10,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 8,
+          "name": "Phúc",
+          "dept": "HÀNG",
+          "in1": "10:00",
+          "out1": "21:00",
+          "in2": "",
+          "out2": "",
+          "hours": 11,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 9,
+          "name": "Quý",
+          "dept": "HÀNG",
+          "in1": "11:00",
+          "out1": "22:40",
+          "in2": "",
+          "out2": "",
+          "hours": 11.5,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 10,
+          "name": "Hoàng",
+          "dept": "HÀNG",
+          "in1": "09:00",
+          "out1": "20:30",
+          "in2": "",
+          "out2": "",
+          "hours": 11.5,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 11,
+          "name": "Tý",
+          "dept": "HÀNG",
+          "in1": "10:00",
+          "out1": "21:15",
+          "in2": "",
+          "out2": "",
+          "hours": 11,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 12,
+          "name": "Lệ",
+          "dept": "VÉ",
+          "in1": "OFF",
+          "out1": "",
+          "in2": "",
+          "out2": "",
+          "hours": 0,
+          "status": "OFF"
+        },
+        {
+          "stt": 13,
+          "name": "Phước",
+          "dept": "VÉ",
+          "in1": "14:00",
+          "out1": "22:00",
+          "in2": "",
+          "out2": "",
+          "hours": 8,
+          "status": "Làm việc"
+        }
+      ]
+    },
+    {
+      "dateSerial": 46290,
+      "day": 25,
+      "date": "25/09/2026",
+      "dayOfWeek": "Thứ 6",
+      "image": "2509.jpg",
+      "records": [
+        {
+          "stt": 1,
+          "name": "Sung",
+          "dept": "VÉ",
+          "in1": "06:00",
+          "out1": "18:00",
+          "in2": "",
+          "out2": "",
+          "hours": 12,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 2,
+          "name": "Phấn",
+          "dept": "VÉ",
+          "in1": "OFF",
+          "out1": "",
+          "in2": "",
+          "out2": "",
+          "hours": 0,
+          "status": "OFF"
+        },
+        {
+          "stt": 3,
+          "name": "Chi",
+          "dept": "VÉ",
+          "in1": "07:30",
+          "out1": "15:15",
+          "in2": "",
+          "out2": "",
+          "hours": 7.5,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 4,
+          "name": "Trân",
+          "dept": "VÉ",
+          "in1": "OFF",
+          "out1": "",
+          "in2": "",
+          "out2": "",
+          "hours": 0,
+          "status": "OFF"
+        },
+        {
+          "stt": 5,
+          "name": "Tiến",
+          "dept": "HÀNG",
+          "in1": "04:00",
+          "out1": "10:30",
+          "in2": "14:00",
+          "out2": "20:30",
+          "hours": 13,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 6,
+          "name": "Chẩn",
+          "dept": "HÀNG",
+          "in1": "10:00",
+          "out1": "22:30",
+          "in2": "",
+          "out2": "",
+          "hours": 12.5,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 7,
+          "name": "Gia",
+          "dept": "HÀNG",
+          "in1": "08:00",
+          "out1": "17:30",
+          "in2": "",
+          "out2": "",
+          "hours": 9.5,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 8,
+          "name": "Phúc",
+          "dept": "HÀNG",
+          "in1": "10:00",
+          "out1": "21:45",
+          "in2": "",
+          "out2": "",
+          "hours": 11.5,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 9,
+          "name": "Quý",
+          "dept": "HÀNG",
+          "in1": "11:00",
+          "out1": "22:30",
+          "in2": "",
+          "out2": "",
+          "hours": 11.5,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 10,
+          "name": "Hoàng",
+          "dept": "HÀNG",
+          "in1": "09:00",
+          "out1": "20:45",
+          "in2": "",
+          "out2": "",
+          "hours": 11.5,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 11,
+          "name": "Tý",
+          "dept": "HÀNG",
+          "in1": "10:10",
+          "out1": "21:10",
+          "in2": "",
+          "out2": "",
+          "hours": 11,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 12,
+          "name": "Lệ",
+          "dept": "VÉ",
+          "in1": "06:30",
+          "out1": "13:30",
+          "in2": "",
+          "out2": "",
+          "hours": 7,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 13,
+          "name": "Phước",
+          "dept": "VÉ",
+          "in1": "14:00",
+          "out1": "22:30",
+          "in2": "",
+          "out2": "",
+          "hours": 8.5,
+          "status": "Làm việc"
+        }
+      ]
+    },
+    {
+      "dateSerial": 46291,
+      "day": 26,
+      "date": "26/09/2026",
+      "dayOfWeek": "Thứ 7",
+      "image": "2609.jpg",
+      "records": [
+        {
+          "stt": 1,
+          "name": "Sung",
+          "dept": "VÉ",
+          "in1": "06:00",
+          "out1": "17:00",
+          "in2": "",
+          "out2": "",
+          "hours": 11,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 2,
+          "name": "Phấn",
+          "dept": "VÉ",
+          "in1": "OFF",
+          "out1": "",
+          "in2": "",
+          "out2": "",
+          "hours": 0,
+          "status": "OFF"
+        },
+        {
+          "stt": 3,
+          "name": "Chi",
+          "dept": "VÉ",
+          "in1": "07:02",
+          "out1": "15:02",
+          "in2": "",
+          "out2": "",
+          "hours": 8,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 4,
+          "name": "Trân",
+          "dept": "VÉ",
+          "in1": "OFF",
+          "out1": "",
+          "in2": "",
+          "out2": "",
+          "hours": 0,
+          "status": "OFF"
+        },
+        {
+          "stt": 5,
+          "name": "Tiến",
+          "dept": "HÀNG",
+          "in1": "04:00",
+          "out1": "10:30",
+          "in2": "14:00",
+          "out2": "20:30",
+          "hours": 13,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 6,
+          "name": "Chẩn",
+          "dept": "HÀNG",
+          "in1": "OFF",
+          "out1": "",
+          "in2": "",
+          "out2": "",
+          "hours": 0,
+          "status": "OFF"
+        },
+        {
+          "stt": 7,
+          "name": "Gia",
+          "dept": "HÀNG",
+          "in1": "07:45",
+          "out1": "17:45",
+          "in2": "",
+          "out2": "",
+          "hours": 10,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 8,
+          "name": "Phúc",
+          "dept": "HÀNG",
+          "in1": "09:00",
+          "out1": "22:00",
+          "in2": "",
+          "out2": "",
+          "hours": 13,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 9,
+          "name": "Quý",
+          "dept": "HÀNG",
+          "in1": "10:00",
+          "out1": "22:45",
+          "in2": "",
+          "out2": "",
+          "hours": 12.5,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 10,
+          "name": "Hoàng",
+          "dept": "HÀNG",
+          "in1": "09:00",
+          "out1": "22:45",
+          "in2": "",
+          "out2": "",
+          "hours": 13.5,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 11,
+          "name": "Tý",
+          "dept": "HÀNG",
+          "in1": "10:00",
+          "out1": "21:20",
+          "in2": "",
+          "out2": "",
+          "hours": 11,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 12,
+          "name": "Lệ",
+          "dept": "VÉ",
+          "in1": "OFF",
+          "out1": "",
+          "in2": "",
+          "out2": "",
+          "hours": 0,
+          "status": "OFF"
+        },
+        {
+          "stt": 13,
+          "name": "Phước",
+          "dept": "VÉ",
+          "in1": "14:00",
+          "out1": "21:30",
+          "in2": "",
+          "out2": "",
+          "hours": 7.5,
+          "status": "Làm việc"
+        }
+      ]
+    },
+    {
+      "dateSerial": 46292,
+      "day": 27,
+      "date": "27/09/2026",
+      "dayOfWeek": "Chủ Nhật",
+      "image": "272809.jpg",
+      "records": [
+        {
+          "stt": 1,
+          "name": "Sung",
+          "dept": "VÉ",
+          "in1": "06:00",
+          "out1": "16:30",
+          "in2": "",
+          "out2": "",
+          "hours": 10.5,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 2,
+          "name": "Phấn",
+          "dept": "VÉ",
+          "in1": "OFF",
+          "out1": "",
+          "in2": "",
+          "out2": "",
+          "hours": 0,
+          "status": "OFF"
+        },
+        {
+          "stt": 3,
+          "name": "Chi",
+          "dept": "VÉ",
+          "in1": "07:00",
+          "out1": "15:15",
+          "in2": "",
+          "out2": "",
+          "hours": 8,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 4,
+          "name": "Trân",
+          "dept": "VÉ",
+          "in1": "OFF",
+          "out1": "",
+          "in2": "",
+          "out2": "",
+          "hours": 0,
+          "status": "OFF"
+        },
+        {
+          "stt": 5,
+          "name": "Tiến",
+          "dept": "HÀNG",
+          "in1": "04:00",
+          "out1": "10:00",
+          "in2": "",
+          "out2": "",
+          "hours": 6,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 6,
+          "name": "Chẩn",
+          "dept": "HÀNG",
+          "in1": "10:00",
+          "out1": "22:40",
+          "in2": "",
+          "out2": "",
+          "hours": 12.5,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 7,
+          "name": "Gia",
+          "dept": "HÀNG",
+          "in1": "08:00",
+          "out1": "18:00",
+          "in2": "",
+          "out2": "",
+          "hours": 10,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 8,
+          "name": "Phúc",
+          "dept": "HÀNG",
+          "in1": "09:00",
+          "out1": "17:00",
+          "in2": "",
+          "out2": "",
+          "hours": 8,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 9,
+          "name": "Quý",
+          "dept": "HÀNG",
+          "in1": "13:00",
+          "out1": "22:40",
+          "in2": "",
+          "out2": "",
+          "hours": 9.5,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 10,
+          "name": "Hoàng",
+          "dept": "HÀNG",
+          "in1": "12:00",
+          "out1": "20:30",
+          "in2": "",
+          "out2": "",
+          "hours": 8.5,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 11,
+          "name": "Tý",
+          "dept": "HÀNG",
+          "in1": "10:00",
+          "out1": "21:00",
+          "in2": "",
+          "out2": "",
+          "hours": 11,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 12,
+          "name": "Lệ",
+          "dept": "VÉ",
+          "in1": "OFF",
+          "out1": "",
+          "in2": "",
+          "out2": "",
+          "hours": 0,
+          "status": "OFF"
+        },
+        {
+          "stt": 13,
+          "name": "Phước",
+          "dept": "VÉ",
+          "in1": "14:00",
+          "out1": "21:30",
+          "in2": "",
+          "out2": "",
+          "hours": 7.5,
+          "status": "Làm việc"
+        }
+      ]
+    },
+    {
+      "dateSerial": 46293,
+      "day": 28,
+      "date": "28/09/2026",
+      "dayOfWeek": "Thứ 2",
+      "image": "272809.jpg",
+      "records": [
+        {
+          "stt": 1,
+          "name": "Sung",
+          "dept": "VÉ",
+          "in1": "06:00",
+          "out1": "18:30",
+          "in2": "",
+          "out2": "",
+          "hours": 12.5,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 2,
+          "name": "Phấn",
+          "dept": "VÉ",
+          "in1": "OFF",
+          "out1": "",
+          "in2": "",
+          "out2": "",
+          "hours": 0,
+          "status": "OFF"
+        },
+        {
+          "stt": 3,
+          "name": "Chi",
+          "dept": "VÉ",
+          "in1": "07:20",
+          "out1": "15:30",
+          "in2": "",
+          "out2": "",
+          "hours": 8,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 4,
+          "name": "Trân",
+          "dept": "VÉ",
+          "in1": "OFF",
+          "out1": "",
+          "in2": "",
+          "out2": "",
+          "hours": 0,
+          "status": "OFF"
+        },
+        {
+          "stt": 5,
+          "name": "Tiến",
+          "dept": "HÀNG",
+          "in1": "04:00",
+          "out1": "10:30",
+          "in2": "15:00",
+          "out2": "19:30",
+          "hours": 11,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 6,
+          "name": "Chẩn",
+          "dept": "HÀNG",
+          "in1": "10:00",
+          "out1": "22:30",
+          "in2": "",
+          "out2": "",
+          "hours": 12.5,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 7,
+          "name": "Gia",
+          "dept": "HÀNG",
+          "in1": "08:00",
+          "out1": "17:40",
+          "in2": "",
+          "out2": "",
+          "hours": 9.5,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 8,
+          "name": "Phúc",
+          "dept": "HÀNG",
+          "in1": "10:00",
+          "out1": "13:30",
+          "in2": "18:15",
+          "out2": "20:30",
+          "hours": 5.5,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 9,
+          "name": "Quý",
+          "dept": "HÀNG",
+          "in1": "11:00",
+          "out1": "22:30",
+          "in2": "",
+          "out2": "",
+          "hours": 11.5,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 10,
+          "name": "Hoàng",
+          "dept": "HÀNG",
+          "in1": "09:00",
+          "out1": "20:30",
+          "in2": "",
+          "out2": "",
+          "hours": 11.5,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 11,
+          "name": "Tý",
+          "dept": "HÀNG",
+          "in1": "10:05",
+          "out1": "21:05",
+          "in2": "",
+          "out2": "",
+          "hours": 11,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 12,
+          "name": "Lệ",
+          "dept": "VÉ",
+          "in1": "06:30",
+          "out1": "13:30",
+          "in2": "",
+          "out2": "",
+          "hours": 7,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 13,
+          "name": "Phước",
+          "dept": "VÉ",
+          "in1": "14:00",
+          "out1": "21:30",
+          "in2": "",
+          "out2": "",
+          "hours": 7.5,
+          "status": "Làm việc"
+        }
+      ]
+    },
+    {
+      "dateSerial": 46294,
+      "day": 29,
+      "date": "29/09/2026",
+      "dayOfWeek": "Thứ 3",
+      "image": "2909.jpg",
+      "records": [
+        {
+          "stt": 1,
+          "name": "Sung",
+          "dept": "VÉ",
+          "in1": "06:00",
+          "out1": "18:00",
+          "in2": "",
+          "out2": "",
+          "hours": 12,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 2,
+          "name": "Phấn",
+          "dept": "VÉ",
+          "in1": "OFF",
+          "out1": "",
+          "in2": "",
+          "out2": "",
+          "hours": 0,
+          "status": "OFF"
+        },
+        {
+          "stt": 3,
+          "name": "Chi",
+          "dept": "VÉ",
+          "in1": "07:00",
+          "out1": "15:15",
+          "in2": "",
+          "out2": "",
+          "hours": 8,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 4,
+          "name": "Trân",
+          "dept": "VÉ",
+          "in1": "OFF",
+          "out1": "",
+          "in2": "",
+          "out2": "",
+          "hours": 0,
+          "status": "OFF"
+        },
+        {
+          "stt": 5,
+          "name": "Tiến",
+          "dept": "HÀNG",
+          "in1": "04:00",
+          "out1": "11:30",
+          "in2": "14:00",
+          "out2": "19:30",
+          "hours": 13,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 6,
+          "name": "Chẩn",
+          "dept": "HÀNG",
+          "in1": "10:00",
+          "out1": "22:40",
+          "in2": "",
+          "out2": "",
+          "hours": 12.5,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 7,
+          "name": "Gia",
+          "dept": "HÀNG",
+          "in1": "07:00",
+          "out1": "21:15",
+          "in2": "",
+          "out2": "",
+          "hours": 14,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 8,
+          "name": "Phúc",
+          "dept": "HÀNG",
+          "in1": "OFF",
+          "out1": "",
+          "in2": "",
+          "out2": "",
+          "hours": 0,
+          "status": "OFF"
+        },
+        {
+          "stt": 9,
+          "name": "Quý",
+          "dept": "HÀNG",
+          "in1": "11:00",
+          "out1": "22:40",
+          "in2": "",
+          "out2": "",
+          "hours": 11.5,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 10,
+          "name": "Hoàng",
+          "dept": "HÀNG",
+          "in1": "09:00",
+          "out1": "20:30",
+          "in2": "",
+          "out2": "",
+          "hours": 11.5,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 11,
+          "name": "Tý",
+          "dept": "HÀNG",
+          "in1": "10:15",
+          "out1": "21:15",
+          "in2": "",
+          "out2": "",
+          "hours": 11,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 12,
+          "name": "Lệ",
+          "dept": "VÉ",
+          "in1": "OFF",
+          "out1": "",
+          "in2": "",
+          "out2": "",
+          "hours": 0,
+          "status": "OFF"
+        },
+        {
+          "stt": 13,
+          "name": "Phước",
+          "dept": "VÉ",
+          "in1": "14:00",
+          "out1": "21:00",
+          "in2": "",
+          "out2": "",
+          "hours": 7,
+          "status": "Làm việc"
+        }
+      ]
+    },
+    {
+      "dateSerial": 46295,
+      "day": 30,
+      "date": "30/09/2026",
+      "dayOfWeek": "Thứ 4",
+      "image": "3009.jpg",
+      "records": [
+        {
+          "stt": 1,
+          "name": "Sung",
+          "dept": "VÉ",
+          "in1": "06:00",
+          "out1": "17:30",
+          "in2": "",
+          "out2": "",
+          "hours": 11.5,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 2,
+          "name": "Phấn",
+          "dept": "VÉ",
+          "in1": "OFF",
+          "out1": "",
+          "in2": "",
+          "out2": "",
+          "hours": 0,
+          "status": "OFF"
+        },
+        {
+          "stt": 3,
+          "name": "Chi",
+          "dept": "VÉ",
+          "in1": "07:30",
+          "out1": "15:30",
+          "in2": "",
+          "out2": "",
+          "hours": 8,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 4,
+          "name": "Trân",
+          "dept": "VÉ",
+          "in1": "OFF",
+          "out1": "",
+          "in2": "",
+          "out2": "",
+          "hours": 0,
+          "status": "OFF"
+        },
+        {
+          "stt": 5,
+          "name": "Tiến",
+          "dept": "HÀNG",
+          "in1": "04:00",
+          "out1": "10:30",
+          "in2": "14:00",
+          "out2": "20:00",
+          "hours": 12.5,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 6,
+          "name": "Chẩn",
+          "dept": "HÀNG",
+          "in1": "10:05",
+          "out1": "22:30",
+          "in2": "",
+          "out2": "",
+          "hours": 12,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 7,
+          "name": "Gia",
+          "dept": "HÀNG",
+          "in1": "08:30",
+          "out1": "19:00",
+          "in2": "",
+          "out2": "",
+          "hours": 10.5,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 8,
+          "name": "Phúc",
+          "dept": "HÀNG",
+          "in1": "11:02",
+          "out1": "20:45",
+          "in2": "",
+          "out2": "",
+          "hours": 9.5,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 9,
+          "name": "Quý",
+          "dept": "HÀNG",
+          "in1": "11:00",
+          "out1": "22:30",
+          "in2": "",
+          "out2": "",
+          "hours": 11.5,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 10,
+          "name": "Hoàng",
+          "dept": "HÀNG",
+          "in1": "09:00",
+          "out1": "20:30",
+          "in2": "",
+          "out2": "",
+          "hours": 11.5,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 11,
+          "name": "Tý",
+          "dept": "HÀNG",
+          "in1": "10:00",
+          "out1": "21:00",
+          "in2": "",
+          "out2": "",
+          "hours": 11,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 12,
+          "name": "Lệ",
+          "dept": "VÉ",
+          "in1": "06:30",
+          "out1": "13:30",
+          "in2": "",
+          "out2": "",
+          "hours": 7,
+          "status": "Làm việc"
+        },
+        {
+          "stt": 13,
+          "name": "Phước",
+          "dept": "VÉ",
+          "in1": "14:00",
+          "out1": "21:15",
+          "in2": "",
+          "out2": "",
+          "hours": 7,
+          "status": "Làm việc"
+        }
+      ]
     }
   ]
 }

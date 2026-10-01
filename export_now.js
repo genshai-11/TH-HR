@@ -82,6 +82,6 @@ Object.values(data.employeeSummary).forEach(emp => {
 const wsDetail = XLSX.utils.aoa_to_sheet(detailRows);
 XLSX.utils.book_append_sheet(wb, wsDetail, 'Chi Tiết Từng NV');
 
-const excelPath = path.join(EXPORT_DIR, 'Bangchamcong_T9_2026_Trích_Xuất_Full.xlsx');
+const excelPath = path.join(EXPORT_DIR, 'Bangchamcong_T09_2026_Trích_Xuất_Full.xlsx');
 XLSX.writeFile(wb, excelPath);
 console.log('✅ Created Excel file:', excelPath);

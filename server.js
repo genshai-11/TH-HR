@@ -10,9 +10,9 @@ const EDGE_PATH = 'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge
 
 const DEPT_MAP = {
   'Chi': 'VÉ', 'Phấn': 'VÉ', 'Phấn ': 'VÉ', 'Sung': 'VÉ', 'Trân': 'VÉ', 'Lệ': 'VÉ', 'Phước': 'VÉ',
-  'Tiến': 'HÀNG', 'Chẩn': 'HÀNG', 'Tý': 'HÀNG', 'Quý': 'HÀNG', 'Hoàng': 'HÀNG', 'Gia': 'HÀNG', 'Phúc': 'HÀNG', 'Vũ': 'HÀNG'
+  'Tiến': 'HÀNG', 'Chẩn': 'HÀNG', 'Tý': 'HÀNG', 'Quý': 'HÀNG', 'Hoàng': 'HÀNG', 'Gia': 'HÀNG', 'Phúc': 'HÀNG'
 };
-const ALL_EMPLOYEES = ['Chi', 'Phấn', 'Sung', 'Trân', 'Lệ', 'Phước', 'Tiến', 'Chẩn', 'Tý', 'Quý', 'Hoàng', 'Gia', 'Phúc', 'Vũ'];
+const ALL_EMPLOYEES = ['Chi', 'Phấn', 'Sung', 'Trân', 'Lệ', 'Phước', 'Tiến', 'Chẩn', 'Tý', 'Quý', 'Hoàng', 'Gia', 'Phúc'];
 
 function loadConfig() {
   if (fs.existsSync(CONFIG_FILE)) {
@@ -53,9 +53,13 @@ function ensureMonthStructure(monthName) {
   const mDir = getMonthDir(monthName);
   const expDir = getExportDir(monthName);
   const empExpDir = path.join(expDir, 'chi_tiet_nhan_vien');
+  const veExpDir = path.join(empExpDir, 'nhan_vien_ve');
+  const hangExpDir = path.join(empExpDir, 'nhan_vien_hang');
   if (!fs.existsSync(mDir)) fs.mkdirSync(mDir, { recursive: true });
   if (!fs.existsSync(expDir)) fs.mkdirSync(expDir, { recursive: true });
   if (!fs.existsSync(empExpDir)) fs.mkdirSync(empExpDir, { recursive: true });
+  if (!fs.existsSync(veExpDir)) fs.mkdirSync(veExpDir, { recursive: true });
+  if (!fs.existsSync(hangExpDir)) fs.mkdirSync(hangExpDir, { recursive: true });
 }
 
 function loadMonthData(monthName) {
@@ -101,7 +105,7 @@ function loadMonthData(monthName) {
       'HÀNG': {
         title: `TỔNG SỐ GIỜ NHÂN VIÊN HÀNG THÁNG ${mNum}.2026`,
         totalHours: 0,
-        employees: ['Tiến', 'Chẩn', 'Tý', 'Quý', 'Hoàng', 'Gia', 'Phúc', 'Vũ'].map((n, i) => ({ stt: i + 1, name: n.toUpperCase(), totalHours: 0 }))
+        employees: ['Tiến', 'Chẩn', 'Tý', 'Quý', 'Hoàng', 'Gia', 'Phúc'].map((n, i) => ({ stt: i + 1, name: n.toUpperCase(), totalHours: 0 }))
       }
     },
     summaryAll: Object.values(empSum).map((e, idx) => ({
@@ -174,7 +178,7 @@ function saveMonthData(monthName, data) {
   }));
   const totalVeHours = parseFloat(veEmployees.reduce((s, e) => s + e.totalHours, 0).toFixed(1));
 
-  const hangEmployees = ['Tiến', 'Chẩn', 'Tý', 'Quý', 'Hoàng', 'Gia', 'Phúc', 'Vũ'].map((n, idx) => ({
+  const hangEmployees = ['Tiến', 'Chẩn', 'Tý', 'Quý', 'Hoàng', 'Gia', 'Phúc'].map((n, idx) => ({
     stt: idx + 1,
     name: n.toUpperCase(),
     totalHours: empSum[n].totalHours
@@ -612,6 +616,20 @@ const server = http.createServer((req, res) => {
         if (!fs.existsSync(targetDir)) fs.mkdirSync(targetDir, { recursive: true });
         const filePath = path.join(targetDir, filename);
         fs.writeFileSync(filePath, buffer);
+
+        // Auto-classify employee detail images into nhan_vien_ve or nhan_vien_hang
+        if (filename.startsWith('Chi_tiet_')) {
+          const match = filename.match(/^Chi_tiet_([^_]+)_/);
+          if (match) {
+            const rawEmpName = match[1];
+            const dept = DEPT_MAP[rawEmpName] || 'HÀNG';
+            const subDeptFolder = dept === 'VÉ' ? 'nhan_vien_ve' : 'nhan_vien_hang';
+            const deptDir = path.join(expDir, 'chi_tiet_nhan_vien', subDeptFolder);
+            if (!fs.existsSync(deptDir)) fs.mkdirSync(deptDir, { recursive: true });
+            fs.writeFileSync(path.join(deptDir, filename), buffer);
+          }
+        }
+
         res.writeHead(200, { 'Content-Type': 'application/json' });
         return res.end(JSON.stringify({ success: true, path: filePath }));
       } catch (err) {

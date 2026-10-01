@@ -6,7 +6,14 @@ const EDGE_PATH = 'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge
 const DATA_FILE = path.join(__dirname, 'complete_attendance_t9.json');
 const EXPORT_DIR = path.join(__dirname, 'tháng 09', 'trích xuất');
 const EMPLOYEE_EXPORT_DIR = path.join(EXPORT_DIR, 'chi_tiet_nhan_vien');
+const VE_EXPORT_DIR = path.join(EMPLOYEE_EXPORT_DIR, 'nhan_vien_ve');
+const HANG_EXPORT_DIR = path.join(EMPLOYEE_EXPORT_DIR, 'nhan_vien_hang');
 const TEMP_DIR = path.join(__dirname, '_temp_html');
+
+if (!fs.existsSync(EXPORT_DIR)) fs.mkdirSync(EXPORT_DIR, { recursive: true });
+if (!fs.existsSync(EMPLOYEE_EXPORT_DIR)) fs.mkdirSync(EMPLOYEE_EXPORT_DIR, { recursive: true });
+if (!fs.existsSync(VE_EXPORT_DIR)) fs.mkdirSync(VE_EXPORT_DIR, { recursive: true });
+if (!fs.existsSync(HANG_EXPORT_DIR)) fs.mkdirSync(HANG_EXPORT_DIR, { recursive: true });
 
 if (!fs.existsSync(EXPORT_DIR)) fs.mkdirSync(EXPORT_DIR, { recursive: true });
 if (!fs.existsSync(EMPLOYEE_EXPORT_DIR)) fs.mkdirSync(EMPLOYEE_EXPORT_DIR, { recursive: true });
@@ -92,7 +99,7 @@ const htmlAll = `<!DOCTYPE html>
 <html><head><meta charset="UTF-8"><style>${cssBase}</style></head>
 <body>
 <div class="table-box">
-  <div class="title">TỔNG SỐ GIỜ THEO NHÂN VIÊN<br>THÁNG 9.2026</div>
+  <div class="title">TỔNG SỐ GIỜ THEO NHÂN VIÊN<br>THÁNG 09.2026</div>
   <table>
     <thead><tr><th style="width: 45px; text-align: center;">STT</th><th>Tên NV</th><th style="width: 130px; text-align: right;">Tổng Số Giờ/Tháng</th></tr></thead>
     <tbody>${rowsAll}</tbody>
@@ -100,7 +107,7 @@ const htmlAll = `<!DOCTYPE html>
   </table>
 </div>
 </body></html>`;
-captureHtml(htmlAll, path.join(EXPORT_DIR, 'TONG_SO_GIO_THEO_NHAN_VIEN_THANG_9_2026.png'), 400, 620);
+captureHtml(htmlAll, path.join(EXPORT_DIR, 'TONG_SO_GIO_THEO_NHAN_VIEN.jpg'), 400, 620);
 
 console.log('2. Rendering Table 2: TỔNG SỐ GIỜ NHÂN VIÊN VÉ...');
 let rowsVe = '';
@@ -116,7 +123,7 @@ const htmlVe = `<!DOCTYPE html>
 <html><head><meta charset="UTF-8"><style>${cssBase}</style></head>
 <body>
 <div class="table-box">
-  <div class="title">TỔNG SỐ GIỜ NHÂN VIÊN VÉ<br>THÁNG 9.2026</div>
+  <div class="title">TỔNG SỐ GIỜ NHÂN VIÊN VÉ<br>THÁNG 09.2026</div>
   <table>
     <thead><tr><th style="width: 45px; text-align: center;">STT</th><th>TÊN NHÂN VIÊN</th><th style="width: 140px; text-align: right;">TỔNG SỐ GIỜ/THÁNG</th></tr></thead>
     <tbody>${rowsVe}</tbody>
@@ -124,7 +131,7 @@ const htmlVe = `<!DOCTYPE html>
   </table>
 </div>
 </body></html>`;
-captureHtml(htmlVe, path.join(EXPORT_DIR, 'TONG_SO_GIO_NHAN_VIEN_VE_THANG_9_2026.png'), 400, 380);
+captureHtml(htmlVe, path.join(EXPORT_DIR, 'TONG_SO_GIO_NHAN_VIEN_VE.jpg'), 400, 380);
 
 console.log('3. Rendering Table 3: TỔNG SỐ GIỜ NHÂN VIÊN HÀNG...');
 let rowsHang = '';
@@ -140,7 +147,7 @@ const htmlHang = `<!DOCTYPE html>
 <html><head><meta charset="UTF-8"><style>${cssBase}</style></head>
 <body>
 <div class="table-box">
-  <div class="title">TỔNG SỐ GIỜ NHÂN VIÊN HÀNG<br>THÁNG 9.2026</div>
+  <div class="title">TỔNG SỐ GIỜ NHÂN VIÊN HÀNG<br>THÁNG 09.2026</div>
   <table>
     <thead><tr><th style="width: 45px; text-align: center;">STT</th><th>TÊN NHÂN VIÊN</th><th style="width: 140px; text-align: right;">TỔNG SỐ GIỜ/THÁNG</th></tr></thead>
     <tbody>${rowsHang}</tbody>
@@ -148,7 +155,7 @@ const htmlHang = `<!DOCTYPE html>
   </table>
 </div>
 </body></html>`;
-captureHtml(htmlHang, path.join(EXPORT_DIR, 'TONG_SO_GIO_NHAN_VIEN_HANG_THANG_9_2026.png'), 400, 430);
+captureHtml(htmlHang, path.join(EXPORT_DIR, 'TONG_SO_GIO_NHAN_VIEN_HANG.jpg'), 400, 430);
 
 console.log('4. Rendering 14 Individual Employee Detail cards...');
 const cssEmp = `
@@ -259,8 +266,11 @@ Object.values(data.employeeSummary).forEach(emp => {
 </body></html>`;
 
   const cleanName = emp.name.trim().replace(/\s+/g, '_');
-  const empImgPath = path.join(EMPLOYEE_EXPORT_DIR, `Chi_tiet_${cleanName}_T9.2026.png`);
-  captureHtml(htmlEmp, empImgPath, 690, 720);
+  const targetSubDir = emp.dept === 'VÉ' ? VE_EXPORT_DIR : HANG_EXPORT_DIR;
+  const empImgPath = path.join(EMPLOYEE_EXPORT_DIR, `Chi_tiet_${cleanName}_T09.2026.jpg`);
+  captureHtml(htmlEmp, empImgPath, 690, 1050);
+  const empSubImgPath = path.join(targetSubDir, `Chi_tiet_${cleanName}_T09.2026.jpg`);
+  fs.copyFileSync(empImgPath, empSubImgPath);
 });
 
 // Cleanup temp folder
