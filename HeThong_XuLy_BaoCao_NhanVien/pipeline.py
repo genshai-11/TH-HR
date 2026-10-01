@@ -1,0 +1,1596 @@
+# -*- coding: utf-8 -*-
+"""
+HỆ THỐNG XỬ LÝ & TRÍCH XUẤT DỮ LIỆU VÉ HÀNH KHÁCH - XE KHÁCH TÂM HẠNH
+Pipeline tự động hóa dữ liệu hàng tháng.
+
+Kiến trúc thư mục:
+- data/raw/     : Chứa file Excel đầu vào gốc
+- data/output/  : Chứa file Excel tổng hợp và file JSON
+- dashboard/    : Chứa giao diện trực quan hóa HTML và thư viện assets
+"""
+
+import os
+import sys
+import io
+import json
+import webbrowser
+import shutil
+import pandas as pd
+
+if sys.stdout.encoding != 'utf-8':
+    try:
+        sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+    except Exception:
+        pass
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA_RAW_DIR = os.path.join(BASE_DIR, "data", "raw")
+DATA_OUTPUT_DIR = os.path.join(BASE_DIR, "data", "output")
+DASHBOARD_DIR = os.path.join(BASE_DIR, "dashboard")
+
+os.makedirs(DATA_RAW_DIR, exist_ok=True)
+os.makedirs(DATA_OUTPUT_DIR, exist_ok=True)
+os.makedirs(DASHBOARD_DIR, exist_ok=True)
+
+def find_input_file(arg_path=None):
+    if arg_path and os.path.exists(arg_path):
+        return os.path.abspath(arg_path)
+    
+    # 1. Check data/raw/ and its subdirectories (e.g. data/raw/Thang_09_2026/)
+    raw_files = []
+    if os.path.exists(DATA_RAW_DIR):
+        for root, dirs, files in os.walk(DATA_RAW_DIR):
+            for f in files:
+                if f.endswith('.xlsx') and not f.startswith('~$'):
+                    raw_files.append(os.path.join(root, f))
+    if raw_files:
+        raw_files.sort(key=os.path.getmtime, reverse=True)
+        return raw_files[0]
+        
+    # 2. Check root dir
+    root_files = [os.path.join(BASE_DIR, f) for f in os.listdir(BASE_DIR) if f.endswith('.xlsx') and not f.startswith('TONG_HOP') and not f.startswith('~$')]
+    if root_files:
+        root_files.sort(key=os.path.getmtime, reverse=True)
+        return root_files[0]
+
+    # 3. Check parent dir (Downloads)
+    parent_dir = os.path.dirname(BASE_DIR)
+    parent_files = [os.path.join(parent_dir, f) for f in os.listdir(parent_dir) if f.endswith('.xlsx') and not f.startswith('TONG_HOP') and not f.startswith('~$')]
+    if parent_files:
+        parent_files.sort(key=os.path.getmtime, reverse=True)
+        return parent_files[0]
+    return None
+
+def get_office(name):
+    name_clean = str(name).strip().upper()
+    vpsg_keywords = ['PHƯỚC', 'MINH CHI', 'CHI', 'PHẤN', 'TRÂN', 'MỸ LỆ', 'SUNG', 'HỮU SUNG', 'NGỌC PHÚC', 'NGỌC THI', 'QUÝ']
+    vppt_keywords = ['MỸ TRANG', 'LÊ THỊ MỸ TRANG', 'HUYỀN', 'THÔNG', 'ĐẶNG NGỌC THÔNG', 'HƯNG', 'NHÉ', 'ĐỖ VĂN NHÉ', 'PHƯƠNG', 'TRẦN TUẤN PHƯƠNG', 'KHẮC DUY', 'NGUYỄN KHẮC DUY']
+    
+    if any(k == name_clean or name_clean.endswith(' ' + k) or name_clean.startswith(k + ' ') for k in vpsg_keywords):
+        return 'VPSG'
+    if any(k == name_clean or name_clean.endswith(' ' + k) or name_clean.startswith(k + ' ') for k in vppt_keywords):
+        return 'VPPT'
+    if 'REDBUS' in name_clean:
+        return 'ĐL RedBus'
+    return 'VPDK'
+
+def process_pipeline(excel_path):
+    print(f"=== ĐANG XỬ LÝ FILE: {excel_path} ===")
+    
+    # 1. Đọc dữ liệu
+    df = pd.read_excel(excel_path)
+    print(f"-> Tổng số dòng trong file gốc: {len(df):,}")
+
+    # 2. Loại bỏ dòng Tổng cộng
+    df = df[df['Mã vé'] != 'Tổng cộng']
+
+    # 3. Lọc chỉ các vé Đã thanh toán
+    paid = df[df['Trạng thái vé'] == 'Đã thanh toán'].copy()
+    print(f"-> Số vé Đã thanh toán: {len(paid):,}")
+
+    # 4. Gộp ADMIN TÂM HẠNH vào Mỹ Lệ
+    admin_count = (paid['Nhân viên'] == 'ADMIN TÂM HẠNH').sum()
+    if admin_count > 0:
+        paid.loc[paid['Nhân viên'] == 'ADMIN TÂM HẠNH', 'Nhân viên'] = 'Mỹ Lệ'
+        print(f"-> Đã gộp {admin_count} vé của 'ADMIN TÂM HẠNH' vào 'Mỹ Lệ'")
+
+    # 5. Loại bỏ AnVui
+    anvui_count = (paid['Nhân viên'] == 'AnVui Anonymous User').sum()
+    if anvui_count > 0:
+        paid = paid[paid['Nhân viên'] != 'AnVui Anonymous User']
+        print(f"-> Đã loại bỏ {anvui_count} vé của 'AnVui Anonymous User'")
+
+    # 6. Nhận diện ngày đi & các tháng
+    paid['dt_di'] = pd.to_datetime(paid['Ngày đi'], format='%d/%m/%Y %H:%M:%S', errors='coerce')
+    paid['Thang_di'] = paid['dt_di'].dt.strftime('%m/%Y')
+    
+    paid['dt_tao'] = pd.to_datetime(paid['Ngày tạo'], format='%d/%m/%Y %H:%M:%S', errors='coerce')
+    tao_months = sorted(paid['dt_tao'].dropna().dt.strftime('%m/%Y').unique().tolist())
+    month_counts = paid['Thang_di'].value_counts().to_dict()
+    
+    months_list = sorted(paid['Thang_di'].dropna().unique().tolist())
+    print(f"-> Các tháng trong dữ liệu: {', '.join(['Tháng ' + m for m in months_list])}")
+    print(f"-> Tháng xuất vé chính (Ngày tạo): {', '.join(['Tháng ' + m for m in tao_months])}")
+
+    # Xác định thư mục tháng (Ví dụ: Thang_09_2026)
+    if len(tao_months) == 1:
+        month_tag = f"Thang_{tao_months[0].replace('/', '_')}"
+    elif months_list:
+        month_tag = f"Thang_{months_list[0].replace('/', '_')}"
+    else:
+        month_tag = "Thang_Moi"
+
+    month_raw_dir = os.path.join(DATA_RAW_DIR, month_tag)
+    month_output_dir = os.path.join(DATA_OUTPUT_DIR, month_tag)
+    os.makedirs(month_raw_dir, exist_ok=True)
+    os.makedirs(month_output_dir, exist_ok=True)
+
+    dest_raw_path = os.path.join(month_raw_dir, os.path.basename(excel_path))
+    if os.path.abspath(excel_path) != os.path.abspath(dest_raw_path) and not os.path.exists(dest_raw_path):
+        shutil.copy2(excel_path, dest_raw_path)
+        print(f"-> Đã lưu bản sao file gốc vào: {dest_raw_path}")
+    paid['is_vxr'] = paid['Đại lý'].astype(str).str.strip().str.upper() == 'VEXERE'
+    total_vxr = paid['is_vxr'].sum()
+    print(f"-> Tổng vé VeXeRe (VXR): {total_vxr:,} vé ({total_vxr/len(paid)*100:.1f}%)")
+
+    # 8. Gán văn phòng
+    paid['van_phong'] = paid['Nhân viên'].apply(get_office)
+
+    # 9. Tổng hợp theo từng nhân viên
+    agg_dict = {
+        'tong_khach': ('Mã vé', 'count'),
+        've_thuong': ('is_vxr', lambda x: (~x).sum()),
+        've_vxr': ('is_vxr', lambda x: x.sum()),
+    }
+
+    for m in months_list:
+        clean_m = m.replace('/', '_')
+        agg_dict[f'khach_t_{clean_m}'] = ('dt_di', lambda x, cur_m=m: (paid.loc[x.index, 'Thang_di'] == cur_m).sum())
+        agg_dict[f'vxr_t_{clean_m}'] = ('is_vxr', lambda x, cur_m=m: ((x) & (paid.loc[x.index, 'Thang_di'] == cur_m)).sum())
+
+    stats = paid.groupby(['van_phong', 'Nhân viên']).agg(**agg_dict).reset_index()
+    stats['ty_le_vxr'] = (stats['ve_vxr'] / stats['tong_khach'] * 100).round(1)
+
+    office_order = {'VPSG': 1, 'VPPT': 2, 'VPDK': 3, 'ĐL RedBus': 4}
+    stats['office_rank'] = stats['van_phong'].map(lambda x: office_order.get(x, 99))
+    stats = stats.sort_values(by=['office_rank', 'tong_khach'], ascending=[True, False]).drop(columns=['office_rank'])
+
+    # 10. Xuất file JSON (vào data/output/Thang_XX_YYYY/)
+    json_path = os.path.join(month_output_dir, "data_nhanvien.json")
+    records = stats.to_dict(orient='records')
+    with open(json_path, 'w', encoding='utf-8') as f:
+        json.dump(records, f, ensure_ascii=False, indent=2)
+    print(f"-> Đã lưu dữ liệu JSON: {json_path}")
+
+    # 11. Xuất file Excel tổng hợp (vào data/output/Thang_XX_YYYY/)
+    excel_out_name = f"TONG_HOP_NHAN_VIEN_{'_'.join([m.replace('/', '') for m in months_list])}.xlsx"
+    excel_out_path = os.path.join(month_output_dir, excel_out_name)
+    excel_df = stats.copy()
+    rename_cols = {
+        'van_phong': 'Văn phòng',
+        'Nhân viên': 'Nhân viên',
+        'tong_khach': 'Tổng khách nhận',
+        've_thuong': 'Tổng Đài / Tại Quầy',
+        've_vxr': 'Khách Vé Xe Rẻ (Vexere)',
+        'ty_le_vxr': 'Tỷ lệ Vé Xe Rẻ (%)'
+    }
+    for m in months_list:
+        clean_m = m.replace('/', '_')
+        rename_cols[f'khach_t_{clean_m}'] = f'Khách T{m}'
+        rename_cols[f'vxr_t_{clean_m}'] = f'VXR T{m}'
+
+    excel_df = excel_df.rename(columns=rename_cols)
+
+    total_row = {
+        'Văn phòng': 'TỔNG',
+        'Nhân viên': f'{len(excel_df)} nhân sự',
+        'Tổng khách nhận': excel_df['Tổng khách nhận'].sum(),
+        'Tổng Đài / Tại Quầy': excel_df['Tổng Đài / Tại Quầy'].sum(),
+        'Khách Vé Xe Rẻ (Vexere)': excel_df['Khách Vé Xe Rẻ (Vexere)'].sum(),
+        'Tỷ lệ Vé Xe Rẻ (%)': round(excel_df['Khách Vé Xe Rẻ (Vexere)'].sum() / excel_df['Tổng khách nhận'].sum() * 100, 1)
+    }
+    for m in months_list:
+        clean_m = m.replace('/', '_')
+        total_row[f'Khách T{m}'] = excel_df[f'Khách T{m}'].sum()
+        total_row[f'VXR T{m}'] = excel_df[f'VXR T{m}'].sum()
+
+    excel_df = pd.concat([excel_df, pd.DataFrame([total_row])], ignore_index=True)
+    excel_df.to_excel(excel_out_path, index=False)
+    print(f"-> Đã xuất file Excel: {excel_out_path}")
+    print(f"   (Thư mục lưu trữ: {month_output_dir})")
+
+    # 12. Sinh file HTML Dashboard (vào dashboard/index.html và root BaoCao_NhanVien_NhanKhach.html)
+    dash_html_path = os.path.join(DASHBOARD_DIR, "index.html")
+    root_html_path = os.path.join(BASE_DIR, "BaoCao_NhanVien_NhanKhach.html")
+    
+    summary_info = {
+        'tao_months': tao_months,
+        'month_counts': month_counts,
+        'total_paid': len(paid)
+    }
+    generate_html_dashboard(records, months_list, dash_html_path, summary_info=summary_info)
+    shutil.copy2(dash_html_path, root_html_path)
+    shutil.copy2(dash_html_path, os.path.join(month_output_dir, "BaoCao_NhanVien_NhanKhach.html"))
+    print(f"-> Đã sinh Dashboard HTML: {dash_html_path}")
+
+    try:
+        webbrowser.open(f"file:///{os.path.abspath(dash_html_path).replace(os.sep, '/')}")
+    except Exception:
+        pass
+
+    print("\n=== HOÀN TẤT TRÍCH XUẤT DỮ LIỆU THÀNH CÔNG! ===")
+
+def generate_html_dashboard(records, months_list, output_path, summary_info=None):
+    if summary_info and len(summary_info.get('tao_months', [])) == 1:
+        main_m = summary_info['tao_months'][0]
+        report_title = f"BÁO CÁO TỔNG HỢP NHÂN VIÊN NHẬN KHÁCH - THÁNG {main_m}"
+        parts = []
+        for m in months_list:
+            cnt = summary_info.get('month_counts', {}).get(m, 0)
+            if m == main_m:
+                parts.append(f"Vé đi T{m}: {cnt:,}")
+            else:
+                parts.append(f"Đặt trước đi T{m}: {cnt:,}")
+        time_str = f"Kỳ dữ liệu: Tháng {main_m} ({' · '.join(parts)}) • Tổng {summary_info.get('total_paid', 0):,} vé thành công"
+    else:
+        report_title = "BÁO CÁO TỔNG HỢP NHÂN VIÊN NHẬN KHÁCH"
+        time_str = " & ".join([f"Tháng {m}" for m in months_list])
+    
+    json_data = json.dumps(records, ensure_ascii=False, indent=2)
+
+    cols_config = [
+        {'id': 'stt', 'label': 'STT', 'defaultLabel': 'STT', 'visible': True, 'isNum': False},
+        {'id': 'van_phong', 'label': 'Văn phòng', 'defaultLabel': 'Văn phòng', 'visible': True, 'isNum': False},
+        {'id': 'nhan_vien', 'label': 'Nhân viên', 'defaultLabel': 'Nhân viên', 'visible': True, 'isNum': False},
+        {'id': 'tong_khach', 'label': 'Tổng khách nhận', 'defaultLabel': 'Tổng khách nhận', 'visible': True, 'isNum': True},
+    ]
+    for m in months_list:
+        clean_m = m.replace('/', '_')
+        cols_config.append({'id': f'khach_t_{clean_m}', 'label': f'Khách T{m}', 'defaultLabel': f'Khách T{m}', 'visible': True, 'isNum': True})
+
+    cols_config.extend([
+        {'id': 've_thuong', 'label': 'Tổng Đài / Tại Quầy', 'defaultLabel': 'Tổng Đài / Tại Quầy', 'visible': True, 'isNum': True},
+        {'id': 've_vxr', 'label': 'Vé Xe Rẻ (Vexere)', 'defaultLabel': 'Vé Xe Rẻ (Vexere)', 'visible': True, 'isNum': True}
+    ])
+
+    for m in months_list:
+        clean_m = m.replace('/', '_')
+        cols_config.append({'id': f'vxr_t_{clean_m}', 'label': f'VXR T{m}', 'defaultLabel': f'VXR T{m}', 'visible': True, 'isNum': True})
+
+    cols_config.append({'id': 'ty_le_vxr', 'label': 'Tỷ lệ Vé Xe Rẻ', 'defaultLabel': 'Tỷ lệ Vé Xe Rẻ', 'visible': True, 'isNum': True})
+    cols_json = json.dumps(cols_config, ensure_ascii=False)
+
+    html_content = f"""<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Báo Cáo Tổng Hợp Nhân Viên Nhận Khách | Xe Khách Tâm Hạnh</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="assets/html2canvas.min.js"></script>
+  <script src="html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <style>
+    :root {{
+      --font-main: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --color-bg: #f8fafc;
+      --color-card: #ffffff;
+      --color-text-main: #0f172a;
+      --color-text-muted: #64748b;
+      --color-border: #e2e8f0;
+      --color-border-light: #f1f5f9;
+      --color-primary: #0284c7;
+      --color-primary-dark: #0369a1;
+      --color-primary-light: #e0f2fe;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
+    }}
+
+    * {{ box-sizing: border-box; margin: 0; padding: 0; }}
+    body {{
+      font-family: var(--font-main);
+      background-color: var(--color-bg);
+      color: var(--color-text-main);
+      line-height: 1.5;
+      padding: 32px 20px;
+      -webkit-font-smoothing: antialiased;
+    }}
+
+    .container {{ max-width: 1420px; margin: 0 auto; }}
+
+    .report-card {{
+      background: var(--color-card);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--color-border);
+      box-shadow: var(--shadow-md);
+      padding: 28px 32px;
+      margin-bottom: 24px;
+    }}
+
+    .header-top {{
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 16px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--color-border-light);
+    }}
+
+    .brand-badge {{
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      background: #eff6ff;
+      color: #1d4ed8;
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      border-radius: 999px;
+      margin-bottom: 8px;
+    }}
+
+    .report-title {{
+      font-size: 26px;
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: -0.5px;
+    }}
+
+    .report-subtitle {{
+      font-size: 14px;
+      color: var(--color-text-muted);
+      margin-top: 6px;
+    }}
+
+    .action-group {{
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }}
+
+    .btn {{
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 18px;
+      font-size: 13.5px;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      border: 1px solid transparent;
+      font-family: inherit;
+    }}
+
+    .btn-primary {{
+      background: #0284c7;
+      color: #ffffff;
+      box-shadow: 0 1px 2px rgba(2, 132, 199, 0.2);
+    }}
+    .btn-primary:hover {{ background: #0369a1; transform: translateY(-1px); }}
+
+    .btn-outline {{
+      background: #ffffff;
+      color: #334155;
+      border-color: var(--color-border);
+    }}
+    .btn-outline:hover {{ background: #f8fafc; border-color: #cbd5e1; }}
+
+    .kpi-grid {{
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+    }}
+
+    .kpi-card {{
+      background: #f8fafc;
+      border: 1px solid var(--color-border-light);
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+    }}
+
+    .kpi-label {{
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--color-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }}
+
+    .kpi-value {{
+      font-size: 27px;
+      font-weight: 800;
+      color: #0f172a;
+      margin-top: 6px;
+      font-variant-numeric: tabular-nums;
+    }}
+
+    .kpi-desc {{ font-size: 12px; color: #64748b; margin-top: 4px; }}
+
+    .tip-banner {{
+      margin-top: 16px;
+      padding: 10px 14px;
+      border-radius: var(--radius-sm);
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      color: #166534;
+      font-size: 12.5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }}
+
+    .toolbar {{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 16px;
+      padding: 12px 18px;
+      background: #ffffff;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--color-border);
+    }}
+
+    .filter-pills {{ display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }}
+
+    .pill {{
+      padding: 6px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      border-radius: 999px;
+      border: 1px solid var(--color-border);
+      background: #ffffff;
+      color: #475569;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }}
+
+    .pill:hover {{ background: #f1f5f9; }}
+    .pill.active {{ background: #0f172a; color: #ffffff; border-color: #0f172a; }}
+
+    .search-box {{ position: relative; min-width: 240px; }}
+    .search-box input {{
+      width: 100%;
+      padding: 7px 12px 7px 32px;
+      font-size: 13px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--color-border);
+      font-family: inherit;
+      outline: none;
+    }}
+    .search-box input:focus {{ border-color: var(--color-primary); }}
+    .search-icon {{
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 13px;
+      color: #94a3b8;
+    }}
+
+    .table-container {{
+      background: #ffffff;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--color-border);
+      box-shadow: var(--shadow-sm);
+      overflow-x: auto;
+    }}
+    /* Biến font-size và density điều khiển linh hoạt */
+    :root {{
+      --table-font-size: 15px;
+    }}
+
+    /* Resizer viền cột để kéo dãn / thu hẹp bằng chuột */
+    th {{
+      position: relative;
+    }}
+    .col-resizer {{
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 7px;
+      height: 100%;
+      cursor: col-resize;
+      user-select: none;
+      z-index: 10;
+    }}
+    .col-resizer:hover, body.resizing-col .col-resizer {{
+      background-color: #0284c7;
+    }}
+    body.resizing-col {{
+      cursor: col-resize !important;
+      user-select: none !important;
+    }}
+
+    /* Cỡ chữ bảng linh hoạt theo biến --table-font-size */
+    table {{
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: var(--table-font-size, 15px);
+      transition: font-size 0.1s ease;
+    }}
+    thead {{ background: #f8fafc; border-bottom: 2px solid var(--color-border); }}
+    th {{
+      padding: 11px 14px;
+      font-weight: 700;
+      color: #334155;
+      white-space: nowrap;
+      user-select: none;
+      cursor: pointer;
+      font-size: calc(var(--table-font-size, 15px) * 0.95);
+    }}
+    th:hover {{ background: #f1f5f9; }}
+    th .th-content {{ display: inline-flex; align-items: center; gap: 6px; }}
+    th .sort-icon {{ font-size: 11px; color: #94a3b8; }}
+
+    td {{
+      padding: 9px 14px;
+      border-bottom: 1px solid var(--color-border-light);
+      color: #1e293b;
+      font-variant-numeric: tabular-nums;
+      vertical-align: middle;
+      font-size: var(--table-font-size, 15px);
+    }}
+    tbody tr:hover {{ background: #f8fafc; }}
+
+    .staff-name {{ font-weight: 600; color: #0f172a; font-size: var(--table-font-size, 15px); }}
+    .office-badge, .office-select {{ font-size: calc(var(--table-font-size, 15px) * 0.85); }}
+    .vxr-pill {{ font-size: var(--table-font-size, 15px); }}
+    tfoot td {{ font-size: calc(var(--table-font-size, 15px) * 1.05); }}
+
+    /* Độ dãn khoảng cách cột (density) */
+    table.density-compact th {{ padding: 7px 8px; }}
+    table.density-compact td {{ padding: 5px 8px; }}
+    table.density-compact tfoot td {{ padding: 8px 8px; }}
+
+    table.density-normal th {{ padding: 11px 14px; }}
+    table.density-normal td {{ padding: 9px 14px; }}
+    table.density-normal tfoot td {{ padding: 12px 14px; }}
+
+    table.density-relaxed th {{ padding: 14px 20px; }}
+    table.density-relaxed td {{ padding: 12px 20px; }}
+    table.density-relaxed tfoot td {{ padding: 15px 20px; }}
+
+    /* Nhóm nút điều khiển cỡ chữ & dãn cột */
+    .toolbar-controls {{
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }}
+    .ctrl-group {{
+      display: inline-flex;
+      align-items: center;
+      background: #f8fafc;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      padding: 3px 6px;
+      gap: 4px;
+    }}
+    .ctrl-label {{
+      font-size: 12px;
+      font-weight: 700;
+      color: #64748b;
+      margin-right: 2px;
+      margin-left: 2px;
+    }}
+    .btn-ctrl {{
+      padding: 4px 9px;
+      font-size: 12px;
+      font-weight: 700;
+      background: #ffffff;
+      border: 1px solid var(--color-border);
+      color: #334155;
+      border-radius: 4px;
+      cursor: pointer;
+      line-height: 1;
+      transition: all 0.15s ease;
+      font-family: inherit;
+    }}
+    .btn-ctrl:hover {{
+      background: #f1f5f9;
+      border-color: #cbd5e1;
+    }}
+    .btn-ctrl.active {{
+      background: #0284c7;
+      color: #ffffff;
+      border-color: #0284c7;
+    }}
+    .ctrl-badge {{
+      font-size: 12px;
+      font-weight: 800;
+      color: #0284c7;
+      min-width: 32px;
+      text-align: center;
+      font-variant-numeric: tabular-nums;
+    }}
+    .num-col {{ text-align: right; }}
+    th.num-col {{ text-align: right; }}
+    th.num-col .th-content {{ justify-content: flex-end; }}
+
+    .office-select {{
+      appearance: none;
+      -webkit-appearance: none;
+      font-family: inherit;
+      font-size: calc(var(--table-font-size, 15px) * 0.9);
+      font-weight: 700;
+      padding: 3px 20px 3px 9px;
+      border-radius: 6px;
+      cursor: pointer;
+      border: 1px solid transparent;
+      background-repeat: no-repeat;
+      background-position: right 6px center;
+      background-size: 8px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23475569'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+      transition: all 0.15s ease;
+      outline: none;
+    }}
+
+    .office-badge {{
+      display: inline-block;
+      padding: 3px 9px;
+      border-radius: 6px;
+      font-size: calc(var(--table-font-size, 15px) * 0.9);
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }}
+
+    .badge-vpsg {{ background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }}
+    .badge-vppt {{ background: #ecfdf5; color: #047857; border: 1px solid #a7f3d0; }}
+    .badge-vpdk {{ background: #fffbeb; color: #b45309; border: 1px solid #fde68a; }}
+    .badge-agency {{ background: #f5f3ff; color: #6d28d9; border: 1px solid #ddd6fe; }}
+
+    .staff-name {{ font-weight: 600; color: #0f172a; font-size: var(--table-font-size, 15px); }}
+    .vxr-highlight {{ font-weight: 800; color: #0284c7; font-size: inherit; }}
+    .vxr-pill {{
+      display: inline-block;
+      padding: 3px 9px;
+      background: #e0f2fe;
+      color: #0369a1;
+      border-radius: 6px;
+      font-size: var(--table-font-size, 15px);
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+      line-height: 1.2;
+    }}
+
+    tfoot tr {{ background: #f1f5f9; font-weight: 800; border-top: 2px solid #cbd5e1; }}
+    tfoot td {{
+      padding: 12px 14px;
+      color: #0f172a;
+      font-size: calc(var(--table-font-size, 15px) * 1.05) !important;
+      font-weight: 800;
+    }}
+    tfoot td strong, tfoot td span, tfoot td .vxr-highlight {{
+      font-size: inherit !important;
+    }}
+    .modal-backdrop {{
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(15, 23, 42, 0.6);
+      z-index: 1000;
+      align-items: center; justify-content: center;
+      backdrop-filter: blur(2px);
+    }}
+    .modal-backdrop.show {{ display: flex; }}
+
+    .modal-content {{
+      background: #ffffff;
+      border-radius: var(--radius-lg);
+      width: 90%; max-width: 650px; max-height: 85vh;
+      overflow-y: auto; padding: 24px 28px;
+      box-shadow: var(--shadow-lg);
+    }}
+
+    .modal-header {{
+      display: flex; justify-content: space-between; align-items: center;
+      padding-bottom: 14px; border-bottom: 1px solid var(--color-border);
+      margin-bottom: 18px;
+    }}
+    .modal-title {{ font-size: 18px; font-weight: 700; color: #0f172a; }}
+    .close-btn {{ font-size: 22px; color: #94a3b8; cursor: pointer; background: none; border: none; }}
+
+    .col-config-list {{ display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }}
+    .col-config-item {{
+      display: flex; align-items: center; gap: 12px;
+      padding: 10px 14px; border-radius: var(--radius-sm);
+      background: #f8fafc; border: 1px solid var(--color-border-light);
+    }}
+    .col-config-item input[type="text"] {{
+      flex: 1; padding: 6px 10px; font-size: 13px;
+      border: 1px solid var(--color-border); border-radius: 4px;
+    }}
+
+    .toast {{
+      position: fixed; bottom: 24px; right: 24px;
+      background: #0f172a; color: #ffffff;
+      padding: 12px 20px; border-radius: var(--radius-md);
+      box-shadow: var(--shadow-lg); font-size: 13.5px;
+      display: none; align-items: center; gap: 10px; z-index: 2000;
+    }}
+    .toast.show {{ display: flex; }}
+
+    .export-stamp {{
+      display: none; padding: 16px 20px 8px; font-size: 12px;
+      color: #64748b; text-align: right;
+      border-top: 1px solid var(--color-border); margin-top: 16px;
+    }}
+
+    /* Chế độ xuất ảnh báo cáo gọn đẹp, không khoảng trống thừa */
+    body.exporting-mode {{
+      background: #ffffff !important;
+      padding: 0 !important;
+      margin: 0 !important;
+    }}
+    body.exporting-mode #capture-area {{
+      width: 880px !important;
+      min-width: 880px !important;
+      max-width: 880px !important;
+      margin: 0 !important;
+      padding: 20px 22px 16px 22px !important;
+      background: #ffffff !important;
+      border: 2px solid #cbd5e1 !important;
+      border-radius: 14px !important;
+      box-shadow: none !important;
+      box-sizing: border-box !important;
+    }}
+    body.exporting-mode .action-group,
+    body.exporting-mode .tip-banner,
+    body.exporting-mode .toolbar,
+    body.exporting-mode .sort-icon {{
+      display: none !important;
+    }}
+    body.exporting-mode .report-card {{
+      padding: 0 !important;
+      margin-bottom: 16px !important;
+      border: none !important;
+      box-shadow: none !important;
+      background: transparent !important;
+    }}
+    body.exporting-mode .header-top {{
+      padding-bottom: 12px !important;
+      border-bottom: 2px solid #e2e8f0 !important;
+    }}
+    body.exporting-mode .brand-badge {{
+      font-size: 13px !important;
+      padding: 4px 12px !important;
+      margin-bottom: 6px !important;
+    }}
+    body.exporting-mode .report-title {{
+      font-size: 24px !important;
+      font-weight: 800 !important;
+      letter-spacing: -0.3px !important;
+    }}
+    body.exporting-mode .report-subtitle {{
+      font-size: 14px !important;
+      margin-top: 4px !important;
+      color: #475569 !important;
+    }}
+    body.exporting-mode .kpi-grid {{
+      display: grid !important;
+      grid-template-columns: repeat(2, 1fr) !important;
+      gap: 10px !important;
+      margin-top: 14px !important;
+    }}
+    body.exporting-mode .kpi-card {{
+      padding: 12px 16px !important;
+      background: #f8fafc !important;
+      border: 1.5px solid #e2e8f0 !important;
+      border-radius: 10px !important;
+    }}
+    body.exporting-mode .kpi-label {{
+      font-size: 12px !important;
+      font-weight: 700 !important;
+      color: #64748b !important;
+    }}
+    body.exporting-mode .kpi-value {{
+      font-size: 26px !important;
+      font-weight: 800 !important;
+      margin-top: 3px !important;
+    }}
+    body.exporting-mode .kpi-desc {{
+      font-size: 12.5px !important;
+      margin-top: 2px !important;
+      color: #64748b !important;
+    }}
+    body.exporting-mode .table-container {{
+      border: 2px solid #cbd5e1 !important;
+      border-radius: 10px !important;
+      box-shadow: none !important;
+      overflow: visible !important;
+      margin-top: 4px !important;
+    }}
+    body.exporting-mode table {{
+      font-size: 17px !important;
+      width: 100% !important;
+      border-collapse: collapse !important;
+    }}
+    body.exporting-mode th {{
+      padding: 11px 10px !important;
+      font-size: 15.5px !important;
+      font-weight: 800 !important;
+      background: #f1f5f9 !important;
+      border-bottom: 2px solid #cbd5e1 !important;
+      white-space: nowrap !important;
+    }}
+    body.exporting-mode td {{
+      padding: 9.5px 10px !important;
+      font-size: 17px !important;
+      border-bottom: 1px solid #e2e8f0 !important;
+      white-space: nowrap !important;
+    }}
+    body.exporting-mode .staff-name {{
+      font-size: 17.5px !important;
+      font-weight: 700 !important;
+    }}
+    body.exporting-mode .office-badge {{
+      font-size: 14.5px !important;
+      padding: 3px 8px !important;
+      border-radius: 6px !important;
+      font-weight: 700 !important;
+    }}
+    body.exporting-mode .vxr-pill {{
+      font-size: 17.5px !important;
+      padding: 2px 8px !important;
+      font-weight: 800 !important;
+      border-radius: 6px !important;
+    }}
+    body.exporting-mode tfoot tr {{
+      background: #e2e8f0 !important;
+      border-top: 2.5px solid #94a3b8 !important;
+    }}
+    body.exporting-mode tfoot td {{
+      padding: 12px 10px !important;
+      font-size: 17.5px !important;
+      font-weight: 800 !important;
+    }}
+    body.exporting-mode .export-stamp {{
+      display: block !important;
+      padding: 10px 4px 2px !important;
+      font-size: 12px !important;
+      color: #64748b !important;
+      text-align: right !important;
+      border-top: 1px solid #f1f5f9 !important;
+      margin-top: 8px !important;
+    }}
+  </style>
+</head>
+<body>
+
+<div class="container" id="capture-area">
+  <div class="report-card">
+    <div class="header-top">
+      <div>
+        <div class="brand-badge">Xe Khách Tâm Hạnh · Quản Trị Vận Hành</div>
+        <h1 class="report-title">{report_title}</h1>
+        <div class="report-subtitle">
+          <span>{time_str}</span>
+          <span id="active-filter-badge" style="display: none; color: #0284c7; font-weight: 700; margin-left: 6px;"></span>
+        </div>
+      </div>
+
+      <div class="action-group">
+        <button class="btn btn-outline" onclick="openColumnModal()">
+          ⚙️ Tùy chỉnh Cột (Ẩn/Hiện & Đổi tên)
+        </button>
+        <button class="btn btn-primary" id="btn-export-img" onclick="exportHighResImage()">
+          📸 Xuất Ảnh HD (PNG)
+        </button>
+      </div>
+    </div>
+
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">Tổng khách nhận</div>
+        <div class="kpi-value" id="kpi-total-customers">0</div>
+        <div class="kpi-desc">Tổng vé đi trong kỳ (Đã thanh toán)</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Tổng Đài / Tại Quầy</div>
+        <div class="kpi-value" id="kpi-regular-tickets">0</div>
+        <div class="kpi-desc">Khách qua tổng đài & tại quầy vé</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Khách Vé Xe Rẻ (Vexere)</div>
+        <div class="kpi-value vxr-highlight" id="kpi-vxr-tickets">0</div>
+        <div class="kpi-desc" id="kpi-vxr-rate">Tỷ trọng: 0.0%</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label" id="kpi-office-title">Văn phòng dẫn đầu</div>
+        <div class="kpi-value" id="kpi-top-office" style="color: #1d4ed8; font-size: 20px;">VPPT: 0</div>
+        <div class="kpi-desc" id="kpi-office-breakdown">Đang cập nhật...</div>
+      </div>
+    </div>
+
+    <div class="tip-banner">
+      <span>💡</span>
+      <span><strong>Mẹo gán văn phòng:</strong> Bạn có thể nhấp trực tiếp vào badge <strong>Văn phòng</strong> của bất kỳ nhân viên nào trong bảng để chuyển văn phòng ngay tức thì. Dữ liệu sẽ tự động lưu và cập nhật tổng kết!</span>
+    </div>
+  </div>
+
+  <div class="toolbar">
+    <div class="filter-pills" id="office-filters"></div>
+    <div class="toolbar-controls">
+      <!-- Cỡ chữ table -->
+      <div class="ctrl-group">
+        <span class="ctrl-label">Cỡ chữ:</span>
+        <button class="btn-ctrl" onclick="adjustFontSize(-1)" title="Thu nhỏ cỡ chữ bảng">-A</button>
+        <span id="font-size-display" class="ctrl-badge">15px</span>
+        <button class="btn-ctrl" onclick="adjustFontSize(1)" title="Phóng to cỡ chữ bảng">+A</button>
+      </div>
+
+      <!-- Độ dãn cột: Gần hơn ↔ Thoáng -->
+      <div class="ctrl-group">
+        <span class="ctrl-label">Độ dãn cột:</span>
+        <button class="btn-ctrl density-btn" data-density="compact" onclick="setDensity('compact')" title="Thu hẹp khoảng cách các cột để chữ gần nhau hơn">Gần hơn</button>
+        <button class="btn-ctrl density-btn" data-density="normal" onclick="setDensity('normal')" title="Khoảng cách chuẩn">Chuẩn</button>
+        <button class="btn-ctrl density-btn" data-density="relaxed" onclick="setDensity('relaxed')" title="Khoảng cách thoáng rộng">Thoáng</button>
+      </div>
+
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="search-input" placeholder="Tìm tên nhân viên..." oninput="onSearchChange()">
+      </div>
+
+      <button class="btn btn-outline" style="padding: 6px 12px; font-size: 12px;" onclick="resetOfficeOverrides()" title="Khôi phục phân bổ văn phòng ban đầu">
+        🔄 Đặt lại VP gốc
+      </button>
+    </div>
+  </div>
+
+  <div class="table-container">
+    <table id="main-table">
+      <thead>
+        <tr id="table-header-row"></tr>
+      </thead>
+      <tbody id="table-body"></tbody>
+      <tfoot id="table-footer"></tfoot>
+    </table>
+
+    <div class="export-stamp" id="export-stamp">
+      Nguồn dữ liệu: File Báo Cáo Vé Hành Khách • Xe Khách Tâm Hạnh • Ngày kết xuất: <span id="export-date"></span>
+    </div>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="column-modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 class="modal-title">⚙️ Tùy chỉnh Cột hiển thị & Đổi tên</h3>
+      <button class="close-btn" onclick="closeColumnModal()">&times;</button>
+    </div>
+    <p style="font-size: 13px; color: #64748b; margin-bottom: 16px;">
+      Tích chọn để ẩn/hiện cột. Nhập tên mới vào ô nếu bạn muốn thay đổi tên cột trên bảng và trong ảnh xuất.
+    </p>
+    <div class="col-config-list" id="col-config-list"></div>
+    <div style="display: flex; justify-content: space-between; gap: 12px; margin-top: 20px;">
+      <button class="btn btn-outline" onclick="resetColumnNames()">Khôi phục tên gốc</button>
+      <div style="display: flex; gap: 8px;">
+        <button class="btn btn-outline" onclick="closeColumnModal()">Đóng</button>
+        <button class="btn btn-primary" onclick="saveColumnConfig()">Lưu áp dụng</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast-msg">
+  <span id="toast-icon">⏳</span>
+  <span id="toast-text">Đang tạo ảnh chất lượng cao...</span>
+</div>
+
+<script>
+  const DEFAULT_DATA = {json_data};
+  const STORAGE_KEY_OFFICE = 'TAMHANH_OFFICE_OVERRIDES_V4';
+  const STORAGE_KEY_COLS = 'TAMHANH_COL_CONFIG_V5';
+  const STORAGE_KEY_FONT = 'TAMHANH_FONT_SIZE_V1';
+  const STORAGE_KEY_DENSITY = 'TAMHANH_DENSITY_V1';
+  const STORAGE_KEY_WIDTHS = 'TAMHANH_COL_WIDTHS_V1';
+
+  let tableFontSize = parseInt(localStorage.getItem(STORAGE_KEY_FONT) || '15', 10);
+  let tableDensity = localStorage.getItem(STORAGE_KEY_DENSITY) || 'normal';
+  let colWidths = {{}};
+  try {{
+    const savedW = localStorage.getItem(STORAGE_KEY_WIDTHS);
+    if (savedW) colWidths = JSON.parse(savedW);
+  }} catch (e) {{}}
+
+  function applyTableStyles() {{
+    document.documentElement.style.setProperty('--table-font-size', tableFontSize + 'px');
+    const displayEl = document.getElementById('font-size-display');
+    if (displayEl) displayEl.textContent = tableFontSize + 'px';
+
+    const tableEl = document.getElementById('main-table');
+    if (tableEl) {{
+      tableEl.classList.remove('density-compact', 'density-normal', 'density-relaxed');
+      tableEl.classList.add(`density-${{tableDensity}}`);
+    }}
+
+    const densityBtns = document.querySelectorAll('.density-btn');
+    densityBtns.forEach(btn => {{
+      if (btn.dataset.density === tableDensity) {{
+        btn.classList.add('active');
+      }} else {{
+        btn.classList.remove('active');
+      }}
+    }});
+  }}
+
+  function adjustFontSize(delta) {{
+    tableFontSize = Math.min(26, Math.max(11, tableFontSize + delta));
+    try {{
+      localStorage.setItem(STORAGE_KEY_FONT, tableFontSize);
+    }} catch (e) {{}}
+    applyTableStyles();
+    showToast(`✓ Cỡ chữ bảng: ${{tableFontSize}}px`);
+  }}
+
+  function setDensity(density) {{
+    tableDensity = density;
+    try {{
+      localStorage.setItem(STORAGE_KEY_DENSITY, density);
+    }} catch (e) {{}}
+    applyTableStyles();
+    showToast(`✓ Độ dãn cột: ${{density === 'compact' ? 'Thu gọn (Chữ gần hơn)' : (density === 'relaxed' ? 'Thoáng rộng' : 'Tiêu chuẩn')}}`);
+  }}
+
+  // Kéo viền để dãn / co độ rộng cột
+  let activeResizeCol = null;
+  let resizeStartX = 0;
+  let resizeStartWidth = 0;
+
+  function initColResize(e, colId) {{
+    e.stopPropagation();
+    e.preventDefault();
+    activeResizeCol = colId;
+    resizeStartX = e.pageX;
+    const th = e.target.parentElement;
+    resizeStartWidth = th.offsetWidth;
+
+    document.body.classList.add('resizing-col');
+    window.addEventListener('mousemove', onColResizeMove);
+    window.addEventListener('mouseup', onColResizeEnd);
+  }}
+
+  function onColResizeMove(e) {{
+    if (!activeResizeCol) return;
+    const diff = e.pageX - resizeStartX;
+    const newWidth = Math.max(45, resizeStartWidth + diff);
+    colWidths[activeResizeCol] = newWidth;
+
+    const th = document.querySelector(`th[data-col-id="${{activeResizeCol}}"]`);
+    if (th) {{
+      th.style.width = newWidth + 'px';
+      th.style.minWidth = newWidth + 'px';
+    }}
+    const tds = document.querySelectorAll(`td[data-col-id="${{activeResizeCol}}"]`);
+    tds.forEach(td => {{
+      td.style.width = newWidth + 'px';
+      td.style.minWidth = newWidth + 'px';
+    }});
+  }}
+
+  function onColResizeEnd(e) {{
+    if (!activeResizeCol) return;
+    try {{
+      localStorage.setItem(STORAGE_KEY_WIDTHS, JSON.stringify(colWidths));
+    }} catch (err) {{}}
+    document.body.classList.remove('resizing-col');
+    window.removeEventListener('mousemove', onColResizeMove);
+    window.removeEventListener('mouseup', onColResizeEnd);
+    const colName = activeResizeCol;
+    activeResizeCol = null;
+    showToast(`✓ Đã lưu độ rộng cột "${{colName}}": ${{colWidths[colName]}}px`);
+  }}
+
+  function resetColWidth(e, colId) {{
+    e.stopPropagation();
+    delete colWidths[colId];
+    try {{
+      localStorage.setItem(STORAGE_KEY_WIDTHS, JSON.stringify(colWidths));
+    }} catch (err) {{}}
+    renderTable();
+    showToast(`✓ Đã đặt lại độ rộng cột tự động`);
+  }}
+  let officeOverrides = {{}};
+  try {{
+    const saved = localStorage.getItem(STORAGE_KEY_OFFICE);
+    if (saved) officeOverrides = JSON.parse(saved);
+  }} catch (e) {{}}
+
+  let CURRENT_DATA = DEFAULT_DATA.map(item => {{
+    const name = item['Nhân viên'];
+    const office = officeOverrides[name] || item.van_phong;
+    return {{ ...item, van_phong: office }};
+  }});
+
+  let COLUMNS = {cols_json};
+
+  try {{
+    const savedCols = localStorage.getItem(STORAGE_KEY_COLS);
+    if (savedCols) {{
+      const parsed = JSON.parse(savedCols);
+      COLUMNS.forEach(col => {{
+        if (parsed[col.id]) {{
+          col.visible = parsed[col.id].visible;
+          col.label = parsed[col.id].label || col.defaultLabel;
+        }}
+      }});
+    }}
+  }} catch (e) {{}}
+
+  let currentOfficeFilter = 'ALL';
+  let currentSearch = '';
+  let sortColumn = 'tong_khach';
+  let sortDirection = 'desc';
+  let isCapturing = false;
+
+  function formatNum(num) {{
+    if (num === null || num === undefined) return '0';
+    return Number(num).toLocaleString('vi-VN');
+  }}
+
+  function getBadgeClass(office) {{
+    if (office === 'VPSG') return 'badge-vpsg';
+    if (office === 'VPPT') return 'badge-vppt';
+    if (office === 'VPDK') return 'badge-vpdk';
+    return 'badge-agency';
+  }}
+
+  function updateEmployeeOffice(staffName, newOffice) {{
+    officeOverrides[staffName] = newOffice;
+    try {{
+      localStorage.setItem(STORAGE_KEY_OFFICE, JSON.stringify(officeOverrides));
+    }} catch (e) {{}}
+
+    CURRENT_DATA = CURRENT_DATA.map(item => {{
+      if (item['Nhân viên'] === staffName) {{
+        return {{ ...item, van_phong: newOffice }};
+      }}
+      return item;
+    }});
+
+    renderPills();
+    renderTable();
+    updateKPIs();
+    showToast(`✓ Đã gán "${{staffName}}" sang "${{newOffice}}"`);
+  }}
+
+  function resetOfficeOverrides() {{
+    if (confirm('Khôi phục phân bổ văn phòng ban đầu?')) {{
+      officeOverrides = {{}};
+      localStorage.removeItem(STORAGE_KEY_OFFICE);
+      CURRENT_DATA = DEFAULT_DATA.map(item => ({{ ...item }}));
+      renderPills();
+      renderTable();
+      updateKPIs();
+      showToast('✓ Đã khôi phục văn phòng gốc');
+    }}
+  }}
+
+  function getProcessedData() {{
+    return CURRENT_DATA.filter(item => {{
+      if (currentOfficeFilter !== 'ALL' && item.van_phong !== currentOfficeFilter) return false;
+      if (currentSearch.trim() !== '') {{
+        const q = currentSearch.toLowerCase();
+        const matchName = item['Nhân viên'].toLowerCase().includes(q);
+        const matchOffice = item.van_phong.toLowerCase().includes(q);
+        if (!matchName && !matchOffice) return false;
+      }}
+      return true;
+    }}).sort((a, b) => {{
+      let valA = a[sortColumn];
+      let valB = b[sortColumn];
+      if (sortColumn === 'nhan_vien') {{
+        valA = a['Nhân viên'];
+        valB = b['Nhân viên'];
+      }}
+      if (typeof valA === 'string') {{
+        return sortDirection === 'asc' ? valA.localeCompare(valB) : valB.localeCompare(valA);
+      }} else {{
+        return sortDirection === 'asc' ? (valA - valB) : (valB - valA);
+      }}
+    }});
+  }}
+
+  function renderPills() {{
+    const container = document.getElementById('office-filters');
+    const counts = {{ ALL: CURRENT_DATA.length, VPSG: 0, VPPT: 0, VPDK: 0, 'ĐL RedBus': 0 }};
+    CURRENT_DATA.forEach(r => {{
+      if (counts[r.van_phong] !== undefined) counts[r.van_phong]++;
+      else counts[r.van_phong] = 1;
+    }});
+
+    const offices = ['ALL', 'VPSG', 'VPPT', 'VPDK', 'ĐL RedBus'];
+    container.innerHTML = offices.map(off => {{
+      const label = off === 'ALL' ? 'Tất cả' : off;
+      const count = counts[off] || 0;
+      const active = currentOfficeFilter === off ? 'active' : '';
+      return `<button class="pill ${{active}}" onclick="setOfficeFilter('${{off}}')">${{label}} (${{count}})</button>`;
+    }}).join('');
+  }}
+
+  function updateKPIs() {{
+    const data = getProcessedData();
+    const officeStats = {{}};
+    let totalInView = 0;
+    data.forEach(r => {{
+      officeStats[r.van_phong] = (officeStats[r.van_phong] || 0) + r.tong_khach;
+      totalInView += r.tong_khach;
+    }});
+
+    const sortedOffices = Object.entries(officeStats).sort((a, b) => b[1] - a[1]);
+    const titleEl = document.getElementById('kpi-office-title');
+
+    if (currentOfficeFilter !== 'ALL') {{
+      if (titleEl) titleEl.textContent = 'Văn phòng được lọc';
+      document.getElementById('kpi-top-office').textContent = `${{currentOfficeFilter}}: ${{formatNum(totalInView)}}`;
+      const vxrInView = data.reduce((acc, r) => acc + r.ve_vxr, 0);
+      const vxrRate = totalInView > 0 ? (vxrInView / totalInView * 100).toFixed(1) : 0;
+      document.getElementById('kpi-office-breakdown').textContent = `${{data.length}} nhân sự • Vexere: ${{formatNum(vxrInView)}} vé (${{vxrRate}}%)`;
+    }} else if (sortedOffices.length > 0) {{
+      if (titleEl) titleEl.textContent = 'Văn phòng dẫn đầu';
+      const [topName, topCount] = sortedOffices[0];
+      const topRate = totalInView > 0 ? (topCount / totalInView * 100).toFixed(1) : 0;
+      document.getElementById('kpi-top-office').textContent = `${{topName}}: ${{formatNum(topCount)}} (${{topRate}}%)`;
+      
+      const rest = sortedOffices.slice(1).map(([name, count]) => {{
+        const rate = totalInView > 0 ? (count / totalInView * 100).toFixed(1) : 0;
+        return `${{name}}: ${{formatNum(count)}} (${{rate}}%)`;
+      }}).join(' • ');
+      document.getElementById('kpi-office-breakdown').textContent = rest;
+    }}
+  }}
+
+  function renderTable() {{
+    const tableHeaderRow = document.getElementById('table-header-row');
+    const tableBody = document.getElementById('table-body');
+    const tableFooter = document.getElementById('table-footer');
+
+    tableHeaderRow.innerHTML = '';
+    COLUMNS.forEach(col => {{
+      if (!col.visible) return;
+      const th = document.createElement('th');
+      th.dataset.colId = col.id;
+      if (col.isNum) th.className = 'num-col';
+
+      if (colWidths[col.id]) {{
+        th.style.width = colWidths[col.id] + 'px';
+        th.style.minWidth = colWidths[col.id] + 'px';
+      }}
+
+      let sortIcon = '';
+      if (!isCapturing && (sortColumn === col.id || (col.id === 'nhan_vien' && sortColumn === 'Nhân viên'))) {{
+        sortIcon = sortDirection === 'asc' ? ' ▲' : ' ▼';
+      }}
+
+      th.innerHTML = `
+        <div class="th-content" onclick="onSortClick('${{col.id}}')" title="Bấm để sắp xếp">
+          <span>${{col.label}}</span>
+          <span class="sort-icon">${{sortIcon}}</span>
+        </div>
+        ${{!isCapturing ? `<div class="col-resizer" onmousedown="initColResize(event, '${{col.id}}')" ondblclick="resetColWidth(event, '${{col.id}}')" title="Kéo viền để dãn/co cột (Nhấp đúp để đặt lại)"></div>` : ''}}
+      `;
+      tableHeaderRow.appendChild(th);
+    }});
+
+    const data = getProcessedData();
+    tableBody.innerHTML = '';
+
+    data.forEach((row, index) => {{
+      const tr = document.createElement('tr');
+      COLUMNS.forEach(col => {{
+        if (!col.visible) return;
+        const td = document.createElement('td');
+        td.dataset.colId = col.id;
+        if (col.isNum) td.className = 'num-col';
+
+        if (colWidths[col.id]) {{
+          td.style.width = colWidths[col.id] + 'px';
+          td.style.minWidth = colWidths[col.id] + 'px';
+          td.style.maxWidth = colWidths[col.id] + 'px';
+        }}
+
+        if (col.id === 'stt') {{
+          td.textContent = index + 1;
+        }} else if (col.id === 'van_phong') {{
+          if (isCapturing) {{
+            td.innerHTML = `<span class="office-badge ${{getBadgeClass(row.van_phong)}}">${{row.van_phong}}</span>`;
+          }} else {{
+            const staffEscaped = row['Nhân viên'].replace(/'/g, "\'");
+            td.innerHTML = `
+              <select class="office-select ${{getBadgeClass(row.van_phong)}}" onchange="updateEmployeeOffice('${{staffEscaped}}', this.value)" title="Bấm để gán lại văn phòng">
+                <option value="VPSG" ${{row.van_phong === 'VPSG' ? 'selected' : ''}}>VPSG</option>
+                <option value="VPPT" ${{row.van_phong === 'VPPT' ? 'selected' : ''}}>VPPT</option>
+                <option value="VPDK" ${{row.van_phong === 'VPDK' ? 'selected' : ''}}>VPDK</option>
+                <option value="ĐL RedBus" ${{row.van_phong === 'ĐL RedBus' ? 'selected' : ''}}>ĐL RedBus</option>
+              </select>
+            `;
+          }}
+        }} else if (col.id === 'nhan_vien') {{
+          td.innerHTML = `<span class="staff-name">${{row['Nhân viên']}}</span>`;
+        }} else if (col.id === 'tong_khach') {{
+          td.innerHTML = `<strong>${{formatNum(row.tong_khach)}}</strong>`;
+        }} else if (col.id === 've_vxr') {{
+          td.innerHTML = row.ve_vxr > 0 ? `<span class="vxr-pill">${{formatNum(row.ve_vxr)}}</span>` : '0';
+        }} else if (col.id === 'ty_le_vxr') {{
+          td.innerHTML = row.ty_le_vxr > 0 ? `<strong>${{row.ty_le_vxr}}%</strong>` : '0.0%';
+        }} else {{
+          td.textContent = formatNum(row[col.id]);
+        }}
+
+        tr.appendChild(td);
+      }});
+      tableBody.appendChild(tr);
+    }});
+
+    const totals = {{}};
+    COLUMNS.forEach(col => {{
+      if (col.isNum) totals[col.id] = 0;
+    }});
+
+    data.forEach(r => {{
+      COLUMNS.forEach(col => {{
+        if (col.isNum && r[col.id] !== undefined) {{
+          totals[col.id] += Number(r[col.id]);
+        }}
+      }});
+    }});
+
+    const totalVxrRate = totals.tong_khach > 0 ? ((totals.ve_vxr / totals.tong_khach) * 100).toFixed(1) : '0.0';
+
+    tableFooter.innerHTML = '';
+    const footerTr = document.createElement('tr');
+    COLUMNS.forEach(col => {{
+      if (!col.visible) return;
+      const td = document.createElement('td');
+      td.dataset.colId = col.id;
+      if (col.isNum) td.className = 'num-col';
+      if (colWidths[col.id]) {{
+        td.style.width = colWidths[col.id] + 'px';
+        td.style.minWidth = colWidths[col.id] + 'px';
+      }}
+
+      if (col.id === 'stt') {{
+        td.textContent = 'Σ';
+      }} else if (col.id === 'van_phong') {{
+        td.textContent = 'TỔNG';
+      }} else if (col.id === 'nhan_vien') {{
+        td.innerHTML = `<strong>${{data.length}} nhân sự</strong>`;
+      }} else if (col.id === 'ty_le_vxr') {{
+        td.textContent = totalVxrRate + '%';
+      }} else if (col.id === 've_vxr') {{
+        td.innerHTML = `<span class="vxr-highlight">${{formatNum(totals[col.id])}}</span>`;
+      }} else if (col.isNum) {{
+        td.textContent = formatNum(totals[col.id]);
+      }}
+
+      footerTr.appendChild(td);
+    }});
+    tableFooter.appendChild(footerTr);
+
+    document.getElementById('kpi-total-customers').textContent = formatNum(totals.tong_khach);
+    document.getElementById('kpi-regular-tickets').textContent = formatNum(totals.ve_thuong);
+    document.getElementById('kpi-vxr-tickets').textContent = formatNum(totals.ve_vxr);
+    document.getElementById('kpi-vxr-rate').innerHTML = `Tỷ trọng: <strong>${{totalVxrRate}}%</strong> tổng khách`;
+
+    // Cập nhật nhãn filter nếu có
+    const badgeEl = document.getElementById('active-filter-badge');
+    if (badgeEl) {{
+      if (currentOfficeFilter !== 'ALL' || currentSearch.trim() !== '') {{
+        badgeEl.style.display = 'inline';
+        let filterText = '• Bộ lọc: ';
+        if (currentOfficeFilter !== 'ALL') filterText += `VP ${{currentOfficeFilter}} `;
+        if (currentSearch.trim() !== '') filterText += `("${{currentSearch.trim()}}") `;
+        filterText += `(${{data.length}} nhân sự)`;
+        badgeEl.textContent = filterText;
+      }} else {{
+        badgeEl.style.display = 'none';
+      }}
+    }}
+
+    updateKPIs();
+    applyTableStyles();
+  }}
+
+  function onSortClick(colId) {{
+    if (sortColumn === colId) {{
+      sortDirection = sortDirection === 'asc' ? 'desc' : 'asc';
+    }} else {{
+      sortColumn = colId;
+      sortDirection = (colId === 'nhan_vien' || colId === 'van_phong') ? 'asc' : 'desc';
+    }}
+    renderTable();
+  }}
+
+  function setOfficeFilter(office) {{
+    currentOfficeFilter = office;
+    renderPills();
+    renderTable();
+  }}
+
+  function onSearchChange() {{
+    currentSearch = document.getElementById('search-input').value;
+    renderTable();
+  }}
+
+  function openColumnModal() {{
+    const list = document.getElementById('col-config-list');
+    list.innerHTML = '';
+
+    COLUMNS.forEach(col => {{
+      const item = document.createElement('div');
+      item.className = 'col-config-item';
+      item.innerHTML = `
+        <input type="checkbox" id="col-check-${{col.id}}" ${{col.visible ? 'checked' : ''}}>
+        <label for="col-check-${{col.id}}" style="font-weight: 700; min-width: 140px; font-size: 13.5px;">${{col.defaultLabel}}</label>
+        <input type="text" id="col-name-${{col.id}}" value="${{col.label}}" placeholder="Đổi tên cột..." style="flex: 1;">
+        <div style="display: flex; align-items: center; gap: 4px;">
+          <span style="font-size: 12px; color: #64748b;">Rộng:</span>
+          <input type="number" id="col-width-${{col.id}}" value="${{colWidths[col.id] || ''}}" placeholder="Tự co" style="width: 70px; padding: 6px 8px; font-size: 13px;" min="40" max="500">
+          <span style="font-size: 12px; color: #64748b;">px</span>
+        </div>
+      `;
+      list.appendChild(item);
+    }});
+
+    document.getElementById('column-modal').classList.add('show');
+  }}
+
+  function closeColumnModal() {{
+    document.getElementById('column-modal').classList.remove('show');
+  }}
+
+  function saveColumnConfig() {{
+    const saveObj = {{}};
+    COLUMNS.forEach(col => {{
+      const chk = document.getElementById(`col-check-${{col.id}}`);
+      const txt = document.getElementById(`col-name-${{col.id}}`);
+      const wInp = document.getElementById(`col-width-${{col.id}}`);
+      if (chk) col.visible = chk.checked;
+      if (txt && txt.value.trim() !== '') col.label = txt.value.trim();
+      if (wInp) {{
+        const val = parseInt(wInp.value, 10);
+        if (!isNaN(val) && val >= 30) {{
+          colWidths[col.id] = val;
+        }} else {{
+          delete colWidths[col.id];
+        }}
+      }}
+      saveObj[col.id] = {{ visible: col.visible, label: col.label }};
+    }});
+    try {{
+      localStorage.setItem(STORAGE_KEY_COLS, JSON.stringify(saveObj));
+      localStorage.setItem(STORAGE_KEY_WIDTHS, JSON.stringify(colWidths));
+    }} catch (e) {{}}
+
+    closeColumnModal();
+    renderTable();
+    showToast('✓ Đã lưu cấu hình và độ rộng cột!');
+  }}
+
+  function resetColumnNames() {{
+    COLUMNS.forEach(col => {{
+      col.label = col.defaultLabel;
+      col.visible = true;
+    }});
+    colWidths = {{}};
+    localStorage.removeItem(STORAGE_KEY_COLS);
+    localStorage.removeItem(STORAGE_KEY_WIDTHS);
+    openColumnModal();
+    renderTable();
+    showToast('✓ Đã khôi phục tên và độ rộng cột ban đầu');
+  }}
+
+  function showToast(text, isSpin = false) {{
+    const toast = document.getElementById('toast-msg');
+    const toastText = document.getElementById('toast-text');
+    const toastIcon = document.getElementById('toast-icon');
+    toastText.textContent = text;
+    toastIcon.textContent = isSpin ? '⏳' : '✓';
+    toast.classList.add('show');
+    if (!isSpin) setTimeout(() => toast.classList.remove('show'), 3500);
+  }}
+
+  function hideToast() {{
+    document.getElementById('toast-msg').classList.remove('show');
+  }}
+
+  async function exportHighResImage() {{
+    const exportArea = document.getElementById('capture-area');
+    const stamp = document.getElementById('export-stamp');
+    const dateSpan = document.getElementById('export-date');
+    const btn = document.getElementById('btn-export-img');
+
+    btn.disabled = true;
+    showToast('Đang kết xuất ảnh xem điện thoại (chữ to rõ nét)...', true);
+
+    // Lưu lại cấu hình hiển thị cột trước khi xuất
+    const prevVisibleMap = {{}};
+    COLUMNS.forEach(c => {{ prevVisibleMap[c.id] = c.visible; }});
+
+    // Chỉ xuất đúng 6 cột theo yêu cầu xem điện thoại: STT, Văn phòng, Nhân viên, Tổng khách, Vé thường, Vé Xe Rẻ
+    const EXPORT_COL_IDS = ['stt', 'van_phong', 'nhan_vien', 'tong_khach', 've_thuong', 've_vxr'];
+    COLUMNS.forEach(c => {{
+      c.visible = EXPORT_COL_IDS.includes(c.id);
+    }});
+
+    // Kích hoạt chế độ gọn gàng tối ưu cho điện thoại (dọc, chữ số lớn gấp đôi)
+    document.body.classList.add('exporting-mode');
+    isCapturing = true;
+    stamp.style.display = 'block';
+    renderTable();
+
+    const now = new Date();
+    dateSpan.textContent = now.toLocaleDateString('vi-VN') + ' ' + now.toLocaleTimeString('vi-VN');
+
+    // Chờ 150ms để layout CSS co giãn chuẩn xác
+    await new Promise(r => setTimeout(r, 150));
+
+    try {{
+      const canvas = await html2canvas(exportArea, {{
+        scale: 2,
+        useCORS: true,
+        backgroundColor: '#ffffff',
+        logging: false,
+        width: 880,
+        height: exportArea.offsetHeight,
+        windowWidth: 880
+      }});
+
+      const imgData = canvas.toDataURL('image/png');
+      const link = document.createElement('a');
+      const filterSuffix = currentOfficeFilter !== 'ALL' ? `_${{currentOfficeFilter}}` : '';
+      link.download = `BaoCao_NhanVien_Mobile_T09_2026${{filterSuffix}}.png`;
+      link.href = imgData;
+      link.click();
+      showToast('✓ Đã xuất ảnh điện thoại chữ to rõ nét thành công!');
+    }} catch (err) {{
+      console.error(err);
+      alert('Không thể tạo ảnh: ' + err.message);
+      hideToast();
+    }} finally {{
+      // Khôi phục lại trạng thái cột ban đầu cho bảng trên web
+      COLUMNS.forEach(c => {{
+        if (prevVisibleMap[c.id] !== undefined) c.visible = prevVisibleMap[c.id];
+      }});
+      stamp.style.display = 'none';
+      document.body.classList.remove('exporting-mode');
+      isCapturing = false;
+      renderTable();
+      btn.disabled = false;
+    }}
+  }}
+
+  renderPills();
+  renderTable();
+  updateKPIs();
+</script>
+
+</body>
+</html>
+"""
+
+    with open(output_path, 'w', encoding='utf-8') as f:
+        f.write(html_content)
+
+if __name__ == '__main__':
+    target_file = sys.argv[1] if len(sys.argv) > 1 else find_input_file()
+    if not target_file:
+        print("Lỗi: Không tìm thấy file Excel báo cáo! Vui lòng copy file vào data/raw/ hoặc kéo thả vào file .bat.")
+        sys.exit(1)
+    process_pipeline(target_file)

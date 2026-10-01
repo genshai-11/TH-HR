@@ -23,6 +23,13 @@
    - **File Excel Full:** Gồm 3 Sheet chuyên nghiệp: `TimeSheet`, `Tổng NV`, `Chi Tiết Từng NV`.
    - **Ảnh Báo Cáo 2x DPI:** 3 bảng tổng quan văn phòng theo đúng mẫu chuẩn và 14 phiếu cá nhân cho toàn bộ nhân viên.
 
+5. **Phân Hệ Trích Xuất Báo Cáo Nhân Viên Nhận Khách:**
+   - Trích xuất báo cáo từ file Excel chi tiết vé hành khách hàng tháng.
+   - Tách bạch kênh bán: **Tổng Đài / Tại Quầy** vs **Vé Xe Rẻ (Vexere)**.
+   - Phân bổ sản lượng theo văn phòng (VPSG, VPPT, VPDK, ĐL RedBus).
+   - Dashboard web tương tác trực quan và kết xuất ảnh HD khổ dọc tối ưu cho điện thoại.
+   - Quản lý dữ liệu lưu trữ khoa học theo từng tháng (`data/raw/Thang_MM_YYYY` & `data/output/Thang_MM_YYYY`).
+
 ---
 
 ## 🏢 Cơ Cấu Phòng Ban
@@ -53,6 +60,12 @@ TH-HR/
 ├── server.js                   # Web server Node.js & Folder Watcher
 ├── Mo_Giao_Dien_Web.bat        # File chạy nhanh hệ thống chỉ với 1 click
 ├── package.json
+├── HeThong_XuLy_BaoCao_NhanVien/   # Phân hệ trích xuất báo cáo nhân viên nhận khách
+│   ├── CHAY_BAO_CAO.bat            # Trình khởi chạy 1-Click
+│   ├── pipeline.py                 # Mã nguồn pipeline tự động hóa
+│   ├── data/                       # Dữ liệu phân theo tháng (raw & output)
+│   ├── dashboard/                  # Giao diện Web Dashboard
+│   └── AGENTS.md                   # Hướng dẫn vận hành & kiến trúc chi tiết
 └── README.md
 ```
 
